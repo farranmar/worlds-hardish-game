@@ -7,6 +7,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
+import java.util.ArrayList;
+
 /**
  * This is your main Application class that you will contain your
  * 'draws' and 'ticks'. This class is also used for controlling
@@ -14,11 +16,19 @@ import javafx.scene.input.ScrollEvent;
  */
 public class Application extends FXFrontEnd {
 
+  private ArrayList<Screen> screens;
+
   public Application(String title) {
     super(title);
+    screens = new ArrayList<>();
   }
   public Application(String title, Vec2d windowSize, boolean debugMode, boolean fullscreen) {
     super(title, windowSize, debugMode, fullscreen);
+    screens = new ArrayList<>();
+  }
+
+  public void add(Screen screen){
+    screens.add(screen);
   }
 
   /**
@@ -27,7 +37,9 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onTick(long nanosSincePreviousTick) {
-
+    for(Screen screen : screens){
+      screen.onTick(nanosSincePreviousTick);
+    }
   }
 
   /**
@@ -44,7 +56,9 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onDraw(GraphicsContext g) {
-
+    for(Screen screen : screens){
+      screen.onDraw(g);
+    }
   }
 
   /**
@@ -80,7 +94,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onMouseClicked(MouseEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onMouseClicked(e);
+      }
+    }
   }
 
   /**
@@ -116,7 +134,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onMouseMoved(MouseEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onMouseMoved(e);
+      }
+    }
   }
 
   /**
@@ -143,7 +165,9 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onResize(Vec2d newSize) {
-
+    for(Screen screen : screens){
+      screen.onResize(newSize);
+    }
   }
 
   /**
