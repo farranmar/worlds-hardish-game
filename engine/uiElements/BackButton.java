@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 public class BackButton extends Button {
 
     public BackButton(Color c, Vec2d p, Vec2d s) {
-        super(c, p, s);
+        super("Back Button", c, p, s);
         this.outline = false;
     }
 

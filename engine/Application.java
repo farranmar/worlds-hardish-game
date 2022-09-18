@@ -3,9 +3,11 @@ package engine;
 import engine.support.FXFrontEnd;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import tic.App;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Application extends FXFrontEnd {
 
-  private ArrayList<Screen> screens;
+  protected ArrayList<Screen> screens;
 
   public Application(String title) {
     super(title);
@@ -31,14 +33,45 @@ public class Application extends FXFrontEnd {
     screens.add(screen);
   }
 
+  protected void setActiveScreen(Screen activeScreen){
+    for(Screen screen : screens){
+      if(screen.getName().equals("Background")){
+        screen.inactivate();
+        screen.makeVisible();
+      } else if(screen.getName().equals(activeScreen.getName())){
+        screen.activate();
+        screen.makeVisible();
+      } else {
+        screen.reset();
+        screen.inactivate();
+        screen.makeInvisible();
+      }
+    }
+  }
+
   /**
    * Called periodically and used to update the state of your game.
    * @param nanosSincePreviousTick	approximate number of nanoseconds since the previous call
    */
   @Override
   protected void onTick(long nanosSincePreviousTick) {
+    String nextScreen = "";
     for(Screen screen : screens){
       screen.onTick(nanosSincePreviousTick);
+      String curNext = screen.getNextScreen();
+      if(!curNext.equals("")){
+        nextScreen = curNext;
+      }
+    }
+    if(!nextScreen.equals("")){
+      if(nextScreen.equals(App.QUIT)) {
+        this.shutdown();
+      }
+      for(Screen screen : screens){
+        if(screen.getName().equals(nextScreen)){
+          this.setActiveScreen(screen);
+        }
+      }
     }
   }
 
@@ -76,7 +109,9 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onKeyPressed(KeyEvent e) {
-
+    if(e.getCode() == KeyCode.ESCAPE){
+      this.shutdown();
+    }
   }
 
   /**

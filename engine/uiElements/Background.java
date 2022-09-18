@@ -9,15 +9,15 @@ public class Background extends UIElement {
     private boolean fullWindow = false;
 
     public Background(Color c, Vec2d p, Vec2d s) {
-        super(c, p, s);
+        super("Background", c, p, s);
     }
 
     public Background(Color c, Vec2d s){
-        super(c, new Vec2d(0,0), s);
+        super("Background", c, new Vec2d(0,0), s);
     }
 
     public Background(Color c){
-        super(c, new Vec2d(0,0), new Vec2d(0,0));
+        super("Background", c, new Vec2d(0,0), new Vec2d(0,0));
         this.setSize(new Vec2d(this.windowSize.x, this.windowSize.y));
         this.fullWindow = true;
     }

@@ -12,14 +12,14 @@ public class Timer extends UIElement{
     private int maxTime;
 
     public Timer(Color c, Vec2d p, Vec2d s, boolean v, int sec) {
-        super(c, p, s);
+        super("Timer", c, p, s);
         this.vertical = v;
         this.maxTime = sec;
         this.timeLeft = sec;
     }
 
     public Timer(Color c, double y, Vec2d s, boolean v, int sec) {
-        super(c, y, s);
+        super("Timer", c, y, s);
         this.vertical = v;
         this.maxTime = sec;
         this.timeLeft = sec;
@@ -36,6 +36,11 @@ public class Timer extends UIElement{
     public void restart() {
         this.timeLeft = this.maxTime;
         this.running = true;
+    }
+
+    public void reset(){
+        this.timeLeft = this.maxTime;
+        this.running = false;
     }
 
     public boolean done(){

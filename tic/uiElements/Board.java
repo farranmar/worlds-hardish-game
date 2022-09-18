@@ -16,7 +16,7 @@ public class Board extends UIElement {
     private boolean hasNewSymbol;
 
     public Board(Color c, Vec2d p, Vec2d s) {
-        super(c, p, s);
+        super("Board", c, p, s);
         for(int i = 0; i < 9; i++){
             double x = this.position.x + (i%3) * this.size.x/3.0;
             double y;
@@ -32,6 +32,23 @@ public class Board extends UIElement {
 
     public void setTurn(int t) {
         this.turn = t;
+    }
+
+    public void setColor(Color[] colors){
+        this.color = colors[0];
+        if(colors.length > 2) {
+            for(Space space : spaces) { space.setColor(new Color[]{colors[1], colors[2]}); }
+        } else if(colors.length > 1){
+            for(Space space : spaces) { space.setColor(new Color[]{colors[1], colors[1]}); }
+        }
+    }
+
+    public void reset(){
+        for(Space space : spaces){
+            space.setSymbol(Space.Symbol.EMPTY);
+            space.setColor(new Color[]{Color.rgb(128,147,241), Color.rgb(75, 81,112)});
+            space.unlock();
+        }
     }
 
     public boolean hasNewSymbol(){
@@ -51,13 +68,15 @@ public class Board extends UIElement {
                 }
             }
             if(spaces[i].getSymbol() == spaces[i+3].getSymbol() && spaces[i].getSymbol() == spaces[i+6].getSymbol()){
-                if(spaces[i*3].getSymbol() == Space.Symbol.SOLID_X) {
+                if(spaces[i].getSymbol() == Space.Symbol.SOLID_X) {
                     return GameOverScreen.Result.X;
-                } else if(spaces[i*3].getSymbol() == Space.Symbol.SOLID_O) {
+                } else if(spaces[i].getSymbol() == Space.Symbol.SOLID_O) {
                     return GameOverScreen.Result.O;
                 }
             }
-            if(spaces[i*3].getSymbol() == Space.Symbol.EMPTY || spaces[i*3+1].getSymbol() == Space.Symbol.EMPTY || spaces[i*3+2].getSymbol() == Space.Symbol.EMPTY){
+            if((spaces[i*3].getSymbol() == Space.Symbol.EMPTY || spaces[i*3].getSymbol() == Space.Symbol.GHOST_X || spaces[i*3].getSymbol() == Space.Symbol.GHOST_O) ||
+                    (spaces[i*3+1].getSymbol() == Space.Symbol.EMPTY || spaces[i*3+1].getSymbol() == Space.Symbol.GHOST_X || spaces[i*3+1].getSymbol() == Space.Symbol.GHOST_O) ||
+                    (spaces[i*3+2].getSymbol() == Space.Symbol.EMPTY || spaces[i*3+2].getSymbol() == Space.Symbol.GHOST_X || spaces[i*3+2].getSymbol() == Space.Symbol.GHOST_O)) {
                 boardFull = false;
             }
         }
@@ -69,13 +88,14 @@ public class Board extends UIElement {
             }
         }
         if(spaces[6].getSymbol() == spaces[4].getSymbol() && spaces[6].getSymbol() == spaces[2].getSymbol()){
-            if(spaces[0].getSymbol() == Space.Symbol.SOLID_X) {
+            if(spaces[6].getSymbol() == Space.Symbol.SOLID_X) {
                 return GameOverScreen.Result.X;
-            } else if(spaces[0].getSymbol() == Space.Symbol.SOLID_O) {
+            } else if(spaces[6].getSymbol() == Space.Symbol.SOLID_O) {
                 return GameOverScreen.Result.O;
             }
         }
-        if(boardFull) { return GameOverScreen.Result.DRAW; }
+        if(boardFull) {
+            return GameOverScreen.Result.DRAW; }
         return GameOverScreen.Result.UNFINISHED;
     }
 

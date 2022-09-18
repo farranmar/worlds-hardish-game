@@ -6,6 +6,7 @@ import engine.uiElements.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import tic.App;
 import tic.uiElements.Board;
 
 import java.util.ArrayList;
@@ -19,9 +20,10 @@ public class GameScreen extends Screen {
     private Board board;
     private Text botText;
     private int turn; // 0 = O's turn, 1 = X's turn
+    private GameOverScreen.Result gameStatus = GameOverScreen.Result.UNFINISHED;
 
     public GameScreen(){
-        super();
+        super(App.GAME);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -30,7 +32,7 @@ public class GameScreen extends Screen {
     }
 
     public GameScreen(ArrayList<UIElement> uiElements) {
-        super(uiElements);
+        super(App.GAME, uiElements);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -39,6 +41,7 @@ public class GameScreen extends Screen {
     }
 
     public GameScreen(Color primaryColor, Color secondaryColor, Vec2d size){
+        super(App.GAME);
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.screenSize = size;
@@ -46,13 +49,18 @@ public class GameScreen extends Screen {
         this.addStandardElements();
     }
 
+    public GameOverScreen.Result getStatus(){
+        return this.gameStatus;
+    }
+
     public void onTick(long nanosSincePreviousTick){
         super.onTick(nanosSincePreviousTick);
         if(this.board.getResult() != GameOverScreen.Result.UNFINISHED){
-            this.primaryColor = Color.rgb(91, 62, 82);
-            this.secondaryColor = Color.rgb(61, 64, 82);
+            this.gameStatus = this.board.getResult();
+            this.setColor(new Color[]{Color.rgb(91, 62, 82), Color.rgb(61, 64, 82)});
+            this.timer.stop();
             this.inactivate();
-            // show game over screen
+            this.nextScreen = App.GAME_OVER;
         } else {
             if(this.timer.done() || board.hasNewSymbol()){
                  // switch turns if timer runs out
@@ -83,9 +91,25 @@ public class GameScreen extends Screen {
         this.add(timer);
     }
 
-    public void setColors(Color primary, Color secondary){
-        this.primaryColor = primary;
-        this.secondaryColor = secondary;
+    public void setColor(Color[] colors){
+        this.primaryColor = colors[0];
+        this.secondaryColor = colors[1];
+        for(UIElement ele : uiElements){
+            if(ele.getName().equals("Board")){
+                ele.setColor(new Color[]{this.primaryColor, this.secondaryColor});
+            } else {
+                ele.setColor(this.primaryColor);
+            }
+        }
+    }
+
+    @Override
+    public void reset(){
+        this.gameStatus = GameOverScreen.Result.UNFINISHED;
+        for(UIElement ele : uiElements){
+            ele.setColor(this.primaryColor);
+            ele.reset();
+        }
     }
 
     public Timer getTimer(){
@@ -94,5 +118,10 @@ public class GameScreen extends Screen {
 
     public void onMouseClicked(MouseEvent e){
         super.onMouseClicked(e);
+        for(UIElement ele : uiElements){
+            if(ele.inRange(e) && ele.getName().equals("Back Button")){
+                this.nextScreen = App.MENU;
+            }
+        }
     }
 }

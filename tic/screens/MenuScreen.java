@@ -7,8 +7,10 @@ import engine.support.Vec2i;
 import engine.uiElements.Button;
 import engine.uiElements.Text;
 import engine.uiElements.UIElement;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import tic.App;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ public class MenuScreen extends Screen {
     private Vec2d screenSize;
 
     public MenuScreen(){
-        super();
+        super(App.MENU);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -27,7 +29,7 @@ public class MenuScreen extends Screen {
     }
 
     public MenuScreen(ArrayList<UIElement> uiElements) {
-        super(uiElements);
+        super(App.MENU, uiElements);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -35,6 +37,7 @@ public class MenuScreen extends Screen {
     }
 
     public MenuScreen(Color primaryColor, Color secondaryColor, Vec2d size){
+        super(App.MENU);
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.screenSize = size;
@@ -61,5 +64,15 @@ public class MenuScreen extends Screen {
         super.add(quitButton);
     }
 
+    public void onMouseClicked(MouseEvent e){
+        super.onMouseClicked(e);
+        for(UIElement ele : uiElements){
+            if(ele.inRange(e) && ele.getName().contains("play")){
+                this.nextScreen = App.GAME;
+            } else if(ele.inRange(e) && ele.getName().contains("quit")){
+                this.nextScreen = App.QUIT;
+            }
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ import engine.support.Vec2d;
 import engine.uiElements.UIElement;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -14,17 +15,22 @@ public class Screen {
     protected Vec2d screenSize = new Vec2d(960,540);
     protected boolean visible;
     protected boolean active; // whether clicks, button presses, etc are registered
+    protected String name;
+    protected String nextScreen = "";
+    protected Color[] palette = new Color[0];
 
-    public Screen(){
+    public Screen(String name){
         this.uiElements = new ArrayList<>();
         this.visible = false;
         this.active = false;
+        this.name = name;
     }
 
-    public Screen(ArrayList<UIElement> uiElements) {
+    public Screen(String name, ArrayList<UIElement> uiElements) {
         this.uiElements = uiElements;
         this.visible = false;
         this.active = false;
+        this.name = name;
     }
 
     public void makeVisible(){
@@ -47,9 +53,36 @@ public class Screen {
         this.active = false;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    // this function resets the nextScreen value, so save the return value and be careful about not calling it twice in a row
+    public String getNextScreen(){
+        String ret = this.nextScreen;
+        if(ret != "") {
+            this.nextScreen = "";
+        }
+        return ret;
+    }
+
+    public void setNextScreen(String name){
+        this.nextScreen = name;
+    }
+
     public void add(UIElement uiElement){
         this.uiElements.add(uiElement);
         uiElement.setScreen(this);
+    }
+
+    public void setColor(Color[] palette){
+        this.palette = palette;
+    }
+
+    public void reset() {
+        for(UIElement ele : uiElements){
+            ele.reset();
+        }
     }
 
     public void onTick(long nanosSincePreviousTick){

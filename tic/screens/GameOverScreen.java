@@ -3,8 +3,10 @@ package tic.screens;
 import engine.Screen;
 import engine.support.Vec2d;
 import engine.uiElements.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import tic.App;
 
 import java.util.ArrayList;
 
@@ -14,6 +16,7 @@ public class GameOverScreen extends Screen {
     private Color secondaryColor;
     private Vec2d screenSize;
     private Result result;
+    private Text message;
 
     public enum Result {
         X,
@@ -23,7 +26,7 @@ public class GameOverScreen extends Screen {
     }
 
     public GameOverScreen(){
-        super();
+        super(App.GAME_OVER);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -32,7 +35,7 @@ public class GameOverScreen extends Screen {
     }
 
     public GameOverScreen(ArrayList<UIElement> uiElements) {
-        super(uiElements);
+        super(App.GAME_OVER, uiElements);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -41,6 +44,7 @@ public class GameOverScreen extends Screen {
     }
 
     public GameOverScreen(Color primaryColor, Color secondaryColor, Vec2d size, Result result){
+        super(App.GAME_OVER);
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.screenSize = size;
@@ -48,12 +52,20 @@ public class GameOverScreen extends Screen {
         this.addStandardElements();
     }
 
+    public void setResult(Result r){
+        this.result = r;
+        if(this.result == Result.X) { this.message.setText("X wins!"); }
+        else if(this.result == Result.O) { this.message.setText("O wins!"); }
+        else if(this.result == Result.DRAW) { this.message.setText("it's a draw!"); }
+    }
+
     private void addStandardElements(){
         String messageString = "";
         if(this.result == Result.X){ messageString = "X wins!"; }
         else if(this.result == Result.O){ messageString = "O wins!"; }
-        else if(this.result == Result.DRAW){ messageString = "it's a draw"; }
+        else if(this.result == Result.DRAW){ messageString = "it's a draw!"; }
         Text message = new Text(messageString, this.primaryColor, this.screenSize.y/2, new Font("Courier", 48));
+        this.message = message;
 
         Vec2d buttonSize = new Vec2d(100,30);
         double spacing = 60;
@@ -74,6 +86,19 @@ public class GameOverScreen extends Screen {
     public void setColors(Color primary, Color secondary){
         this.primaryColor = primary;
         this.secondaryColor = secondary;
+    }
+
+    public void onMouseClicked(MouseEvent e){
+        super.onMouseClicked(e);
+        for(UIElement ele : uiElements){
+            if(ele.inRange(e) && ele.getName().contains("restart")){
+                this.nextScreen = App.GAME;
+            } else if(ele.inRange(e) && ele.getName().contains("menu")){
+                this.nextScreen = App.MENU;
+            } else if(ele.inRange(e) && ele.getName().contains("quit")){
+                this.nextScreen = App.QUIT;
+            }
+        }
     }
 
 }

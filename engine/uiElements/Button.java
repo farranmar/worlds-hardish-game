@@ -14,21 +14,21 @@ public class Button extends UIElement {
     protected boolean highlighted = false;
 
     public Button(Color c, Vec2d p, Vec2d s) {
-        super(c, p, s);
+        super("Button", c, p, s);
         this.text = new Text("");
         this.children.add(this.text);
         this.text.setParent(this);
     }
 
     public Button(Color c, Vec2d p, Vec2d s, Text t) {
-        super(c, p, s);
+        super(t+" Button", c, p, s);
         this.text = t;
         this.children.add(this.text);
         this.text.setParent(this);
     }
 
     public Button(Color c, double y, Vec2d s) {
-        super(c, new Vec2d(270,0), s);
+        super("Button", c, new Vec2d(270,0), s);
         double x = (this.windowSize.x/2) - (s.x/2);
         this.setPosition(new Vec2d(x,y));
         this.centered = true;
@@ -38,11 +38,18 @@ public class Button extends UIElement {
     }
 
     public Button(Color c, double y, Vec2d s, Text t) {
-        super(c, new Vec2d(270,0), s);
+        super(t.getText()+" Button" , c, new Vec2d(270,0), s);
         double x = (this.windowSize.x/2) - (s.x/2);
         this.setSize(new Vec2d(x,y));
         this.centered = true;
         this.text = t;
+        this.children.add(this.text);
+        this.text.setParent(this);
+    }
+
+    public Button(String name, Color c, Vec2d p, Vec2d s) {
+        super(name, c, p, s);
+        this.text = new Text("");
         this.children.add(this.text);
         this.text.setParent(this);
     }
@@ -89,10 +96,11 @@ public class Button extends UIElement {
         FontMetrics metrics = new FontMetrics(t, f);
         double x = this.position.x + (this.size.x/2) - (metrics.width/2);
         double y = this.position.y + metrics.height + (this.size.y-metrics.height)/2 - 4;
-//        System.out.println("button size is " + this.size.x + ", " + this.size.y+" and position is "+this.position.x+", "+this.position.y);
-//        System.out.println("text y value is "+y+" = "+this.position.y+" + "+metrics.height+" + ("+this.size.y+" - "+metrics.height+") / 2");
-        Text newText = new Text(t, this.color, new Vec2d(x,y), f);
-        this.text = newText;
+        this.text.setText(t);
+        this.text.setColor(this.color);
+        this.text.setPosition(new Vec2d(x,y));
+        this.text.setFont(f);
+        this.name = t+" Button";
     }
 
     public void onMouseMoved(MouseEvent e){

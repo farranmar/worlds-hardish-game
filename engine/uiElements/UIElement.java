@@ -19,19 +19,22 @@ public class UIElement {
     protected Vec2d windowSize = new Vec2d(960,540);
     protected Vec2d screenSize = new Vec2d(960,540);
     protected boolean centered = false;
+    protected String name;
 
-    public UIElement(Color c, Vec2d p, Vec2d s) {
+    public UIElement(String name, Color c, Vec2d p, Vec2d s) {
         this.color = c;
         this.position = p;
         this.size = s;
+        this.name = name;
     }
 
-    public UIElement(Color c, double y, Vec2d s) {
+    public UIElement(String name, Color c, double y, Vec2d s) {
         this.color = c;
         double x = (this.windowSize.x/2) - (s.x/2);
         this.position = new Vec2d(x,y);
         this.size = s;
         this.centered = true;
+        this.name = name;
     }
 
     public void setStageSizes(Vec2d windowSize, Vec2d screenSize){
@@ -70,6 +73,22 @@ public class UIElement {
         this.size = s;
     }
 
+    public void setColor(Color c){
+        this.color = c;
+    }
+
+    public void setColor(Color[] colors){
+        this.color = colors[0];
+    }
+
+    public void reset(){
+
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
     public void onTick(long nanosSincePreviousTick){
         if(children != null){
             for(UIElement child : children){
@@ -104,9 +123,13 @@ public class UIElement {
 
         this.windowSize = newWindowSize;
         this.screenSize = newScreenSize;
+
+        for(UIElement child : children){
+            child.onResize(newWindowSize, newScreenSize);
+        }
     }
 
-    protected boolean inRange(MouseEvent e){
+    public boolean inRange(MouseEvent e){
         boolean inX = (e.getX() >= this.position.x) && (e.getX() <= this.position.x+this.size.x);
         boolean inY = (e.getY() >= this.position.y) && (e.getY() <= this.position.y+this.size.y);
         return inX && inY;

@@ -23,6 +23,15 @@ public class App extends Application {
   private static final Vec2d DEFAULT_STAGE_SIZE = new Vec2d(960,540);
   private static final Color primaryColor = Color.rgb(255,136,213);
   private static final Color secondaryColor = Color.rgb(128,147,241);
+  public static final String MENU = "Menu";
+  public static final String GAME = "Game";
+  public static final String GAME_OVER = "Game Over";
+  public static final String QUIT = "Quit";
+  public static final String BACKGROUND = "Background";
+
+  private GameScreen gameScreen;
+  private MenuScreen menuScreen;
+  private GameOverScreen gameOverScreen;
 
   public App(String title) {
     super(title);
@@ -34,31 +43,64 @@ public class App extends Application {
     this.createScreens();
   }
 
+  @Override
+  public void setActiveScreen(Screen activeScreen){
+    if(activeScreen.getName().equals(GAME)){
+      activeScreen.setColor(new Color[]{primaryColor, secondaryColor});
+      activeScreen.reset();
+    }
+    if(!activeScreen.getName().equals(GAME_OVER)){
+      super.setActiveScreen(activeScreen);
+    } else { // activeScreen is GAME_OVER
+      for(Screen screen : this.screens){
+        gameOverScreen.setResult(gameScreen.getStatus());
+        if(screen.getName().equals(BACKGROUND)){
+          screen.inactivate();
+          screen.makeVisible();
+        } else if(screen.getName().equals(MENU)){
+          screen.inactivate();
+          screen.makeInvisible();
+        } else if(screen.getName().equals(GAME)){
+          screen.inactivate();
+          screen.makeVisible();
+        } else if(screen.getName().equals(GAME_OVER)){
+          screen.activate();
+          screen.makeVisible();
+        }
+      }
+    }
+  }
+
   private void createScreens(){
     Screen backgroundScreen = createBackgroundScreen();
     this.add(backgroundScreen);
     backgroundScreen.makeVisible();
     MenuScreen menuScreen = new MenuScreen(primaryColor, secondaryColor, DEFAULT_STAGE_SIZE);
     this.add(menuScreen);
-//    menuScreen.makeVisible();
+    this.menuScreen = menuScreen;
+    menuScreen.activate();
+    menuScreen.makeVisible();
     GameScreen gameScreen = new GameScreen(primaryColor, secondaryColor, DEFAULT_STAGE_SIZE);
     this.add(gameScreen);
-    gameScreen.makeVisible();
-    gameScreen.activate();
-//    gameScreen.getTimer().start();
+    this.gameScreen = gameScreen;
     GameOverScreen gameOverScreen = new GameOverScreen(primaryColor, secondaryColor, DEFAULT_STAGE_SIZE, GameOverScreen.Result.X);
     this.add(gameOverScreen);
-//    gameOverScreen.makeVisible();
-//    gameOverScreen.activate();
+    this.gameOverScreen = gameOverScreen;
   }
 
   private Screen createBackgroundScreen(){
     Background blackBackground = new Background(Color.rgb(0,0,0));
     Background background = new Background(Color.rgb(69,69,69), DEFAULT_STAGE_SIZE);
-    Screen backgroundScreen = new MenuScreen();
+    Screen backgroundScreen = new Screen("Background");
     backgroundScreen.add(blackBackground);
     backgroundScreen.add(background);
     return backgroundScreen;
+  }
+
+  @Override
+  public void onTick(long nanosSinceLastTick){
+    super.onTick(nanosSinceLastTick);
+
   }
 
 }

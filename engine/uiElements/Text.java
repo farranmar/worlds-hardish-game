@@ -13,19 +13,19 @@ public class Text extends UIElement {
     private boolean highlighted = false;
 
     public Text(String text) {
-        super(Color.BLACK, new Vec2d(0,0), new Vec2d(0,0));
+        super(text, Color.BLACK, new Vec2d(0,0), new Vec2d(0,0));
         this.font = new Font("Calibri", 0);
         this.text = text;
     }
 
     public Text(String text, Color c, Vec2d p, Font font) {
-        super(c, p, new Vec2d(new FontMetrics(text, font).width, new FontMetrics(text, font).height));
+        super(text, c, p, new Vec2d(new FontMetrics(text, font).width, new FontMetrics(text, font).height));
         this.font = font;
         this.text = text;
     }
 
     public Text(String text, Color c, double y, Font font){
-        super(c, new Vec2d(480- new FontMetrics(text,font).width/2,y), new Vec2d(new FontMetrics(text, font).width, new FontMetrics(text, font).height));
+        super(text, c, new Vec2d(480- new FontMetrics(text,font).width/2,y), new Vec2d(new FontMetrics(text, font).width, new FontMetrics(text, font).height));
         FontMetrics metrics = new FontMetrics(text, font);
         double x = (this.windowSize.x/2) - (metrics.width/2);
         this.setPosition(new Vec2d(x,y));
@@ -38,8 +38,17 @@ public class Text extends UIElement {
         this.highlighted = h;
     }
 
+    public String getText(){
+        return this.text;
+    }
+
     public void setText(String newText){
         this.text = newText;
+        this.onResize(this.windowSize, this.screenSize);
+    }
+
+    public void setFont(Font f){
+        this.font = f;
     }
 
     public void onTick(long nanosSincePreviousTick) {

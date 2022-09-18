@@ -22,7 +22,7 @@ public class Space extends Button {
     }
 
     public Space(Color solid, Color ghost, Vec2d p, Vec2d s) {
-        super(solid, p, s);
+        super("Space", solid, p, s);
         this.symbol = Symbol.EMPTY;
         this.solidColor = solid;
         this.ghostColor = ghost;
@@ -36,6 +36,15 @@ public class Space extends Button {
     public void setSymbol(Symbol symbol){
         this.symbol = symbol;
     }
+
+    public void setColor(Color[] c){
+        this.solidColor = c[0];
+        this.ghostColor = c[1];
+    }
+
+    public void lock(){ this.locked = true; }
+
+    public void unlock() { this.locked = false; }
 
     public void onTick(long nanosSincePreviousTick){
         super.onTick(nanosSincePreviousTick);
