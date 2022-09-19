@@ -106,6 +106,8 @@ public class GameScreen extends Screen {
     @Override
     public void reset(){
         this.gameStatus = GameOverScreen.Result.UNFINISHED;
+        this.turn = 1;
+        this.botText.setText("now playing: X");
         for(UIElement ele : uiElements){
             ele.setColor(this.primaryColor);
             ele.reset();

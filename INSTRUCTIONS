@@ -1,1 +1,15 @@
 Tell us how to play your game in this file.
+
+Tic tac toe rules:
+To play tic tac toe, two players, X and O, take turns marking squares on a 3x3 grid with their respective symbols. If
+a player succeeds in placing three symbols in a horizontal, vertical, or diagonal row, that player wins. If all the
+squares are filled without either player completing a row, the game is a draw.
+
+How to play in the app:
+When you run the game, you will be presented with a menu screen that has two buttons: "play" and "quit". Clicking
+"quit" will shut down the application. Click "play" will load a game screen displaying a timer and tic tac toe board.
+There is a back button in the upper left that will take you back to the menu screen, and text at the bottom that shows
+which player's turn it is. The timer starts counting down when the first player makes their first move, and on each
+subsequent move, the player will have 10 seconds to play. If they don't play within 10 seconds, it will become the
+other player's turn. When the game is over, it will display who won (or if it was a draw) and provide three buttons:
+"restart" will start a new game, "menu" will take you back to the menu, and "quit" will shut down the application.

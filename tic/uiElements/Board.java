@@ -44,6 +44,8 @@ public class Board extends UIElement {
     }
 
     public void reset(){
+        this.turn = 1;
+        this.hasNewSymbol = false;
         for(Space space : spaces){
             space.setSymbol(Space.Symbol.EMPTY);
             space.setColor(new Color[]{Color.rgb(128,147,241), Color.rgb(75, 81,112)});

@@ -97,10 +97,4 @@ public class App extends Application {
     return backgroundScreen;
   }
 
-  @Override
-  public void onTick(long nanosSinceLastTick){
-    super.onTick(nanosSinceLastTick);
-
-  }
-
 }
