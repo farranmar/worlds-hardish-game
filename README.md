@@ -3,7 +3,7 @@
 ---
 ### Banner ID: B01685955
 ---
-### Already uploaded demo onto Slack:
+### Already uploaded demo onto Slack: Yes
 ---
 ## Primary Requirements:
 | Requirement | Location in code or steps to view in game  |
