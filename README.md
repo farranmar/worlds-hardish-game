@@ -47,6 +47,6 @@
 
 Instructions on how to run
 
-Known bugs: `UIElement`s that are updated when the mouse moves are **only** updated when the mouse moves. So, for example, if one hovers over a space on the board so that a ghost X appears, then waits without moving for the timer to run out and the turn to switch, when the turn switches to O, the text the bottom will update to say its O's turn and the timer will reset, but the ghost X will still be an X (until you move or click the mouse). This issue also appears with buttons being highlighted.
+Known bugs: `UIElement`s that are updated when the mouse moves are **only** updated when the mouse moves. So, for example, if one hovers over a space on the board so that a ghost X appears, then waits without moving for the timer to run out and the turn to switch, when the turn switches to O, the text at the bottom will update to say its O's turn and the timer will reset, but the ghost X will still be an X (until you move or click the mouse, at which point it would switch to an O). This issue also appears with buttons being highlighted.
 
 Hours spent on assignment: 25
