@@ -1,18 +1,13 @@
 package tic;
 
 import engine.Application;
-import engine.Screen;
-import engine.support.FontMetrics;
+import engine.display.screens.Screen;
 import engine.support.Vec2d;
-import engine.uiElements.*;
+import engine.display.uiElements.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import tic.screens.GameOverScreen;
 import tic.screens.GameScreen;
 import tic.screens.MenuScreen;
-import tic.uiElements.Board;
-
-import java.awt.*;
 
 /**
  * This is your Tic-Tac-Toe top-level, App class.

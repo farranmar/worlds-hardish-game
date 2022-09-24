@@ -1,7 +1,7 @@
-package engine;
+package engine.display.screens;
 
 import engine.support.Vec2d;
-import engine.uiElements.UIElement;
+import engine.display.uiElements.UIElement;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;

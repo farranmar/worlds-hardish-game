@@ -1,7 +1,7 @@
 package tic.uiElements;
 
 import engine.support.Vec2d;
-import engine.uiElements.Button;
+import engine.display.uiElements.Button;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;

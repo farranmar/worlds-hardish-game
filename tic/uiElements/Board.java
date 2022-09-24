@@ -1,13 +1,11 @@
 package tic.uiElements;
 
 import engine.support.Vec2d;
-import engine.uiElements.UIElement;
+import engine.display.uiElements.UIElement;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import tic.screens.GameOverScreen;
-
-import java.util.ArrayList;
 
 public class Board extends UIElement {
 

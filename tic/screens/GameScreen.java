@@ -1,8 +1,8 @@
 package tic.screens;
 
-import engine.Screen;
+import engine.display.screens.Screen;
 import engine.support.Vec2d;
-import engine.uiElements.*;
+import engine.display.uiElements.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

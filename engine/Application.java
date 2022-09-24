@@ -1,5 +1,6 @@
 package engine;
 
+import engine.display.screens.Screen;
 import engine.support.FXFrontEnd;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,7 +8,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import tic.App;
 
 import java.util.ArrayList;
 
@@ -64,7 +64,7 @@ public class Application extends FXFrontEnd {
       }
     }
     if(!nextScreen.equals("")){
-      if(nextScreen.equals(App.QUIT)) {
+      if(nextScreen.equals("Quit")) {
         this.shutdown();
       }
       for(Screen screen : screens){

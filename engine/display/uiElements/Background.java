@@ -1,4 +1,4 @@
-package engine.uiElements;
+package engine.display.uiElements;
 
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;

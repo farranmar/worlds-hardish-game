@@ -1,6 +1,6 @@
-package engine.uiElements;
+package engine.display.uiElements;
 
-import engine.Screen;
+import engine.display.screens.Screen;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
