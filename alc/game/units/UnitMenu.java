@@ -64,7 +64,6 @@ public class UnitMenu extends GameObject {
 
     @Override
     public void onMousePressed(double x, double y) {
-        System.out.println();
         super.onMousePressed(x, y);
         for(GameObject child : children){
             if(child.inRange(x, y)){

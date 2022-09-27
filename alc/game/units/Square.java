@@ -41,12 +41,10 @@ public class Square extends GameObject {
         clone.setSize(this.getSize());
         clone.setPosition(this.getPosition());
         clone.setDrawPriority(this.drawPriority + 1);
-        System.out.println("clone");
         return clone;
     }
 
     public void onDraw(GraphicsContext g){
-        System.out.println("square being drawn at " + this.getPosition().x +", " +this.getPosition().y);
         Color color = Color.rgb(0,0,0);
         for(GameComponent component : this.components){
             if(component.getTag() == Tag.DRAWABLE){
