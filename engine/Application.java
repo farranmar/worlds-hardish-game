@@ -1,6 +1,7 @@
 package engine;
 
 import engine.display.screens.Screen;
+import engine.display.screens.ScreenName;
 import engine.support.FXFrontEnd;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
@@ -35,10 +36,10 @@ public class Application extends FXFrontEnd {
 
   protected void setActiveScreen(Screen activeScreen){
     for(Screen screen : screens){
-      if(screen.getName().equals("Background")){
+      if(screen.getName() == ScreenName.BACKGROUND){
         screen.inactivate();
         screen.makeVisible();
-      } else if(screen.getName().equals(activeScreen.getName())){
+      } else if(screen.getName() == activeScreen.getName()){
         screen.activate();
         screen.makeVisible();
       } else {
@@ -55,20 +56,20 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onTick(long nanosSincePreviousTick) {
-    String nextScreen = "";
+    ScreenName nextScreen = null;
     for(Screen screen : screens){
       screen.onTick(nanosSincePreviousTick);
-      String curNext = screen.getNextScreen();
-      if(!curNext.equals("")){
+      ScreenName curNext = screen.getNextScreen();
+      if(curNext != null){
         nextScreen = curNext;
       }
     }
-    if(!nextScreen.equals("")){
-      if(nextScreen.equals("Quit")) {
+    if(nextScreen != null){
+      if(nextScreen == ScreenName.QUIT) {
         this.shutdown();
       }
       for(Screen screen : screens){
-        if(screen.getName().equals(nextScreen)){
+        if(screen.getName() == nextScreen){
           this.setActiveScreen(screen);
         }
       }
@@ -112,6 +113,11 @@ public class Application extends FXFrontEnd {
     if(e.getCode() == KeyCode.ESCAPE){
       this.shutdown();
     }
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onKeyPressed(e);
+      }
+    }
   }
 
   /**
@@ -120,7 +126,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onKeyReleased(KeyEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onKeyReleased(e);
+      }
+    }
   }
 
   /**
@@ -142,7 +152,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onMousePressed(MouseEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onMousePressed(e);
+      }
+    }
   }
 
   /**
@@ -151,7 +165,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onMouseReleased(MouseEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onMouseReleased(e);
+      }
+    }
   }
 
   /**
@@ -160,7 +178,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onMouseDragged(MouseEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onMouseDragged(e);
+      }
+    }
   }
 
   /**

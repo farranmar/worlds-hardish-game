@@ -3,6 +3,7 @@ package engine.display.screens;
 import engine.support.Vec2d;
 import engine.display.uiElements.UIElement;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -15,18 +16,18 @@ public class Screen {
     protected Vec2d screenSize = new Vec2d(960,540);
     protected boolean visible;
     protected boolean active; // whether clicks, button presses, etc are registered
-    protected String name;
-    protected String nextScreen = "";
+    protected ScreenName name;
+    protected ScreenName nextScreen = null;
     protected Color[] palette = new Color[0];
 
-    public Screen(String name){
+    public Screen(ScreenName name){
         this.uiElements = new ArrayList<>();
         this.visible = false;
         this.active = false;
         this.name = name;
     }
 
-    public Screen(String name, ArrayList<UIElement> uiElements) {
+    public Screen(ScreenName name, ArrayList<UIElement> uiElements) {
         this.uiElements = uiElements;
         this.visible = false;
         this.active = false;
@@ -53,20 +54,20 @@ public class Screen {
         this.active = false;
     }
 
-    public String getName(){
+    public ScreenName getName(){
         return this.name;
     }
 
     // this function resets the nextScreen value, so save the return value and be careful about not calling it twice in a row
-    public String getNextScreen(){
-        String ret = this.nextScreen;
-        if(ret != "") {
-            this.nextScreen = "";
+    public ScreenName getNextScreen(){
+        ScreenName ret = this.nextScreen;
+        if(ret != null) {
+            this.nextScreen = null;
         }
         return ret;
     }
 
-    public void setNextScreen(String name){
+    public void setNextScreen(ScreenName name){
         this.nextScreen = name;
     }
 
@@ -118,6 +119,18 @@ public class Screen {
         }
     }
 
+    public void onKeyPressed(KeyEvent e){
+        for(UIElement ele : uiElements){
+            ele.onKeyPressed(e);
+        }
+    }
+
+    public void onKeyReleased(KeyEvent e){
+        for(UIElement ele : uiElements){
+            ele.onKeyReleased(e);
+        }
+    }
+
     public void onMouseClicked(MouseEvent e){
         for(UIElement ele : uiElements){
             ele.onMouseClicked(e);
@@ -127,6 +140,24 @@ public class Screen {
     public void onMouseMoved(MouseEvent e){
         for(UIElement ele : uiElements){
             ele.onMouseMoved(e);
+        }
+    }
+
+    public void onMousePressed(MouseEvent e){
+        for(UIElement ele : uiElements){
+            ele.onMousePressed(e);
+        }
+    }
+
+    public void onMouseReleased(MouseEvent e){
+        for(UIElement ele : uiElements){
+            ele.onMouseReleased(e);
+        }
+    }
+
+    public void onMouseDragged(MouseEvent e){
+        for(UIElement ele : uiElements){
+            ele.onMouseDragged(e);
         }
     }
 

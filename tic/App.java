@@ -2,6 +2,7 @@ package tic;
 
 import engine.Application;
 import engine.display.screens.Screen;
+import engine.display.screens.ScreenName;
 import engine.support.Vec2d;
 import engine.display.uiElements.*;
 import javafx.scene.paint.Color;
@@ -86,7 +87,7 @@ public class App extends Application {
   private Screen createBackgroundScreen(){
     Background blackBackground = new Background(Color.rgb(0,0,0));
     Background background = new Background(Color.rgb(69,69,69), DEFAULT_STAGE_SIZE);
-    Screen backgroundScreen = new Screen("Background");
+    Screen backgroundScreen = new Screen(ScreenName.BACKGROUND);
     backgroundScreen.add(blackBackground);
     backgroundScreen.add(background);
     return backgroundScreen;

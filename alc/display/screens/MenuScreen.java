@@ -1,6 +1,7 @@
 package alc.display.screens;
 
 import engine.display.screens.Screen;
+import engine.display.screens.ScreenName;
 import engine.display.uiElements.Button;
 import engine.display.uiElements.Text;
 import engine.display.uiElements.UIElement;
@@ -17,21 +18,21 @@ public class MenuScreen extends Screen {
     private Color primaryColor;
 
     public MenuScreen(){
-        super(App.MENU);
+        super(ScreenName.MENU);
         this.primaryColor = Color.rgb(0,0,0);
         this.screenSize = new Vec2d(960,540);
         this.addStandardElements();
     }
 
     public MenuScreen(ArrayList<UIElement> uiElements) {
-        super(App.MENU, uiElements);
+        super(ScreenName.MENU, uiElements);
         this.primaryColor = Color.rgb(0,0,0);
         this.screenSize = new Vec2d(960,540);
         this.addStandardElements();
     }
 
     public MenuScreen(Color primaryColor, Vec2d size){
-        super(App.MENU);
+        super(ScreenName.MENU);
         this.primaryColor = primaryColor;
         this.screenSize = size;
         this.addStandardElements();
@@ -58,9 +59,9 @@ public class MenuScreen extends Screen {
         super.onMouseClicked(e);
         for(UIElement ele : uiElements){
             if(ele.inRange(e) && ele.getName().contains("play")){
-                this.nextScreen = App.GAME;
+                this.nextScreen = ScreenName.GAME;
             } else if(ele.inRange(e) && ele.getName().contains("quit")){
-                this.nextScreen = App.QUIT;
+                this.nextScreen = ScreenName.QUIT;
             }
         }
     }

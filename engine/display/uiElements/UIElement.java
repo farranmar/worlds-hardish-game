@@ -3,6 +3,7 @@ package engine.display.uiElements;
 import engine.display.screens.Screen;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -20,6 +21,13 @@ public class UIElement {
     protected Vec2d screenSize = new Vec2d(960,540);
     protected boolean centered = false;
     protected String name;
+
+    public UIElement(String name){
+        this.name = name;
+        this.color = Color.rgb(0,0,0);
+        this.position = new Vec2d(0);
+        this.size = new Vec2d(0);
+    }
 
     public UIElement(String name, Color c, Vec2d p, Vec2d s) {
         this.color = c;
@@ -135,17 +143,45 @@ public class UIElement {
         return inX && inY;
     }
 
+    public void onKeyPressed(KeyEvent e){
+        for(UIElement child : children){
+            child.onKeyPressed(e);
+        }
+    }
+    
+    public void onKeyReleased(KeyEvent e){
+        for(UIElement child : children){
+            child.onKeyReleased(e);
+        }
+    }
+
     public void onMouseClicked(MouseEvent e){
-        if(!inRange(e)) { return; }
         for(UIElement child : children){
             child.onMouseClicked(e);
         }
     }
 
     public void onMouseMoved(MouseEvent e){
-        if (!inRange(e)) { return; }
         for(UIElement child : children){
             child.onMouseMoved(e);
+        }
+    }
+
+    public void onMousePressed(MouseEvent e){
+        for(UIElement child : children){
+            child.onMousePressed(e);
+        }
+    }
+
+    public void onMouseReleased(MouseEvent e){
+        for(UIElement child : children){
+            child.onMouseReleased(e);
+        }
+    }
+
+    public void onMouseDragged(MouseEvent e){
+        for(UIElement child : children){
+            child.onMouseDragged(e);
         }
     }
 

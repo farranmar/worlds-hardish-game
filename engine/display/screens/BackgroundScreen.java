@@ -10,14 +10,14 @@ public class BackgroundScreen extends Screen {
     private Color edgeColor;
 
     public BackgroundScreen() {
-        super("Background");
+        super(ScreenName.BACKGROUND);
         this.screenColor = Color.rgb(69,69,69);
         this.edgeColor = Color.rgb(0,0,0);
         this.createScreen();
     }
 
     public BackgroundScreen(Color screenColor, Color edgeColor, Vec2d size) {
-        super("Background");
+        super(ScreenName.BACKGROUND);
         this.screenSize = size;
         this.screenColor = screenColor;
         this.edgeColor = edgeColor;
@@ -25,7 +25,7 @@ public class BackgroundScreen extends Screen {
     }
 
     public BackgroundScreen(Color screenColor, Vec2d size) {
-        super("Background");
+        super(ScreenName.BACKGROUND);
         this.screenSize = size;
         this.screenColor = screenColor;
         this.edgeColor = Color.rgb(0,0,0);

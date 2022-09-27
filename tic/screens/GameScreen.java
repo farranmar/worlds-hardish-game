@@ -1,6 +1,7 @@
 package tic.screens;
 
 import engine.display.screens.Screen;
+import engine.display.screens.ScreenName;
 import engine.support.Vec2d;
 import engine.display.uiElements.*;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +24,7 @@ public class GameScreen extends Screen {
     private GameOverScreen.Result gameStatus = GameOverScreen.Result.UNFINISHED;
 
     public GameScreen(){
-        super(App.GAME);
+        super(ScreenName.GAME);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -32,7 +33,7 @@ public class GameScreen extends Screen {
     }
 
     public GameScreen(ArrayList<UIElement> uiElements) {
-        super(App.GAME, uiElements);
+        super(ScreenName.GAME, uiElements);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -41,7 +42,7 @@ public class GameScreen extends Screen {
     }
 
     public GameScreen(Color primaryColor, Color secondaryColor, Vec2d size){
-        super(App.GAME);
+        super(ScreenName.GAME);
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.screenSize = size;
@@ -60,7 +61,7 @@ public class GameScreen extends Screen {
             this.setColor(new Color[]{Color.rgb(91, 62, 82), Color.rgb(61, 64, 82)});
             this.timer.stop();
             this.inactivate();
-            this.nextScreen = App.GAME_OVER;
+            this.nextScreen = ScreenName.GAME_OVER;
         } else {
             if(this.timer.done() || board.hasNewSymbol()){
                  // switch turns if timer runs out
@@ -122,7 +123,7 @@ public class GameScreen extends Screen {
         super.onMouseClicked(e);
         for(UIElement ele : uiElements){
             if(ele.inRange(e) && ele.getName().equals("Back Button")){
-                this.nextScreen = App.MENU;
+                this.nextScreen = ScreenName.MENU;
             }
         }
     }

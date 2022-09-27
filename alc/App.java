@@ -1,5 +1,6 @@
 package alc;
 
+import alc.display.screens.AlcScreen;
 import alc.display.screens.MenuScreen;
 import engine.Application;
 import engine.display.screens.BackgroundScreen;
@@ -25,10 +26,14 @@ public class App extends Application {
         backgroundScreen.inactivate();
         backgroundScreen.makeVisible();
         this.add(backgroundScreen);
-        MenuScreen menuScreen = new MenuScreen(Color.BISQUE, new Vec2d(960,540));
+        MenuScreen menuScreen = new MenuScreen(Color.rgb(189,154,221), new Vec2d(960,540));
         menuScreen.activate();
         menuScreen.makeVisible();
         this.add(menuScreen);
+        AlcScreen alcScreen = new AlcScreen();
+        alcScreen.inactivate();
+        alcScreen.makeInvisible();
+        this.add(alcScreen);
     }
 
 }

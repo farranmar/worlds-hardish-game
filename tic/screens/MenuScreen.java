@@ -1,6 +1,7 @@
 package tic.screens;
 
 import engine.display.screens.Screen;
+import engine.display.screens.ScreenName;
 import engine.support.FontMetrics;
 import engine.support.Vec2d;
 import engine.display.uiElements.Button;
@@ -20,7 +21,7 @@ public class MenuScreen extends Screen {
     private Vec2d screenSize;
 
     public MenuScreen(){
-        super(App.MENU);
+        super(ScreenName.MENU);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -28,7 +29,7 @@ public class MenuScreen extends Screen {
     }
 
     public MenuScreen(ArrayList<UIElement> uiElements) {
-        super(App.MENU, uiElements);
+        super(ScreenName.MENU, uiElements);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -36,7 +37,7 @@ public class MenuScreen extends Screen {
     }
 
     public MenuScreen(Color primaryColor, Color secondaryColor, Vec2d size){
-        super(App.MENU);
+        super(ScreenName.MENU);
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.screenSize = size;
@@ -67,9 +68,9 @@ public class MenuScreen extends Screen {
         super.onMouseClicked(e);
         for(UIElement ele : uiElements){
             if(ele.inRange(e) && ele.getName().contains("play")){
-                this.nextScreen = App.GAME;
+                this.nextScreen = ScreenName.GAME;
             } else if(ele.inRange(e) && ele.getName().contains("quit")){
-                this.nextScreen = App.QUIT;
+                this.nextScreen = ScreenName.QUIT;
             }
         }
     }

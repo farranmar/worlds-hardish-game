@@ -1,6 +1,7 @@
 package tic.screens;
 
 import engine.display.screens.Screen;
+import engine.display.screens.ScreenName;
 import engine.support.Vec2d;
 import engine.display.uiElements.*;
 import javafx.scene.input.MouseEvent;
@@ -26,7 +27,7 @@ public class GameOverScreen extends Screen {
     }
 
     public GameOverScreen(){
-        super(App.GAME_OVER);
+        super(ScreenName.GAME_OVER);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -35,7 +36,7 @@ public class GameOverScreen extends Screen {
     }
 
     public GameOverScreen(ArrayList<UIElement> uiElements) {
-        super(App.GAME_OVER, uiElements);
+        super(ScreenName.GAME_OVER, uiElements);
         this.primaryColor = Color.rgb(0,0,0);
         this.secondaryColor = Color.rgb(255,255,255);
         this.screenSize = new Vec2d(960,540);
@@ -44,7 +45,7 @@ public class GameOverScreen extends Screen {
     }
 
     public GameOverScreen(Color primaryColor, Color secondaryColor, Vec2d size, Result result){
-        super(App.GAME_OVER);
+        super(ScreenName.GAME_OVER);
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.screenSize = size;
@@ -92,11 +93,11 @@ public class GameOverScreen extends Screen {
         super.onMouseClicked(e);
         for(UIElement ele : uiElements){
             if(ele.inRange(e) && ele.getName().contains("restart")){
-                this.nextScreen = App.GAME;
+                this.nextScreen = ScreenName.GAME;
             } else if(ele.inRange(e) && ele.getName().contains("menu")){
-                this.nextScreen = App.MENU;
+                this.nextScreen = ScreenName.MENU;
             } else if(ele.inRange(e) && ele.getName().contains("quit")){
-                this.nextScreen = App.QUIT;
+                this.nextScreen = ScreenName.QUIT;
             }
         }
     }
