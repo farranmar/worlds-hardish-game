@@ -27,7 +27,6 @@ public class Draggable extends GameComponent {
 
     public void onMouseDragged(double x, double y, TransformComponent tc){
         if(dragging){
-
             tc.translate(x-preX, y-preY);
             preX = x;
             preY = y;

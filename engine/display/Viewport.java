@@ -24,10 +24,10 @@ public class Viewport extends UIElement {
     private Vec2d displayPosition; // position (in GameWorld coordinates) of what's being displayed
     private Affine affine = new Affine();
     private Direction panning = Direction.NONE;
-    private final int panningSpeed = 5;
-    private final int zoomSpeed = 1; // percent that you zoom
+    private static final int panningSpeed = 5;
+    private static final int zoomSpeed = 1; // percent that you zoom
     private ArrayList<Background> clippingBackgrounds = new ArrayList<>(4);
-    private final Vec2d minDisplaySize = new Vec2d(240,135);
+    private static final Vec2d minDisplaySize = new Vec2d(240,135);
 
     public enum Direction {
         UP,
@@ -77,9 +77,9 @@ public class Viewport extends UIElement {
     public void onTick(long nanosSinceLastTick){
         if(panning == Direction.UP && this.displayPosition.y > 0){
             this.displayPosition = this.displayPosition.plus(new Vec2d(0,-1 * panningSpeed));
-        } else if(panning == Direction.DOWN && this.displayPosition.y < this.gameWorld.getSize().y){
+        } else if(panning == Direction.DOWN && (this.displayPosition.y+this.displaySize.y) < this.gameWorld.getSize().y){
             this.displayPosition = this.displayPosition.plus(new Vec2d(0,panningSpeed));
-        } else if(panning == Direction.RIGHT && this.displayPosition.x < this.gameWorld.getSize().x){
+        } else if(panning == Direction.RIGHT && (this.displayPosition.x+this.displaySize.x) < this.gameWorld.getSize().x){
             this.displayPosition = this.displayPosition.plus(new Vec2d(panningSpeed,0));
         } else if(panning == Direction.LEFT && this.displayPosition.x > 0){
             this.displayPosition = this.displayPosition.plus(new Vec2d(-1 * panningSpeed, 0));
@@ -91,11 +91,15 @@ public class Viewport extends UIElement {
         this.affine.setToIdentity();
         this.affine.append(g.getTransform());
         this.affine.appendTranslation(-1 * this.displayPosition.x, -1 * this.displayPosition.y);
+        System.out.println("affine after translation, pre scale: "+this.affine);
         double xScale = this.size.x / this.displaySize.x;
         double yScale = this.size.y / this.displaySize.y;
         affine.appendScale(xScale, yScale);
+        System.out.println("affine after scale: "+this.affine);
         affine.appendTranslation(this.position.x, this.position.y);
         g.setTransform(this.affine);
+        System.out.println("this.windowSize is " + this.windowSize + ", this.screenSize is " + this.screenSize +", this.size is " + this.size +", and affine is " + this.affine);
+        System.out.println("this.displaySize is " + this.displaySize +" and this.displayPosition is " + this.displayPosition);
         gameWorld.onDraw(g);
         this.affine.setToIdentity();
         this.affine.append(ogTransform);
