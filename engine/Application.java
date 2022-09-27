@@ -204,7 +204,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onMouseWheelMoved(ScrollEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onMouseWheelMoved(e);
+      }
+    }
   }
 
   /**

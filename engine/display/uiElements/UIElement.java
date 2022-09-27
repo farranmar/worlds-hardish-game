@@ -5,6 +5,7 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -148,7 +149,7 @@ public class UIElement {
             child.onKeyPressed(e);
         }
     }
-    
+
     public void onKeyReleased(KeyEvent e){
         for(UIElement child : children){
             child.onKeyReleased(e);
@@ -182,6 +183,12 @@ public class UIElement {
     public void onMouseDragged(MouseEvent e){
         for(UIElement child : children){
             child.onMouseDragged(e);
+        }
+    }
+
+    public void onMouseWheelMoved(ScrollEvent e){
+        for(UIElement child : children){
+            child.onMouseWheelMoved(e);
         }
     }
 

@@ -5,6 +5,7 @@ import engine.display.uiElements.UIElement;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -158,6 +159,12 @@ public class Screen {
     public void onMouseDragged(MouseEvent e){
         for(UIElement ele : uiElements){
             ele.onMouseDragged(e);
+        }
+    }
+
+    public void onMouseWheelMoved(ScrollEvent e){
+        for(UIElement ele : uiElements){
+            ele.onMouseWheelMoved(e);
         }
     }
 
