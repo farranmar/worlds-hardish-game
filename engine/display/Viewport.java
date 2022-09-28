@@ -4,6 +4,7 @@ import engine.display.uiElements.Background;
 import engine.display.uiElements.UIElement;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -90,16 +91,14 @@ public class Viewport extends UIElement {
         Transform ogTransform = g.getTransform();
         this.affine.setToIdentity();
         this.affine.append(g.getTransform());
-        this.affine.appendTranslation(-1 * this.displayPosition.x, -1 * this.displayPosition.y);
-        System.out.println("affine after translation, pre scale: "+this.affine);
+        // note about affines: they scale then translate (even if you add the translation first), so
+        // this translation is scaled to account for that
+        this.affine.appendTranslation(-1 * this.displayPosition.x * (this.size.x / this.displaySize.x), -1 * this.displayPosition.y * (this.size.y / this.displaySize.y));
         double xScale = this.size.x / this.displaySize.x;
         double yScale = this.size.y / this.displaySize.y;
         affine.appendScale(xScale, yScale);
-        System.out.println("affine after scale: "+this.affine);
         affine.appendTranslation(this.position.x, this.position.y);
         g.setTransform(this.affine);
-        System.out.println("this.windowSize is " + this.windowSize + ", this.screenSize is " + this.screenSize +", this.size is " + this.size +", and affine is " + this.affine);
-        System.out.println("this.displaySize is " + this.displaySize +" and this.displayPosition is " + this.displayPosition);
         gameWorld.onDraw(g);
         this.affine.setToIdentity();
         this.affine.append(ogTransform);
@@ -185,7 +184,5 @@ public class Viewport extends UIElement {
         double newDisplayPosY = y - ((e.getY() - this.position.y) / this.size.y * newDisplaySizeY);
         this.displayPosition = new Vec2d(newDisplayPosX, newDisplayPosY);
         this.displaySize = new Vec2d(newDisplaySizeX, newDisplaySizeY);
-        System.out.println("zooming "+e.getDeltaY()+" * "+zoomSpeed+" / 100 = "+zoomPercent+"% for a size of " + this.displaySize +" and a position of " +this.displayPosition);
     }
-
 }
