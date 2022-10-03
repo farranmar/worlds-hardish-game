@@ -132,6 +132,7 @@ public class Unit extends GameObject {
         this.components.add(new Clickable());
         if(collisionMap == null){
             collisionMap = constructHash();
+            System.out.println("collisionMap has been constructed with size "+collisionMap.size());
         }
     }
 
@@ -141,11 +142,16 @@ public class Unit extends GameObject {
 
     private void setImageName(String imageName){
         this.imageName = imageName;
+        this.addType(imageName);
         for(GameComponent component : components){
             if(component.getTag() == Tag.HAS_SPRITE){
                 ((HasSprite)component).setImage(new Resource().get(imageName));
             }
         }
+    }
+
+    public Type getType(){
+        return this.type;
     }
 
     public Unit clone(){
@@ -154,7 +160,6 @@ public class Unit extends GameObject {
         clone.setPosition(this.getPosition());
         clone.setDrawPriority(this.drawPriority + 1);
         clone.add(new Collidable(new AAB(this.getSize(), this.getPosition())));
-//        this.gameWorld.addToAdditionQueue(clone);
         return clone;
     }
 
@@ -162,8 +167,13 @@ public class Unit extends GameObject {
         super.onDraw(g);
     }
 
-    public void onCollide(Unit unit){
-        System.out.println("colliding");
+    // assumes GameObject unit is a Unit, as those are the only collidable GameObjects in alc
+    public void onCollide(GameObject obj){
+        Unit unit = (Unit)obj;
+        System.out.println("unit colliding");
+        System.out.println("collisionMap.get("+this.type+") = "+collisionMap.get(this.type));
+        Type newType = collisionMap.get(this.type).get(unit.getType());
+        System.out.println("combining "+this.type+" with "+unit.getType()+" to form "+newType);
     }
 
 }

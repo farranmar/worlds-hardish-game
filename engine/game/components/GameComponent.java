@@ -1,5 +1,6 @@
 package engine.game.components;
 
+import engine.game.objects.GameObject;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -42,7 +43,7 @@ public class GameComponent {
 
     public void onMouseReleased(double x, double y){ return; }
 
-    public void onMouseDragged(double x, double y, TransformComponent tc){ return; }
+    public void onMouseDragged(double x, double y, GameObject obj){ return; }
 
     public void onMouseMoved(MouseEvent e){ return; }
 

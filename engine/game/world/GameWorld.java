@@ -41,7 +41,11 @@ public class GameWorld {
         for(GameObject obj : this.additionQueue){
             this.gameObjects.add(obj);
             this.drawOrder.add(obj);
+            for(GameSystem system : systems){
+                system.attemptAdd(obj);
+            }
         }
+        this.additionQueue.clear();
     }
 
     public void addToRemovalQueue(GameObject obj){
@@ -52,7 +56,11 @@ public class GameWorld {
         for(GameObject obj : this.removalQueue){
             this.gameObjects.remove(obj);
             this.drawOrder.remove(obj);
+            for(GameSystem system : systems){
+                system.remove(obj);
+            }
         }
+        this.removalQueue.clear();
     }
 
     public void remove(GameObject obj){

@@ -100,6 +100,10 @@ public class GameObject {
         }
     }
 
+    public void translate(double dx, double dy){
+        this.setPosition(new Vec2d(this.getPosition().x + dx, this.getPosition().y + dy));
+    }
+
     public GameObject getParent(){
         return this.parent;
     }
@@ -139,7 +143,8 @@ public class GameObject {
     }
 
     public void onCollide(GameObject obj){
-        System.out.println("oohoohoo two objects are colliding");
+        System.out.println("game object colliding");
+        return;
     }
 
     public void onTick(long nanosSincePreviousTick){
@@ -201,7 +206,7 @@ public class GameObject {
         // don't check for in range bc if they move the mouse super fast, you want to be able to catch up
         for(GameComponent component : components){
             if(component.takesMouseInput()){
-                component.onMouseDragged(x, y, this.transformComponent);
+                component.onMouseDragged(x, y, this);
             }
         }
         for(GameObject child : children){

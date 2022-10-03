@@ -19,16 +19,17 @@ public class GameSystem {
 
     // adds if the obj is relevant to the system; returns whether obj was added or not
     public boolean attemptAdd(GameObject obj){
-        if(this.tickable && obj.get(Tag.TICKABLE) != null){
+        // checks collidable before tickable (bc collidable components are also tickable)
+        if(this.collidable && obj.get(Tag.COLLIDABLE) != null){
+            gameObjects.add(obj);
+            return true;
+        } else if(this.tickable && obj.get(Tag.TICKABLE) != null){
             gameObjects.add(obj);
             return true;
         } else if(this.drawable && obj.get(Tag.DRAWABLE) != null){
             gameObjects.add(obj);
             return true;
         } else if(this.takesInput && (obj.get(Tag.DRAGGABLE) != null || obj.get(Tag.CLICKABLE) != null)){
-            gameObjects.add(obj);
-            return true;
-        } else if(this.collidable && obj.get(Tag.COLLIDABLE) != null){
             gameObjects.add(obj);
             return true;
         }

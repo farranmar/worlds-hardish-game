@@ -1,5 +1,6 @@
 package engine.game.components;
 
+import engine.game.objects.GameObject;
 import engine.support.Vec2d;
 import javafx.scene.input.MouseEvent;
 
@@ -25,9 +26,9 @@ public class Draggable extends GameComponent {
         this.dragging = false;
     }
 
-    public void onMouseDragged(double x, double y, TransformComponent tc){
+    public void onMouseDragged(double x, double y, GameObject obj){
         if(dragging){
-            tc.translate(x-preX, y-preY);
+            obj.translate(x-preX, y-preY);
             preX = x;
             preY = y;
         }
