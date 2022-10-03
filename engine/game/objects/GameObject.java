@@ -1,13 +1,10 @@
 package engine.game.objects;
 
-import alc.game.units.Square;
-import engine.game.components.Draggable;
-import engine.game.components.GameComponent;
-import engine.game.components.Tag;
-import engine.game.components.TransformComponent;
+import engine.game.components.*;
+import engine.game.objects.shapes.Shape;
+import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
@@ -18,8 +15,10 @@ public class GameObject {
     protected int drawPriority;
     protected GameObject parent = null;
     protected ArrayList<GameObject> children = new ArrayList<>();
+    protected GameWorld gameWorld;
 
-    public GameObject(){
+    public GameObject(GameWorld gameWorld){
+        this.gameWorld = gameWorld;
         this.transformComponent = new TransformComponent(new Vec2d(0), new Vec2d(0));
     }
 
@@ -31,12 +30,8 @@ public class GameObject {
         this.components.remove(component);
     }
 
-    public void remove(String tagToRemove){
-        for(GameComponent component : components){
-            if(component.getTag().equals(tagToRemove)){
-                this.components.remove(component);
-            }
-        }
+    public void remove(Tag tagToRemove){
+        components.removeIf(component -> component.getTag() == (tagToRemove));
     }
 
     public GameComponent get(Tag tagToGet){
@@ -56,13 +51,14 @@ public class GameObject {
 
     // does NOT set parent or children
     public GameObject clone(){
-        GameObject clone = new GameObject();
+        GameObject clone = new GameObject(this.gameWorld);
         for(GameComponent component : components){
             clone.add(component);
         }
         clone.setSize(this.getSize());
         clone.setPosition(this.getPosition());
         clone.setDrawPriority(this.drawPriority);
+//        this.gameWorld.addToAdditionQueue(clone);
         return clone;
     }
 
@@ -84,6 +80,11 @@ public class GameObject {
 
     public void setSize(Vec2d newSize){
         this.transformComponent.setSize(newSize);
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.COLLIDABLE){
+                ((Collidable)component).setSize(newSize);
+            }
+        }
     }
 
     public Vec2d getPosition(){
@@ -92,6 +93,11 @@ public class GameObject {
 
     public void setPosition(Vec2d newPosition){
         this.transformComponent.setPosition(newPosition);
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.COLLIDABLE){
+                ((Collidable)component).setPosition(newPosition);
+            }
+        }
     }
 
     public GameObject getParent(){
@@ -114,6 +120,28 @@ public class GameObject {
         return this.children;
     }
 
+    public Shape getCollisionShape(){
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.COLLIDABLE){
+                return ((Collidable)component).getShape();
+            }
+        }
+        return null;
+    }
+
+    public boolean collidesWith(GameObject obj){
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.COLLIDABLE){
+                return ((Collidable)component).collidesWith(obj);
+            }
+        }
+        return false;
+    }
+
+    public void onCollide(GameObject obj){
+        System.out.println("oohoohoo two objects are colliding");
+    }
+
     public void onTick(long nanosSincePreviousTick){
         for(GameComponent component : components){
             if(component.isTickable()){
@@ -127,7 +155,9 @@ public class GameObject {
 
     public void onDraw(GraphicsContext g){
         for(GameComponent component : components){
-            if(component.isDrawable()){
+            if(component.getTag() == Tag.HAS_SPRITE){
+                ((HasSprite)component).onDraw(g, this.transformComponent);
+            } else if(component.isDrawable()){
                 component.onDraw(g);
             }
         }

@@ -14,10 +14,10 @@
 | Your engine must have a System class that contains GameObjects. | The `GameSystem` class is located in `engine/game/systems/GameSystem` and contains an ArrayList of game objects. |
 | Your engine must have a class representing the game world. That class must hold at least one system. | The `GameWorld` class is located in `engine/game/world/GameWorld` and it contains an ArrayList of systems. |
 | The viewport should be visible once the game is run (either directly or through a menu). The player must be able to pan the viewport (the viewport cannot display a solid color). | When you run the game and press the "play" button, the viewport is visible and takes up the entire screen. You can pan with either the arrow keys or wasd. |
-| There must be a “unit” visible in the viewport. | There is a white and gray rectangular menu containing a square, which is a unit. |
-| The “unit” must respond to being clicked (only when the unit itself is clicked). | When you click and drag the square ("unit"), it will be dragged around the screen. |
+| There must be a “unit” visible in the viewport. | There is a white and gray rectangular menu containing a unit, which is a unit. |
+| The “unit” must respond to being clicked (only when the unit itself is clicked). | When you click and drag the unit ("unit"), it will be dragged around the screen. |
 | The “unit” must be able to be dragged freely. | This is true. When you drag the unit, it moves freely around the screen. |
-| The “unit” should be drawn and moved using separate components. | The unit is drawn using the `Drawable` component, although this `onDraw` method is overridden to draw a simple square instead of an image. It is dragged using the `Draggable` component. Both of these components are located in `engine/game/components`. |
+| The “unit” should be drawn and moved using separate components. | The unit is drawn using the `Drawable` component, although this `onDraw` method is overridden to draw a simple unit instead of an image. It is dragged using the `Draggable` component. Both of these components are located in `engine/game/components`. |
 
 
 ## Secondary Requirements:
@@ -26,7 +26,7 @@
 | Your engine must meet all primary engine requirements | See above |
 | The viewport must support zooming (scaling of the currently viewable GameState). When zooming, the viewport must either keep the center of the game in the same position or keep the location currently under the mouse in the same position. | You can zoom in an out be scrolling. The center of the screen is not maintained, which is a bug that I plan to fix for Alc 2. |
 | The player must be able to zoom the map (make sure the unit still responds to being clicked!). | See above. The player can zoom in and out on the map, and the unit still can be dragged properly, however the center is not maintained when zooming. |
-| There must be a menu from which the player can make a copy of a “unit” by clicking and dragging it, without the original being destroyed or moved. | There is a menu from which the player can click and drag the square ("unit"). Dragging will create a duplicate of the unit in the menu that the player drags. |
+| There must be a menu from which the player can make a copy of a “unit” by clicking and dragging it, without the original being destroyed or moved. | There is a menu from which the player can click and drag the unit ("unit"). Dragging will create a duplicate of the unit in the menu that the player drags. |
 
 ## Extras:
 | Requirement | Location in code or steps to view in game  |

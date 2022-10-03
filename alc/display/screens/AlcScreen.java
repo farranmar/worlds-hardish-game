@@ -23,8 +23,6 @@ public class AlcScreen extends Screen {
     public AlcScreen(){
         super(ScreenName.GAME);
         Viewport viewport = new Viewport(new Vec2d(960,540), new Vec2d(480,270), new Vec2d(960,540), new Vec2d(0,0));
-        AlcWorld alcWorld = new AlcWorld();
-        viewport.setWorld(alcWorld);
         this.viewport = viewport;
         this.add(viewport);
         BackButton backButton = new BackButton(Color.rgb(189,154,221), new Vec2d(30), new Vec2d(50,30));
@@ -34,6 +32,12 @@ public class AlcScreen extends Screen {
     public void reset(){
         super.reset();
         viewport.setDisplay(new Vec2d(960,540), new Vec2d(480,270));
+    }
+
+    public void activate(){
+        super.activate();
+        AlcWorld alcWorld = new AlcWorld();
+        viewport.setWorld(alcWorld);
     }
 
     public void onMouseClicked(MouseEvent e){

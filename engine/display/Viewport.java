@@ -28,7 +28,7 @@ public class Viewport extends UIElement {
     private static final int panningSpeed = 5;
     private static final int zoomSpeed = 1; // percent that you zoom
     private ArrayList<Background> clippingBackgrounds = new ArrayList<>(4);
-    private static final Vec2d minDisplaySize = new Vec2d(240,135);
+    private static final Vec2d minDisplaySize = new Vec2d(120,67.5);
 
     public enum Direction {
         UP,
@@ -85,6 +85,7 @@ public class Viewport extends UIElement {
         } else if(panning == Direction.LEFT && this.displayPosition.x > 0){
             this.displayPosition = this.displayPosition.plus(new Vec2d(-1 * panningSpeed, 0));
         }
+        if(gameWorld != null){ gameWorld.onTick(nanosSinceLastTick); }
     }
 
     public void onDraw(GraphicsContext g){

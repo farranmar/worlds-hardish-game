@@ -4,13 +4,15 @@ import engine.game.components.Drawable;
 import engine.game.components.GameComponent;
 import engine.game.components.Tag;
 import engine.game.components.TransformComponent;
+import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class BackgroundObject extends GameObject {
 
-    public BackgroundObject(Color color, Vec2d size){
+    public BackgroundObject(GameWorld gameWorld, Color color, Vec2d size){
+        super(gameWorld);
         Drawable drawable = new Drawable(color);
         drawable.fix();
         this.components.add(drawable);

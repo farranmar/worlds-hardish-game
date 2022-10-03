@@ -13,6 +13,7 @@ public class GameSystem {
     protected boolean tickable = false;
     protected boolean drawable = false;
     protected boolean takesInput = false;
+    protected boolean collidable = false;
 
     public GameSystem(){}
 
@@ -27,8 +28,15 @@ public class GameSystem {
         } else if(this.takesInput && (obj.get(Tag.DRAGGABLE) != null || obj.get(Tag.CLICKABLE) != null)){
             gameObjects.add(obj);
             return true;
+        } else if(this.collidable && obj.get(Tag.COLLIDABLE) != null){
+            gameObjects.add(obj);
+            return true;
         }
         return false;
+    }
+
+    public void remove(GameObject obj){
+        this.gameObjects.remove(obj);
     }
 
     public boolean isTickable() {
@@ -41,6 +49,10 @@ public class GameSystem {
 
     public boolean takesInput() {
         return takesInput;
+    }
+
+    public boolean isCollidable() {
+        return collidable;
     }
 
     public void onTick(long nanosSinceLastTick){

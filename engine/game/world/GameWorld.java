@@ -2,12 +2,9 @@ package engine.game.world;
 
 import engine.display.Viewport;
 import engine.game.objects.GameObject;
-import engine.game.systems.GraphicsSystem;
-import engine.game.systems.InputSystem;
-import engine.game.systems.StaticSystem;
+import engine.game.systems.*;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
-import engine.game.systems.GameSystem;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
@@ -17,6 +14,8 @@ public class GameWorld {
 
     protected Viewport viewport;
     protected ArrayList<GameObject> gameObjects = new ArrayList<>();
+    protected ArrayList<GameObject> additionQueue = new ArrayList<>();
+    protected ArrayList<GameObject> removalQueue = new ArrayList<>();
     protected ArrayList<GameSystem> systems = new ArrayList<>();
     protected TreeSet<GameObject> drawOrder = new TreeSet<>(new DrawOrderHelper());
     protected Vec2d size;
@@ -24,9 +23,6 @@ public class GameWorld {
 
     public GameWorld(String name){
         this.name = name;
-        systems.add(new GraphicsSystem());
-        systems.add(new InputSystem());
-        systems.add(new StaticSystem());
     }
 
     public void add(GameObject obj){
@@ -35,6 +31,40 @@ public class GameWorld {
         for(GameSystem system : systems){
             system.attemptAdd(obj);
         }
+    }
+
+    public void addToAdditionQueue(GameObject obj){
+        this.additionQueue.add(obj);
+    }
+
+    protected void addQueue(){
+        for(GameObject obj : this.additionQueue){
+            this.gameObjects.add(obj);
+            this.drawOrder.add(obj);
+        }
+    }
+
+    public void addToRemovalQueue(GameObject obj){
+        this.removalQueue.add(obj);
+    }
+
+    protected void removeQueue(){
+        for(GameObject obj : this.removalQueue){
+            this.gameObjects.remove(obj);
+            this.drawOrder.remove(obj);
+        }
+    }
+
+    public void remove(GameObject obj){
+        this.gameObjects.remove(obj);
+        this.drawOrder.remove(obj);
+        for(GameSystem system : systems){
+            system.remove(obj);
+        }
+    }
+
+    public void addSystem(GameSystem sys){
+        this.systems.add(sys);
     }
     
     public void reset(){
@@ -49,10 +79,12 @@ public class GameWorld {
 
     public void onTick(long nanosSinceLastTick){
         for(GameSystem sys : systems){
-            if(sys.isTickable()){
+            if(sys.isTickable() || sys.isCollidable()){
                 sys.onTick(nanosSinceLastTick);
             }
         }
+        this.addQueue();
+        this.removeQueue();
     }
 
     public void onDraw(GraphicsContext g){

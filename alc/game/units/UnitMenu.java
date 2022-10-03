@@ -2,6 +2,7 @@ package alc.game.units;
 
 import engine.game.components.*;
 import engine.game.objects.GameObject;
+import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -14,7 +15,8 @@ public class UnitMenu extends GameObject {
     private Vec2d unitSize;
     private double padding = 12;
 
-    public UnitMenu(Color color, Vec2d size, Vec2d position){
+    public UnitMenu(GameWorld gameWorld, Color color, Vec2d size, Vec2d position){
+        super(gameWorld);
         Drawable drawable = new Drawable(color);
         drawable.fix();
         this.components.add(drawable);
@@ -33,9 +35,9 @@ public class UnitMenu extends GameObject {
 
     private Vec2d getNextUnitPosition(){
         double maxY = this.getPosition().y - this.unitSize.y;
-        for(GameObject unit : units){
-            double y = unit.getPosition().y;
-            maxY = y > maxY ? y : maxY;
+        for(GameObject child : children){
+            double y = child.getPosition().y;
+            maxY = Math.max(y, maxY);
         }
         return new Vec2d(this.getPosition().x + padding, maxY + this.unitSize.y + padding);
     }
@@ -73,6 +75,7 @@ public class UnitMenu extends GameObject {
                 draggable.onMousePressed(x, y);
                 clone.setParent(child);
                 child.addChild(clone);
+                this.gameWorld.addToAdditionQueue(clone);
             }
         }
     }
