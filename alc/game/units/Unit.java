@@ -132,7 +132,6 @@ public class Unit extends GameObject {
         this.components.add(new Clickable());
         if(collisionMap == null){
             collisionMap = constructHash();
-            System.out.println("collisionMap has been constructed with size "+collisionMap.size());
         }
     }
 
@@ -170,10 +169,7 @@ public class Unit extends GameObject {
     // assumes GameObject unit is a Unit, as those are the only collidable GameObjects in alc
     public void onCollide(GameObject obj){
         Unit unit = (Unit)obj;
-        System.out.println("unit colliding");
-        System.out.println("collisionMap.get("+this.type+") = "+collisionMap.get(this.type));
         Type newType = collisionMap.get(this.type).get(unit.getType());
-        System.out.println("combining "+this.type+" with "+unit.getType()+" to form "+newType);
     }
 
 }

@@ -17,7 +17,7 @@ public class CollisionSystem extends GameSystem {
             for(GameObject obj2 : gameObjects){
                 if(obj1 == obj2){ continue; }
                 if(obj1.collidesWith(obj2)){
-                    if(collisions.get(obj1) == obj2 || collisions.get(obj2) == obj1){
+                    if(collisions.get(obj1) == obj2 || collisions.get(obj2) == obj1 || !obj1.isCollidable() || !obj2.isCollidable()){
                         continue;
                     }
                     collisions.put(obj1, obj2);

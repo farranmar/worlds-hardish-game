@@ -124,6 +124,23 @@ public class GameObject {
         return this.children;
     }
 
+    public void setCollidable(boolean collidable){
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.COLLIDABLE){
+                ((Collidable)component).setCollidable(collidable);
+            }
+        }
+    }
+
+    public boolean isCollidable(){
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.COLLIDABLE){
+                return ((Collidable)component).getCollidable();
+            }
+        }
+        return false;
+    }
+
     public Shape getCollisionShape(){
         for(GameComponent component : components){
             if(component.getTag() == Tag.COLLIDABLE){
@@ -143,7 +160,6 @@ public class GameObject {
     }
 
     public void onCollide(GameObject obj){
-        System.out.println("game object colliding");
         return;
     }
 

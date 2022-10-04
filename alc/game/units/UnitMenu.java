@@ -70,7 +70,7 @@ public class UnitMenu extends GameObject {
         for(GameObject child : children){
             if(child.inRange(x, y)){
                 GameObject clone = child.clone();
-                Draggable draggable = new Draggable();
+                Draggable draggable = new Draggable(clone);
                 clone.add(draggable);
                 draggable.onMousePressed(x, y);
                 clone.setParent(child);
