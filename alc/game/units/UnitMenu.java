@@ -31,6 +31,7 @@ public class UnitMenu extends GameObject {
         unit.setPosition(this.getNextUnitPosition());
         unit.setParent(this);
         this.addChild(unit);
+        this.gameWorld.addToAdditionQueue(unit);
     }
 
     private Vec2d getNextUnitPosition(){
@@ -73,8 +74,6 @@ public class UnitMenu extends GameObject {
                 Draggable draggable = new Draggable(clone);
                 clone.add(draggable);
                 draggable.onMousePressed(x, y);
-                clone.setParent(child);
-                child.addChild(clone);
                 this.gameWorld.addToAdditionQueue(clone);
             }
         }

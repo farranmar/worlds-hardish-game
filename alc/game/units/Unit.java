@@ -13,9 +13,9 @@ import java.util.HashMap;
 public class Unit extends GameObject {
 
     private static HashMap<Type, HashMap<Type, Type>> collisionMap = null;
-    private String imageName;
+    private static HashMap<Type, String> typeNameMap = null;
     private Type type;
-
+    private static int index = 2;
 
     public enum Type{
         AIR,
@@ -25,43 +25,47 @@ public class Unit extends GameObject {
         MUSHROOM,
         SPROUT,
         SUN,
+        TRASH,
         TREE,
         WATER,
     }
 
-    public Unit(GameWorld gameWorld, String imageName){
+    public Unit(GameWorld gameWorld, Type type){
         super(gameWorld);
-        this.drawPriority = 2;
-        this.imageName = imageName;
-        this.addType(imageName);
-        this.components.add(new HasSprite(new Resource().get(imageName)));
+        this.constructTypeNameMap();
+        this.drawPriority = index;
+        this.type = type;
+        this.components.add(new HasSprite(new Resource().get(typeNameMap.get(type))));
         this.components.add(new TransformComponent(new Vec2d(0), new Vec2d(0)));
         this.addComponentsAndHash();
+        index++;
     }
 
     public Unit(GameWorld gameWorld, Vec2d size, Vec2d position){
         super(gameWorld);
-        this.drawPriority = 2;
-        this.imageName = "";
-        this.addType(imageName);
+        this.constructTypeNameMap();
+        this.drawPriority = index;
+        this.type = null;
         this.components.add(new HasSprite());
         this.components.add(new TransformComponent(size, position));
         this.addComponentsAndHash();
+        index++;
     }
 
-    public Unit(GameWorld gameWorld, String imageName, Vec2d size, Vec2d position){
+    public Unit(GameWorld gameWorld, Type type, Vec2d size, Vec2d position){
         super(gameWorld);
-        this.drawPriority = 2;
-        this.imageName = imageName;
-        this.addType(imageName);
-        this.components.add(new HasSprite(new Resource().get(imageName)));
+        this.constructTypeNameMap();
+        this.drawPriority = index;
+        this.type = type;
+        this.components.add(new HasSprite(new Resource().get(typeNameMap.get(type))));
         this.components.add(new TransformComponent(size, position));
         this.addComponentsAndHash();
+        index++;
     }
 
     public Unit(Unit unit) {
         this(unit.gameWorld, unit.getSize(), unit.getPosition());
-        this.setImageName(unit.getImageName());
+        this.setType(unit.getType());
     }
 
     private static HashMap<Type, HashMap<Type, Type>> constructHash() {
@@ -105,26 +109,19 @@ public class Unit extends GameObject {
         return hash;
     }
 
-    private void addType(String imageName){
-        if(imageName.contains("air")){
-            this.type = Type.AIR;
-        } else if(imageName.contains("earth")){
-            this.type = Type.EARTH;
-        } else if(imageName.contains("fire")){
-            this.type = Type.FIRE;
-        } else if(imageName.contains("water")){
-            this.type = Type.WATER;
-        } else if(imageName.contains("sprout")){
-            this.type = Type.SPROUT;
-        } else if(imageName.contains("sun")){
-            this.type = Type.SUN;
-        } else if(imageName.contains("dead")){
-            this.type = Type.DEAD_TREE;
-        } else if(imageName.contains("tree")){
-            this.type = Type.TREE;
-        } else if(imageName.contains("shroom")){
-            this.type = Type.MUSHROOM;
-        }
+    private void constructTypeNameMap(){
+        HashMap<Type, String> tnMap = new HashMap<>();
+        tnMap.put(Type.AIR, "air_ph.jpg");
+        tnMap.put(Type.EARTH, "dirt_ph.png");
+        tnMap.put(Type.FIRE, "fire_ph.jpg");
+        tnMap.put(Type.WATER, "water_ph.png");
+        tnMap.put(Type.SPROUT, "sprout_ref.png");
+        tnMap.put(Type.SUN, "sun_ph.jpg");
+        tnMap.put(Type.TREE, "tree_ph.png");
+        tnMap.put(Type.DEAD_TREE, "deadtree_ph.png");
+        tnMap.put(Type.MUSHROOM, "mushroom_ph.jpg");
+        tnMap.put(Type.TRASH, "trash_ph.png");
+        typeNameMap = tnMap;
     }
 
     private void addComponentsAndHash(){
@@ -136,15 +133,14 @@ public class Unit extends GameObject {
     }
 
     private String getImageName(){
-        return this.imageName;
+        return typeNameMap.get(this.type);
     }
 
-    private void setImageName(String imageName){
-        this.imageName = imageName;
-        this.addType(imageName);
+    private void setType(Type type){
+        this.type = type;
         for(GameComponent component : components){
             if(component.getTag() == Tag.HAS_SPRITE){
-                ((HasSprite)component).setImage(new Resource().get(imageName));
+                ((HasSprite)component).setImage(new Resource().get(typeNameMap.get(type)));
             }
         }
     }
@@ -157,7 +153,6 @@ public class Unit extends GameObject {
         Unit clone = new Unit(this);
         clone.setSize(this.getSize());
         clone.setPosition(this.getPosition());
-        clone.setDrawPriority(this.drawPriority + 1);
         clone.add(new Collidable(new AAB(this.getSize(), this.getPosition())));
         return clone;
     }
@@ -170,6 +165,26 @@ public class Unit extends GameObject {
     public void onCollide(GameObject obj){
         Unit unit = (Unit)obj;
         Type newType = collisionMap.get(this.type).get(unit.getType());
+        if(newType == null){ return; }
+        Unit newUnit = new Unit(this.gameWorld, newType);
+        newUnit.add(new Draggable(newUnit));
+        Vec2d thisPosition = this.getPosition();
+        Vec2d objPosition = obj.getPosition();
+        Vec2d newPosition = new Vec2d((thisPosition.x + objPosition.x)/2, (thisPosition.y + objPosition.y)/2);
+        Vec2d thisSize = this.getSize();
+        Vec2d objSize = obj.getSize();
+        Vec2d newSize = new Vec2d((thisSize.x + objSize.x)/2, (thisSize.y + objSize.y)/2);
+        AAB aab = new AAB(newSize, newPosition);
+        newUnit.add(new Collidable(aab));
+        newUnit.setPosition(newPosition);
+        newUnit.setSize(newSize);
+        this.gameWorld.addToAdditionQueue(newUnit);
+        this.gameWorld.addToRemovalQueue(obj);
+        this.gameWorld.addToRemovalQueue(this);
+    }
+
+    public String toString(){
+        return super.toString() + "-"+ this.type+"(dp="+this.drawPriority+")";
     }
 
 }

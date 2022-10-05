@@ -26,6 +26,7 @@ public class GameWorld {
     }
 
     public void add(GameObject obj){
+        if(this.gameObjects.contains(obj)){ return; }
         this.gameObjects.add(obj);
         drawOrder.add(obj);
         for(GameSystem system : systems){
@@ -39,33 +40,31 @@ public class GameWorld {
 
     protected void addQueue(){
         for(GameObject obj : this.additionQueue){
-            this.gameObjects.add(obj);
-            this.drawOrder.add(obj);
-            for(GameSystem system : systems){
-                system.attemptAdd(obj);
-            }
+            this.add(obj);
         }
         this.additionQueue.clear();
     }
 
     public void addToRemovalQueue(GameObject obj){
+        System.out.println("adding to removal queue: "+obj);
         this.removalQueue.add(obj);
     }
 
     protected void removeQueue(){
+        System.out.println("about to remove "+this.removalQueue.size()+" objects from world");
         for(GameObject obj : this.removalQueue){
-            this.gameObjects.remove(obj);
-            this.drawOrder.remove(obj);
-            for(GameSystem system : systems){
-                system.remove(obj);
-            }
+            this.remove(obj);
         }
         this.removalQueue.clear();
     }
 
     public void remove(GameObject obj){
+        System.out.println("gameObjects before remove: "+this.gameObjects);
         this.gameObjects.remove(obj);
+        System.out.println("gameObjects after remove: "+this.gameObjects);
+        System.out.println("drawOrder before remove: "+this.drawOrder);
         this.drawOrder.remove(obj);
+        System.out.println("drawOrder after remove: "+this.drawOrder);
         for(GameSystem system : systems){
             system.remove(obj);
         }
