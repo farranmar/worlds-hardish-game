@@ -2,6 +2,9 @@ package alc.game;
 
 import alc.game.units.Unit;
 import alc.game.units.UnitMenu;
+import engine.game.components.Collidable;
+import engine.game.components.Tickable;
+import engine.game.objects.shapes.AAB;
 import engine.game.systems.CollisionSystem;
 import engine.game.systems.GraphicsSystem;
 import engine.game.systems.InputSystem;
@@ -26,7 +29,7 @@ public class AlcWorld extends GameWorld {
         BackgroundObject background = new BackgroundObject(this, Color.rgb(69,69,69), this.size);
         this.add(background);
         background.setDrawPriority(0);
-        UnitMenu unitMenu = new UnitMenu(this, Color.rgb(47,47,47), new Vec2d(54,444), new Vec2d(1328, 318));
+        UnitMenu unitMenu = new UnitMenu(this, Color.rgb(47,47,47), new Vec2d(54,384), new Vec2d(1328, 318));
         unitMenu.setDrawPriority(1);
         Unit air = new Unit(this, Unit.Type.AIR);
         unitMenu.add(air);
@@ -40,6 +43,11 @@ public class AlcWorld extends GameWorld {
         Unit water = new Unit(this, Unit.Type.WATER);
         unitMenu.add(water);
         this.add(water);
+        Unit trash = new Unit(this, Unit.Type.TRASH);
+        trash.setSize(new Vec2d(30,30));
+        trash.setPosition(new Vec2d(1340, 744));
+        trash.add(new Collidable(new AAB(new Vec2d(30), new Vec2d(1340,744))));
+        this.add(trash);
         this.add(unitMenu);
     }
 

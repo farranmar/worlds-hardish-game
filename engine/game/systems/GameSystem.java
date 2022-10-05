@@ -1,5 +1,6 @@
 package engine.game.systems;
 
+import alc.game.units.Unit;
 import engine.game.components.Tag;
 import engine.game.objects.GameObject;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,7 +38,6 @@ public class GameSystem {
     }
 
     public void remove(GameObject obj){
-        System.out.println("removing "+obj+" from system "+this);
         this.gameObjects.remove(obj);
     }
 
@@ -59,7 +59,6 @@ public class GameSystem {
     }
 
     public void onTick(long nanosSinceLastTick){
-        System.out.println("in "+this+", gameObjects is "+gameObjects);
         if(!tickable){ return; }
         for(GameObject obj : gameObjects){
             obj.onTick(nanosSinceLastTick);
@@ -67,7 +66,6 @@ public class GameSystem {
     }
 
     public void onDraw(GraphicsContext g, TreeSet<GameObject> drawOrder){
-        System.out.println("drawing (from system) abojects in draw order: "+drawOrder);
         for(GameObject obj : drawOrder){
             obj.onDraw(g);
         }
@@ -80,7 +78,6 @@ public class GameSystem {
     }
 
     public void onMouseReleased(double x, double y){
-        System.out.println("calling onMouseReleased on all "+this.gameObjects);
         for(GameObject obj : gameObjects){
             obj.onMouseReleased(x, y);
         }

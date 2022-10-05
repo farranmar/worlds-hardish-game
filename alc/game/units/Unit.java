@@ -58,6 +58,8 @@ public class Unit extends GameObject {
         this.drawPriority = index;
         this.type = type;
         this.components.add(new HasSprite(new Resource().get(typeNameMap.get(type))));
+        if(type == Type.TRASH) {
+        }
         this.components.add(new TransformComponent(size, position));
         this.addComponentsAndHash();
         index++;
@@ -164,6 +166,13 @@ public class Unit extends GameObject {
     // assumes GameObject unit is a Unit, as those are the only collidable GameObjects in alc
     public void onCollide(GameObject obj){
         Unit unit = (Unit)obj;
+        if(unit.getType() == Type.TRASH){
+            this.gameWorld.addToRemovalQueue(this);
+            return;
+        } else if(this.type == Type.TRASH){
+            this.gameWorld.addToRemovalQueue(unit);
+            return;
+        }
         Type newType = collisionMap.get(this.type).get(unit.getType());
         if(newType == null){ return; }
         Unit newUnit = new Unit(this.gameWorld, newType);

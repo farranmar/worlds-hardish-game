@@ -26,7 +26,6 @@ public class Draggable extends GameComponent {
     }
 
     public void onMouseReleased(double x, double y){
-        System.out.println("mouse release on " +this.obj);
         this.dragging = false;
         this.obj.setCollidable(true);
     }
