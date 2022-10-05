@@ -113,16 +113,16 @@ public class Unit extends GameObject {
 
     private void constructTypeNameMap(){
         HashMap<Type, String> tnMap = new HashMap<>();
-        tnMap.put(Type.AIR, "air_ph.jpg");
-        tnMap.put(Type.EARTH, "dirt_ph.png");
-        tnMap.put(Type.FIRE, "fire_ph.jpg");
-        tnMap.put(Type.WATER, "water_ph.png");
-        tnMap.put(Type.SPROUT, "sprout_ref.png");
-        tnMap.put(Type.SUN, "sun_ph.jpg");
-        tnMap.put(Type.TREE, "tree_ph.png");
-        tnMap.put(Type.DEAD_TREE, "deadtree_ph.png");
-        tnMap.put(Type.MUSHROOM, "mushroom_ph.jpg");
-        tnMap.put(Type.TRASH, "trash_ph.png");
+        tnMap.put(Type.AIR, "air.png");
+        tnMap.put(Type.EARTH, "earth.png");
+        tnMap.put(Type.FIRE, "fire.png");
+        tnMap.put(Type.WATER, "water.png");
+        tnMap.put(Type.SPROUT, "sprout.png");
+        tnMap.put(Type.SUN, "sun.png");
+        tnMap.put(Type.TREE, "tree.png");
+        tnMap.put(Type.DEAD_TREE, "dead_tree.png");
+        tnMap.put(Type.MUSHROOM, "mushroom.png");
+        tnMap.put(Type.TRASH, "trash.png");
         typeNameMap = tnMap;
     }
 
