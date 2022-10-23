@@ -24,6 +24,11 @@ public class GameObject {
         this.transformComponent = new TransformComponent(new Vec2d(0), new Vec2d(0));
     }
 
+    public GameObject(GameWorld gameWorld, Vec2d size, Vec2d position){
+        this.gameWorld = gameWorld;
+        this.transformComponent = new TransformComponent(size, position);
+    }
+
     public void add(GameComponent component){
         this.components.add(component);
     }

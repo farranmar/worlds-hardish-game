@@ -4,7 +4,6 @@ import engine.display.uiElements.Background;
 import engine.display.uiElements.UIElement;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
-import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -23,11 +22,11 @@ public class Viewport extends UIElement {
     private GameWorld gameWorld;
     private Vec2d displaySize; // size (in GameWorld coordinates) of what's being displayed
     private Vec2d displayPosition; // position (in GameWorld coordinates) of what's being displayed
-    private Affine affine = new Affine();
+    private final Affine affine = new Affine();
     private Direction panning = Direction.NONE;
     private static final int panningSpeed = 5;
     private static final int zoomSpeed = 1; // percent that you zoom
-    private ArrayList<Background> clippingBackgrounds = new ArrayList<>(4);
+    private final ArrayList<Background> clippingBackgrounds = new ArrayList<>(4);
     private static final Vec2d minDisplaySize = new Vec2d(120,67.5);
 
     public enum Direction {
@@ -65,6 +64,18 @@ public class Viewport extends UIElement {
     public void setDisplay(Vec2d displaySize, Vec2d displayPosition){
         this.displaySize = displaySize;
         this.displayPosition = displayPosition;
+    }
+
+    public void setDisplayPosition(Vec2d newDisplayPos){
+        this.displayPosition = newDisplayPos;
+    }
+
+    public Vec2d getDisplaySize(){
+        return this.displaySize;
+    }
+
+    public Vec2d getDisplayPosition(){
+        return this.displayPosition;
     }
 
     public void setWorld(GameWorld world){

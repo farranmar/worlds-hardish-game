@@ -1,9 +1,7 @@
 package engine.game.components;
 
-import alc.resources.Resource;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-
 
 public class HasSprite extends Drawable {
 
