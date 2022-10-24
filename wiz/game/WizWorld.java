@@ -8,6 +8,7 @@ import engine.game.systems.StaticSystem;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import engine.support.Vec2i;
+import wiz.game.objects.Player;
 
 public class WizWorld extends GameWorld {
 

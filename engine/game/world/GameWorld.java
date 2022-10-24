@@ -6,6 +6,7 @@ import engine.game.objects.GameObject;
 import engine.game.systems.*;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
@@ -152,6 +153,15 @@ public class GameWorld {
         for(GameSystem sys : systems){
             if(sys.takesInput()){
                 sys.onMouseDragged(x, y);
+            }
+        }
+    }
+
+    public void onKeyPressed(KeyEvent e){
+        System.out.println("key pressed in GameWorld");
+        for(GameSystem sys : systems){
+            if(sys.takesInput()){
+                sys.onKeyPressed(e);
             }
         }
     }

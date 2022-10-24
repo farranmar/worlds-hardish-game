@@ -6,6 +6,7 @@ import engine.game.objects.shapes.Shape;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 
 import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
@@ -198,6 +199,10 @@ public class GameObject {
         boolean inX = this.getPosition().x <= x && x <= this.getPosition().x + this.getSize().x;
         boolean inY = this.getPosition().y <= y && y <= this.getPosition().y + this.getSize().y;
         return inX && inY;
+    }
+
+    public void onKeyPressed(KeyEvent e){
+
     }
 
     public void onMousePressed(double x, double y){

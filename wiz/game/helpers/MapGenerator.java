@@ -115,6 +115,12 @@ public class MapGenerator {
             if(this.right != null){ leaves.addAll(this.right.getLeaves()); }
             return leaves;
         }
+
+        public boolean hasParent(Node node){
+            if(this.parent == null){ return false; }
+            if(this.parent == node || this.parent.hasParent(node)){ return true; }
+            return false;
+        }
     }
 
     public TileType[][] generate(long seed){
@@ -253,7 +259,8 @@ public class MapGenerator {
                     int index = -1;
                     while(index < 0){
                         System.out.println("while loop 4");
-                        int test = horOverlap.x + random.nextInt(max);
+                        System.out.println("horOverlap = "+horOverlap);
+                        int test = horOverlap.x + random.nextInt(max+1);
                         boolean inBoxOne = false;
                         for(int j = box1.leftEdge.x+1; j <= box1.leftEdge.y+1; j++){
                             if(map[j][test] != TileType.IMPASSABLE){
@@ -294,6 +301,31 @@ public class MapGenerator {
                         }
                     }
                 }
+            }
+        }
+        ArrayList<Node> leaves = root.getLeaves();
+        while(true){
+            Box spawnBox = leaves.get(0).value;
+            int maxX = spawnBox.topEdge.y - spawnBox.topEdge.x;
+            int maxY = spawnBox.leftEdge.y - spawnBox.leftEdge.x;
+            int x = spawnBox.topEdge.x + random.nextInt(maxX + 1);
+            int y = spawnBox.leftEdge.x + random.nextInt(maxY + 1);
+            if(map[y][x] == TileType.PASSABLE){
+                map[y][x] = TileType.SPAWN;
+                break;
+            }
+        }
+        while(true){
+            Box spawnBox = leaves.get(leaves.size() - 1).value;
+            int maxX = spawnBox.topEdge.y - spawnBox.topEdge.x;
+            int maxY = spawnBox.leftEdge.y - spawnBox.leftEdge.x;
+            int x = spawnBox.topEdge.x + random.nextInt(maxX + 1);
+            int y = spawnBox.leftEdge.x + random.nextInt(maxY + 1);
+            if(map[y][x] == TileType.PASSABLE){
+                if(map[y-1][x] == TileType.IMPASSABLE && map[y+1][x] == TileType.IMPASSABLE){ continue; }
+                if(map[y][x-1] == TileType.IMPASSABLE && map[y][x+1] == TileType.IMPASSABLE){ continue; }
+                map[y][x] = TileType.EXIT;
+                break;
             }
         }
         return map;

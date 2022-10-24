@@ -4,6 +4,7 @@ import alc.game.units.Unit;
 import engine.game.components.Tag;
 import engine.game.objects.GameObject;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -30,7 +31,7 @@ public class GameSystem {
         } else if(this.drawable && obj.get(Tag.DRAWABLE) != null){
             gameObjects.add(obj);
             return true;
-        } else if(this.takesInput && (obj.get(Tag.DRAGGABLE) != null || obj.get(Tag.CLICKABLE) != null)){
+        } else if(this.takesInput && (obj.get(Tag.DRAGGABLE) != null || obj.get(Tag.CLICKABLE) != null || obj.get(Tag.KEYABLE) != null)){
             gameObjects.add(obj);
             return true;
         }
@@ -86,6 +87,12 @@ public class GameSystem {
     public void onMouseDragged(double x, double y){
         for(GameObject obj : gameObjects){
             obj.onMouseDragged(x, y);
+        }
+    }
+
+    public void onKeyPressed(KeyEvent e){
+        for(GameObject obj : gameObjects){
+            obj.onKeyPressed(e);
         }
     }
 

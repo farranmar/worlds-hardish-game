@@ -6,6 +6,7 @@ public enum Tag {
     DRAGGABLE,
     DRAWABLE,
     HAS_SPRITE,
+    KEYABLE,
     TICKABLE,
     TRANSFORM,
 }

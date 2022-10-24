@@ -133,15 +133,16 @@ public class Viewport extends UIElement {
     }
 
     public void onKeyPressed(KeyEvent e){
-        if(e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W){
+        if(e.getCode() == KeyCode.UP){
             this.panning = Direction.UP;
-        } else if(e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S){
+        } else if(e.getCode() == KeyCode.DOWN){
             this.panning = Direction.DOWN;
-        } else if(e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.A){
+        } else if(e.getCode() == KeyCode.LEFT){
             this.panning = Direction.LEFT;
-        } else if(e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D){
+        } else if(e.getCode() == KeyCode.RIGHT){
             this.panning = Direction.RIGHT;
         }
+        gameWorld.onKeyPressed(e);
     }
 
     public void onKeyReleased(KeyEvent e){
@@ -154,6 +155,7 @@ public class Viewport extends UIElement {
         } else if((e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) && panning == Direction.RIGHT){
             panning = Direction.NONE;
         }
+
     }
 
     public void onMousePressed(MouseEvent e){
