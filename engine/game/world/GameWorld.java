@@ -122,7 +122,6 @@ public class GameWorld {
             }
             this.viewport.setDisplayPosition(new Vec2d(newX, newY));
         }
-
     }
 
     public void onDraw(GraphicsContext g){

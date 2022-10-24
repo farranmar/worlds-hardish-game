@@ -52,6 +52,18 @@ public class Map extends GameObject {
         this.player = player;
     }
 
+    public Player getPlayer(){
+        return this.player;
+    }
+
+    public Vec2d getPlayerWorldPos(){
+        return this.getWorldPos(playerPos);
+    }
+
+    public Vec2d getTileSize(){
+        return this.tileSize;
+    }
+
     private Vec2i getSpawn(){
         for(int i = 0; i < tiles.length; i++){
             for(int j = 0; j < tiles[0].length; j++){

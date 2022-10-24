@@ -81,7 +81,9 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onLateTick() {
-    // Don't worry about this method until you need it. (It'll be covered in class.)
+    for(Screen screen : screens){
+      screen.onLateTick();
+    }
   }
 
   /**

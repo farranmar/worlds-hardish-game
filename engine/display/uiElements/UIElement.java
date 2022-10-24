@@ -104,7 +104,15 @@ public class UIElement {
                 child.onTick(nanosSincePreviousTick);
             }
         }
-    };
+    }
+
+    public void onLateTick(){
+        if(children != null){
+            for(UIElement child : children){
+                child.onLateTick();
+            }
+        }
+    }
 
     public void onDraw(GraphicsContext g){
         for(UIElement child : children){

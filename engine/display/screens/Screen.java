@@ -93,6 +93,12 @@ public class Screen {
         }
     }
 
+    public void onLateTick(){
+        for(UIElement ele : uiElements){
+            ele.onLateTick();
+        }
+    }
+
     public void onDraw(GraphicsContext g){
         if(visible) {
             for (UIElement ele : uiElements) {

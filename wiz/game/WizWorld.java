@@ -12,11 +12,15 @@ import wiz.game.objects.Player;
 
 public class WizWorld extends GameWorld {
 
+    private Map map;
+
     public WizWorld(String name) {
         super(name);
         this.size = new Vec2d(1920,960);
         this.addSystems();
         Map map = new Map(this, new Vec2i(20), new Vec2d(40));
+        this.map = map;
+        this.centerObj = map.getPlayer();
         this.add(map);
     }
 

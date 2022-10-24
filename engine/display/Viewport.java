@@ -86,6 +86,10 @@ public class Viewport extends UIElement {
         this.gameWorld.reset();
     }
 
+    public void setCenter(Vec2d center){
+        this.displayPosition = new Vec2d(center.x - this.displaySize.x/2, center.y - this.displaySize.y/2);
+    }
+
     public void onTick(long nanosSinceLastTick){
         if(panning == Direction.UP && this.displayPosition.y > 0){
             this.displayPosition = this.displayPosition.plus(new Vec2d(0,-1 * panningSpeed));
@@ -97,6 +101,10 @@ public class Viewport extends UIElement {
             this.displayPosition = this.displayPosition.plus(new Vec2d(-1 * panningSpeed, 0));
         }
         if(gameWorld != null){ gameWorld.onTick(nanosSinceLastTick); }
+    }
+
+    public void onLateTick(){
+        if(gameWorld != null){ gameWorld.onLateTick(); }
     }
 
     public void onDraw(GraphicsContext g){
