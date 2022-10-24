@@ -8,6 +8,7 @@ import engine.support.Vec2i;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import wiz.display.EndScreen;
 import wiz.game.helpers.MapGenerator;
 import wiz.game.helpers.TileType;
 
@@ -22,6 +23,7 @@ public class Map extends GameObject {
     ArrayList<GameObject> items;
     Player player;
     Vec2i playerPos;
+    GameWorld.Result result = GameWorld.Result.PLAYING;
 
     public Map(GameWorld world, Vec2i dims, Vec2d tileSize){
         super(world);
@@ -54,6 +56,10 @@ public class Map extends GameObject {
 
     public Player getPlayer(){
         return this.player;
+    }
+
+    public GameWorld.Result getResult(){
+        return this.result;
     }
 
     public Vec2d getPlayerWorldPos(){
@@ -109,24 +115,32 @@ public class Map extends GameObject {
 
     public void onKeyPressed(KeyEvent e){
         if(e.getCode() == KeyCode.W){
-            if(this.tiles[playerPos.y-1][playerPos.x].getType() != TileType.IMPASSABLE){
+            TileType type = this.tiles[playerPos.y-1][playerPos.x].getType();
+            if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x, playerPos.y-1);
                 player.moveTo(this.getWorldPos(playerPos));
+                if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }
         } else if(e.getCode() == KeyCode.S){
-            if(this.tiles[playerPos.y+1][playerPos.x].getType() != TileType.IMPASSABLE){
+            TileType type = this.tiles[playerPos.y+1][playerPos.x].getType();
+            if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x, playerPos.y+1);
                 player.moveTo(this.getWorldPos(playerPos));
+                if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }
         } else if(e.getCode() == KeyCode.A){
-            if(this.tiles[playerPos.y][playerPos.x-1].getType() != TileType.IMPASSABLE){
+            TileType type = this.tiles[playerPos.y][playerPos.x-1].getType();
+            if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x-1, playerPos.y);
                 player.moveTo(this.getWorldPos(playerPos));
+                if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }
         } else if(e.getCode() == KeyCode.D){
-            if(this.tiles[playerPos.y][playerPos.x+1].getType() != TileType.IMPASSABLE){
+            TileType type = this.tiles[playerPos.y][playerPos.x+1].getType();
+            if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x+1, playerPos.y);
                 player.moveTo(this.getWorldPos(playerPos));
+                if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }
         }
     }

@@ -12,6 +12,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
+import wiz.display.EndScreen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,11 +84,12 @@ public class Viewport extends UIElement {
     }
 
     public void reset(){
-        this.gameWorld.reset();
+        if(gameWorld != null){ this.gameWorld.reset(); }
     }
 
-    public void setCenter(Vec2d center){
-        this.displayPosition = new Vec2d(center.x - this.displaySize.x/2, center.y - this.displaySize.y/2);
+    public GameWorld.Result getResult(){
+        if(gameWorld != null){ return this.gameWorld.getResult(); }
+        else { return GameWorld.Result.PLAYING; }
     }
 
     public void onTick(long nanosSinceLastTick){

@@ -1,5 +1,8 @@
 package wiz;
 
+import engine.display.screens.Screen;
+import engine.display.screens.ScreenName;
+import wiz.display.EndScreen;
 import wiz.display.MenuScreen;
 import engine.Application;
 import engine.display.screens.BackgroundScreen;
@@ -10,6 +13,8 @@ import wiz.display.WizScreen;
 public class App extends Application {
 
     private static Vec2d DEFAULT_WINDOW_SIZE = new Vec2d(960,540);
+    private EndScreen endScreen;
+    private WizScreen wizScreen;
 
     public App(String title) {
         super(title);
@@ -33,7 +38,36 @@ public class App extends Application {
         WizScreen wizScreen = new WizScreen();
         wizScreen.inactivate();
         wizScreen.makeInvisible();
+        this.wizScreen = wizScreen;
         this.add(wizScreen);
+        EndScreen endScreen = new EndScreen(Color.rgb(189, 154, 221));
+        endScreen.inactivate();
+        endScreen.makeInvisible();
+        this.endScreen = endScreen;
+        this.add(endScreen);
+    }
+
+    public void setActiveScreen(Screen activeScreen){
+        if(activeScreen.getName() == ScreenName.GAME){ activeScreen.reset(); }
+        if(activeScreen.getName() != ScreenName.GAME_OVER){ super.setActiveScreen(activeScreen); }
+        else {
+            endScreen.setResult(wizScreen.getResult());
+            for(Screen screen : this.screens){
+                if(screen.getName().equals(ScreenName.BACKGROUND)){
+                    screen.inactivate();
+                    screen.makeVisible();
+                } else if(screen.getName().equals(ScreenName.MENU)){
+                    screen.inactivate();
+                    screen.makeInvisible();
+                } else if(screen.getName().equals(ScreenName.GAME)){
+                    screen.inactivate();
+                    screen.makeVisible();
+                } else if(screen.getName().equals(ScreenName.GAME_OVER)){
+                    screen.activate();
+                    screen.makeVisible();
+                }
+            }
+        }
     }
 
 }

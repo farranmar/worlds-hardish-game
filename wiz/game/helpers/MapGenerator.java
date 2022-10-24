@@ -168,14 +168,12 @@ public class MapGenerator {
             int width = -1;
             int height = -1;
             while(width < 0){
-                System.out.println("while loop 1");
                 int newWidth = random.nextInt(box.topEdge.y - box.topEdge.x + 1);
                 if(newWidth >= (box.topEdge.y - box.topEdge.x)/2.0){
                     width = newWidth;
                 }
             }
             while(height < 0){
-                System.out.println("while loop 2");
                 int newHeight = random.nextInt(box.leftEdge.y - box.leftEdge.x + 1);
                 if(newHeight >= (box.leftEdge.y - box.leftEdge.x)/2.0){
                     height = newHeight;
@@ -191,7 +189,6 @@ public class MapGenerator {
             for(int i = box.leftEdge.x; i <= box.leftEdge.y; i++){
                 for(int j = box.topEdge.x; j <= box.topEdge.y; j++){
                     map[i+1][j+1] = TileType.PASSABLE;
-                    this.print(map);
                 }
             }
         }
@@ -203,16 +200,13 @@ public class MapGenerator {
                 if(node.getSister() == null){ continue; }
                 Box box2 = node.getSister().value;
                 Vec2i vertOverlap = box1.vertOverlap(box2);
-                print(map);
                 if(vertOverlap != null && !node.connected && !node.getSister().connected){
                     vertOverlap = vertOverlap.plus(new Vec2i(1));
                     int max = vertOverlap.y - vertOverlap.x;
                     int index = -1;
                     while(index < 0){
-                        System.out.println("while loop 3");
                         int test = vertOverlap.x + random.nextInt(max+1);
                         boolean inBoxOne = false;
-                        this.print(map);
                         for(int j = box1.topEdge.x+1; j <= box1.topEdge.y+1; j++){
                             if(map[test][j] != TileType.IMPASSABLE){
                                 inBoxOne = true;
@@ -258,8 +252,6 @@ public class MapGenerator {
                     int max = horOverlap.y - horOverlap.x;
                     int index = -1;
                     while(index < 0){
-                        System.out.println("while loop 4");
-                        System.out.println("horOverlap = "+horOverlap);
                         int test = horOverlap.x + random.nextInt(max+1);
                         boolean inBoxOne = false;
                         for(int j = box1.leftEdge.x+1; j <= box1.leftEdge.y+1; j++){

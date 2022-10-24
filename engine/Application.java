@@ -60,7 +60,7 @@ public class Application extends FXFrontEnd {
     for(Screen screen : screens){
       screen.onTick(nanosSincePreviousTick);
       ScreenName curNext = screen.getNextScreen();
-      if(curNext != null){
+      if(screen.isActive() && curNext != null){
         nextScreen = curNext;
       }
     }

@@ -6,6 +6,7 @@ import engine.display.screens.Screen;
 import engine.display.screens.ScreenName;
 import engine.display.uiElements.BackButton;
 import engine.display.uiElements.UIElement;
+import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -29,11 +30,22 @@ public class WizScreen extends Screen {
         viewport.setDisplay(new Vec2d(960,540), new Vec2d(480,270));
     }
 
+    public GameWorld.Result getResult(){
+        return this.viewport.getResult();
+    }
+
     public void activate(){
         super.activate();
         WizWorld wizWorld = new WizWorld("Wiz");
         wizWorld.setViewport(this.viewport);
         viewport.setWorld(wizWorld);
+    }
+
+    public void onTick(long nanosSinceLastTick){
+        super.onTick(nanosSinceLastTick);
+        if(this.viewport.getResult() != GameWorld.Result.PLAYING){
+            this.nextScreen = ScreenName.GAME_OVER;
+        }
     }
 
     public void onMouseClicked(MouseEvent e){

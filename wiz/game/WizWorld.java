@@ -1,5 +1,6 @@
 package wiz.game;
 
+import wiz.display.EndScreen;
 import wiz.game.objects.Map;
 import engine.game.systems.CollisionSystem;
 import engine.game.systems.GraphicsSystem;
@@ -8,7 +9,6 @@ import engine.game.systems.StaticSystem;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import engine.support.Vec2i;
-import wiz.game.objects.Player;
 
 public class WizWorld extends GameWorld {
 
@@ -22,6 +22,10 @@ public class WizWorld extends GameWorld {
         this.map = map;
         this.centerObj = map.getPlayer();
         this.add(map);
+    }
+
+    public GameWorld.Result getResult(){
+        return this.map.getResult();
     }
 
     private void addSystems(){

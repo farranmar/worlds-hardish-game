@@ -23,6 +23,13 @@ public class GameWorld {
     protected TreeSet<GameObject> drawOrder = new TreeSet<>(new DrawOrderHelper());
     protected Vec2d size;
     protected String name;
+    protected Result result = Result.PLAYING;
+
+    public enum Result {
+        VICTORY,
+        DEFEAT,
+        PLAYING
+    }
 
     public GameWorld(String name){
         this.name = name;
@@ -88,6 +95,10 @@ public class GameWorld {
 
     public Vec2d getSize(){
         return this.size;
+    }
+
+    public Result getResult(){
+        return this.result;
     }
 
     public void onTick(long nanosSinceLastTick){
@@ -157,7 +168,6 @@ public class GameWorld {
     }
 
     public void onKeyPressed(KeyEvent e){
-        System.out.println("key pressed in GameWorld");
         for(GameSystem sys : systems){
             if(sys.takesInput()){
                 sys.onKeyPressed(e);
