@@ -1,6 +1,8 @@
 package wiz.game.objects;
 
 import engine.game.components.Keyable;
+import engine.game.components.Tickable;
+import engine.game.components.TransformComponent;
 import engine.game.objects.GameObject;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
@@ -28,6 +30,7 @@ public class Map extends GameObject {
     public Map(GameWorld world, Vec2i dims, Vec2d tileSize){
         super(world);
         this.add(new Keyable());
+        this.add(new Tickable());
         tiles = new Tile[dims.x][dims.y];
         this.dims = dims;
         this.initialize(tileSize);
@@ -39,6 +42,7 @@ public class Map extends GameObject {
     public Map(GameWorld world, Vec2i dims, Vec2d tileSize, long seed){
         super(world);
         this.add(new Keyable());
+        this.add(new Tickable());
         tiles = new Tile[dims.x][dims.y];
         this.dims = dims;
         this.initialize(tileSize);
@@ -114,6 +118,7 @@ public class Map extends GameObject {
     }
 
     public void onKeyPressed(KeyEvent e){
+        if(player.isMoving()){ return; }
         if(e.getCode() == KeyCode.W){
             TileType type = this.tiles[playerPos.y-1][playerPos.x].getType();
             if(type != TileType.IMPASSABLE){
@@ -154,5 +159,10 @@ public class Map extends GameObject {
             }
         }
         player.onDraw(g);
+    }
+
+    public void onTick(long nanosSinceLastTick){
+        super.onTick(nanosSinceLastTick);
+        this.player.onTick(nanosSinceLastTick);
     }
 }

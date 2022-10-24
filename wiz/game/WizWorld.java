@@ -1,11 +1,8 @@
 package wiz.game;
 
+import engine.game.systems.*;
 import wiz.display.EndScreen;
 import wiz.game.objects.Map;
-import engine.game.systems.CollisionSystem;
-import engine.game.systems.GraphicsSystem;
-import engine.game.systems.InputSystem;
-import engine.game.systems.StaticSystem;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import engine.support.Vec2i;
@@ -33,5 +30,6 @@ public class WizWorld extends GameWorld {
         this.addSystem(new InputSystem());
         this.addSystem(new StaticSystem());
         this.addSystem(new CollisionSystem());
+        this.addSystem(new TickingSystem());
     }
 }
