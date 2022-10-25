@@ -15,7 +15,7 @@ public class Projectile extends GameObject {
 
     private String spriteFileName;
     private Direction direction;
-    private double speed = 20;
+    private double speed = 10;
     private static final Vec2d defaultSize = new Vec2d(5, 20);
     private Player player;
 
@@ -30,7 +30,7 @@ public class Projectile extends GameObject {
         super(gameWorld, size, position);
         this.worldDraw = false;
         this.direction = direction;
-        this.spriteFileName = "sword.png";
+        this.spriteFileName = "projectile.png";
         this.player = p;
         this.addComponents();
     }
@@ -52,7 +52,6 @@ public class Projectile extends GameObject {
     }
 
     public void onCollide(GameObject obj){
-        System.out.println("projectile colliding with "+obj+" of type "+((Tile)obj).getType());
         if(obj.equals(player)){ return; }
         player.removeProjectile(this);
     }

@@ -72,10 +72,8 @@ public class GameWorld {
     }
 
     public void remove(GameObject obj){
-        System.out.println("draworder beofre removal: "+drawOrder);
         this.gameObjects.remove(obj);
         this.drawOrder.remove(obj);
-        System.out.println("removing obj: "+obj+" gameObjects is now "+ gameObjects+" and drawOEfder is now "+drawOrder);
         for(GameSystem system : systems){
             system.remove(obj);
         }

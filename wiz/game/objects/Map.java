@@ -56,7 +56,7 @@ public class Map extends GameObject {
 
     private void createPlayer(){
         Vec2d pos = this.getWorldPos(this.getSpawn());
-        Player player = new Player(this.gameWorld, this.tileSize, pos, "teddy_bear.png");
+        Player player = new Player(this.gameWorld, this.tileSize, pos, "blob_sprite_sheet.png");
         this.playerPos = this.getSpawn();
         this.player = player;
     }
@@ -158,7 +158,6 @@ public class Map extends GameObject {
 
     @Override
     public void onDraw(GraphicsContext g) {
-        System.out.println("onDraw in map");
         super.onDraw(g);
         for(Tile[] row : tiles){
             for(Tile tile : row){

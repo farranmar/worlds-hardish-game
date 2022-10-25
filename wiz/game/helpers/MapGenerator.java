@@ -323,21 +323,6 @@ public class MapGenerator {
         return map;
     }
 
-    private void print(TileType[][] tiles){
-        for(TileType[] row : tiles){
-            for(TileType type : row){
-                if(type == TileType.IMPASSABLE){ System.out.print("X "); }
-                else if(type == TileType.PASSABLE){ System.out.print("O "); }
-                else { System.out.print("* "); }
-
-            }
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println("--------------------------------");
-        System.out.println();
-    }
-
     private TileType[][] allImpassable(Vec2i dims){
         TileType[][] ret = new TileType[dims.x][dims.y];
         for(int i = 0; i < dims.y; i++){

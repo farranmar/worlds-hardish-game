@@ -11,7 +11,6 @@ public class GraphicsSystem extends GameSystem {
     }
 
     public void onDraw(GraphicsContext g, TreeSet draworder){
-        System.out.println("onDraw in GraphicsSystem, objs are "+this.gameObjects+" and draworder is "+draworder);
         super.onDraw(g, draworder);
     }
 
