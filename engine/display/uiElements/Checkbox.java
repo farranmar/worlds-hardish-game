@@ -55,11 +55,9 @@ public class Checkbox extends UIElement {
     public void onMouseMoved(MouseEvent e){
         super.onMouseMoved(e);
         if(!this.inRange(e)) {
-            System.out.println("not highlighted");
             this.highlighted = false;
             return;
         }
-        System.out.println("highlighted");
         this.highlighted = true;
     }
 

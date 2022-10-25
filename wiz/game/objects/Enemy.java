@@ -33,7 +33,6 @@ public class Enemy extends GameObject {
             this.map.removeEnemy(this);
             ((Projectile)obj).delete();
         } else if(obj instanceof Player){
-            System.out.println("enemy collidng w player");
             ((Player)obj).die();
         }
     }

@@ -21,7 +21,6 @@ public class CollisionSystem extends GameSystem {
                 if(obj1 == obj2 || !obj2.isCollidable()){ continue; }
                 if(obj1.collidesWith(obj2)){
                     if((obj1 instanceof Enemy && obj2 instanceof Player) || (obj1 instanceof Player && obj2 instanceof Enemy)){
-                        System.out.println("checking if enemy and player collide, obj1="+obj1+", obj2="+obj2);
                     }
                     if(collisions.get(obj1) == obj2 || collisions.get(obj2) == obj1){
                         continue;
