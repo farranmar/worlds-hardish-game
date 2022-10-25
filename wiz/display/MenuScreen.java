@@ -42,15 +42,18 @@ public class MenuScreen extends Screen {
         Font titleFont = new Font("Courier", 48);
         double centerY = this.screenSize.y / 2;
         Text alchemy = new Text("wizardry", primaryColor, centerY, titleFont);
-        Vec2d buttonSize = new Vec2d(100,30);
+        Vec2d buttonSize = new Vec2d(110,30);
         double spacing = 60;
         Button playButton = new Button(primaryColor, centerY+spacing, buttonSize);
         playButton.setText("play", "Courier");
-        Button quitButton = new Button(primaryColor, centerY+1.2*spacing+buttonSize.y, buttonSize);
+        Button settingsButton = new Button(primaryColor, centerY+1.2*spacing+buttonSize.y, buttonSize);
+        settingsButton.setText("settings", "Courier");
+        Button quitButton = new Button(primaryColor, centerY+1.4*spacing+2*buttonSize.y, buttonSize);
         quitButton.setText("quit", "Courier");
 
         super.add(alchemy);
         super.add(playButton);
+        super.add(settingsButton);
         super.add(quitButton);
     }
 
@@ -59,6 +62,8 @@ public class MenuScreen extends Screen {
         for(UIElement ele : uiElements){
             if(ele.inRange(e) && ele.getName().contains("play")){
                 this.nextScreen = ScreenName.GAME;
+            } else if(ele.inRange(e) && ele.getName().contains("settings")){
+                this.nextScreen = ScreenName.SETTINGS;
             } else if(ele.inRange(e) && ele.getName().contains("quit")){
                 this.nextScreen = ScreenName.QUIT;
             }

@@ -8,13 +8,17 @@ import engine.Application;
 import engine.display.screens.BackgroundScreen;
 import engine.support.Vec2d;
 import javafx.scene.paint.Color;
+import wiz.display.SettingsScreen;
 import wiz.display.WizScreen;
+
+import java.util.Random;
 
 public class App extends Application {
 
     private static Vec2d DEFAULT_WINDOW_SIZE = new Vec2d(960,540);
     private EndScreen endScreen;
     private WizScreen wizScreen;
+    private long seed = new Random().nextLong();
 
     public App(String title) {
         super(title);
@@ -35,6 +39,10 @@ public class App extends Application {
         menuScreen.activate();
         menuScreen.makeVisible();
         this.add(menuScreen);
+        SettingsScreen settingsScreen = new SettingsScreen(Color.rgb(189,154,221));
+        settingsScreen.inactivate();
+        settingsScreen.makeInvisible();
+        this.add(settingsScreen);
         WizScreen wizScreen = new WizScreen();
         wizScreen.inactivate();
         wizScreen.makeInvisible();
@@ -48,7 +56,16 @@ public class App extends Application {
     }
 
     public void setActiveScreen(Screen activeScreen){
-        if(activeScreen.getName() == ScreenName.GAME){ activeScreen.reset(); }
+        if(activeScreen.getName() == ScreenName.GAME){
+            activeScreen.reset();
+            for(Screen screen : screens){
+                if(screen.getName() == ScreenName.SETTINGS){
+                    this.seed = ((SettingsScreen)screen).getSeed();
+                    break;
+                }
+            }
+            ((WizScreen)activeScreen).setSeed(this.seed);
+        }
         if(activeScreen.getName() != ScreenName.GAME_OVER){ super.setActiveScreen(activeScreen); }
         else {
             endScreen.setResult(wizScreen.getResult());

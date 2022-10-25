@@ -124,6 +124,7 @@ public class MapGenerator {
     }
 
     public TileType[][] generate(long seed){
+        System.out.println("seed: "+seed);
         Box wholeMap = new Box(new Vec2i(0, this.interiorDims.x-1), new Vec2i(0, this.interiorDims.y-1));
         Node root = new Node(wholeMap, null);
         Random random = new Random(seed);

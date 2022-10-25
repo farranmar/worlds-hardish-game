@@ -15,7 +15,7 @@ public class Projectile extends GameObject {
 
     private String spriteFileName;
     private Direction direction;
-    private double speed = 10;
+    private double speed = 5;
     private static final Vec2d defaultSize = new Vec2d(5, 20);
     private Player player;
 
@@ -53,6 +53,10 @@ public class Projectile extends GameObject {
 
     public void onCollide(GameObject obj){
         if(obj.equals(player)){ return; }
+        player.removeProjectile(this);
+    }
+
+    public void delete(){
         player.removeProjectile(this);
     }
 

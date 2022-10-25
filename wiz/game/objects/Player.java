@@ -21,6 +21,7 @@ public class Player extends GameObject {
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     private int animationIndex = 0; // index of where we are in animation
     private int indexMax = 8;
+    private Map map;
 
     public enum PlayerState {
         FACING_LEFT,
@@ -44,9 +45,10 @@ public class Player extends GameObject {
 
     private HashMap<PlayerState, ArrayList<SubImage>> subImages = constructSubImageMap(300);
 
-    public Player(GameWorld gameWorld, Vec2d size, Vec2d position, String spriteFile){
+    public Player(GameWorld gameWorld, Map map, Vec2d size, Vec2d position, String spriteFile){
         super(gameWorld, size, position);
         this.worldDraw = false;
+        this.map = map;
         this.state = PlayerState.FACING_DOWN;
         this.speed = 5.0;
         this.add(new Collidable(new AAB(size, position)));
@@ -70,6 +72,10 @@ public class Player extends GameObject {
 
     public boolean isMoving(){
         return this.state == PlayerState.WALKING_LEFT || this.state == PlayerState.WALKING_RIGHT || this.state == PlayerState.WALKING_UP || this.state == PlayerState.WALKING_DOWN;
+    }
+
+    public void die(){
+        this.map.setResult(GameWorld.Result.DEFEAT);
     }
 
     public void moveTo(Vec2d newPos){
@@ -167,6 +173,12 @@ public class Player extends GameObject {
         ret.put(PlayerState.FACING_UP, facingUp);
 
         return ret;
+    }
+
+    public void onCollide(GameObject obj){
+        if(obj instanceof Enemy){
+            this.die();
+        }
     }
 
     public void onDraw(GraphicsContext g){
