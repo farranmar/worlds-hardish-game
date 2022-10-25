@@ -8,10 +8,17 @@ public class Collidable extends GameComponent {
 
     private Shape shape;
     private boolean collidable = true; // whether it can actually collide at the moment (eg is false when actively dragging)
+    private boolean isStatic = false;
 
     public Collidable(Shape shape){
         this.shape = shape;
         this.tag = Tag.COLLIDABLE;
+    }
+
+    public Collidable(Shape shape, boolean isStatic){
+        this.shape = shape;
+        this.tag = Tag.COLLIDABLE;
+        this.isStatic = isStatic;
     }
 
     public Shape getShape() {
@@ -24,6 +31,14 @@ public class Collidable extends GameComponent {
 
     public void setPosition(Vec2d newPosition){
         this.shape.setPosition(newPosition);
+    }
+
+    public boolean isStatic(){
+        return isStatic;
+    }
+
+    public void setStatic(boolean s){
+        this.isStatic = s;
     }
 
     public void setCollidable(boolean collidable){

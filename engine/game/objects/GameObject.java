@@ -2,6 +2,7 @@ package engine.game.objects;
 
 import alc.game.units.Unit;
 import engine.game.components.*;
+import engine.game.objects.shapes.AAB;
 import engine.game.objects.shapes.Shape;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
@@ -13,19 +14,25 @@ import java.util.ArrayList;
 
 public class GameObject {
 
+    private static int numObjs;
     protected ArrayList<GameComponent> components = new ArrayList<>();
     protected TransformComponent transformComponent;
     protected int drawPriority;
     protected GameObject parent = null;
     protected ArrayList<GameObject> children = new ArrayList<>();
     protected GameWorld gameWorld;
+    protected boolean worldDraw = true; // whether drawing is handled by world or not
 
     public GameObject(GameWorld gameWorld){
+        numObjs++;
+        this.drawPriority = 10+numObjs;
         this.gameWorld = gameWorld;
         this.transformComponent = new TransformComponent(new Vec2d(0), new Vec2d(0));
     }
 
     public GameObject(GameWorld gameWorld, Vec2d size, Vec2d position){
+        numObjs++;
+        this.drawPriority = 10+numObjs;
         this.gameWorld = gameWorld;
         this.transformComponent = new TransformComponent(size, position);
     }
@@ -55,6 +62,14 @@ public class GameObject {
         for(GameObject child : children){
             child.reset();
         }
+    }
+
+    public void setWorldDraw(boolean wd){
+        this.worldDraw = wd;
+    }
+
+    public boolean getWorldDraw(){
+        return this.worldDraw;
     }
 
     // does NOT set parent or children
@@ -138,6 +153,15 @@ public class GameObject {
                 ((Collidable)component).setCollidable(collidable);
             }
         }
+    }
+
+    public boolean isStatic(){
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.COLLIDABLE){
+                return ((Collidable)component).isStatic();
+            }
+        }
+        return false;
     }
 
     public boolean isCollidable(){

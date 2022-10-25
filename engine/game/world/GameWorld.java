@@ -38,7 +38,7 @@ public class GameWorld {
     public void add(GameObject obj){
         if(this.gameObjects.contains(obj)){ return; }
         this.gameObjects.add(obj);
-        drawOrder.add(obj);
+        if(obj.getWorldDraw()){ drawOrder.add(obj); }
         for(GameSystem system : systems){
             boolean added = system.attemptAdd(obj);
         }
@@ -72,8 +72,10 @@ public class GameWorld {
     }
 
     public void remove(GameObject obj){
+        System.out.println("draworder beofre removal: "+drawOrder);
         this.gameObjects.remove(obj);
         this.drawOrder.remove(obj);
+        System.out.println("removing obj: "+obj+" gameObjects is now "+ gameObjects+" and drawOEfder is now "+drawOrder);
         for(GameSystem system : systems){
             system.remove(obj);
         }

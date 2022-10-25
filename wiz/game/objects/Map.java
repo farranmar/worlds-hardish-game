@@ -1,5 +1,6 @@
 package wiz.game.objects;
 
+import engine.game.components.Drawable;
 import engine.game.components.Keyable;
 import engine.game.components.Tickable;
 import engine.game.components.TransformComponent;
@@ -31,6 +32,7 @@ public class Map extends GameObject {
         super(world);
         this.add(new Keyable());
         this.add(new Tickable());
+        this.add(new Drawable());
         tiles = new Tile[dims.x][dims.y];
         this.dims = dims;
         this.initialize(tileSize);
@@ -43,6 +45,7 @@ public class Map extends GameObject {
         super(world);
         this.add(new Keyable());
         this.add(new Tickable());
+        this.add(new Drawable());
         tiles = new Tile[dims.x][dims.y];
         this.dims = dims;
         this.initialize(tileSize);
@@ -118,6 +121,9 @@ public class Map extends GameObject {
     }
 
     public void onKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.SPACE){
+            player.fireProjectile();
+        }
         if(player.isMoving()){ return; }
         if(e.getCode() == KeyCode.W){
             TileType type = this.tiles[playerPos.y-1][playerPos.x].getType();
@@ -152,6 +158,7 @@ public class Map extends GameObject {
 
     @Override
     public void onDraw(GraphicsContext g) {
+        System.out.println("onDraw in map");
         super.onDraw(g);
         for(Tile[] row : tiles){
             for(Tile tile : row){

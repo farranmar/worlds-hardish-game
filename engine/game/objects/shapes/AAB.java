@@ -30,6 +30,7 @@ public class AAB implements Shape {
 
     @Override
     public boolean collidesWith(Shape shape) {
+        if(shape == null) { return false; }
         return shape.collidesWithAAB(this);
     }
 

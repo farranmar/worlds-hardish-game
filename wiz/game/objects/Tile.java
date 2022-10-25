@@ -21,11 +21,20 @@ public class Tile extends GameObject {
 
     public Tile(GameWorld world, TileType type, Vec2d size, Vec2d position){
         super(world, size, position);
+        this.worldDraw = false;
         this.type = type;
-        this.add(new Collidable(new AAB(this.getSize(), this.getPosition())));
-        if(this.type == TileType.PASSABLE || this.type == TileType.SPAWN){ this.add(new HasSprite(new Resource().get(passableSpriteFile))); }
-        else if(this.type == TileType.EXIT){ this.add(new HasSprite(new Resource().get(exitSpriteFile))); }
-        else { this.add(new HasSprite(new Resource().get(impassableSpriteFile))); }
+        Collidable collidable = new Collidable(new AAB(this.getSize(), this.getPosition()));
+        collidable.setStatic(true);
+        collidable.setCollidable(type == TileType.IMPASSABLE);
+        this.add(collidable);
+        if(this.type == TileType.PASSABLE || this.type == TileType.SPAWN){
+            this.add(new HasSprite(new Resource().get(passableSpriteFile)));
+        } else if(this.type == TileType.EXIT){
+            this.add(new HasSprite(new Resource().get(exitSpriteFile)));
+        } else {
+            this.add(new HasSprite(new Resource().get(impassableSpriteFile)));
+        }
+        this.gameWorld.add(this);
     }
 
     public void setType(TileType type){
@@ -36,7 +45,14 @@ public class Tile extends GameObject {
                 else if(this.type == TileType.EXIT){ ((HasSprite)component).setImage(new Resource().get(exitSpriteFile)); }
                 else { ((HasSprite)component).setImage(new Resource().get(impassableSpriteFile)); }
             }
+            if(type != TileType.IMPASSABLE && component.getTag() == Tag.COLLIDABLE){
+                ((Collidable)component).setCollidable(false);
+            }
         }
+    }
+
+    public void onDraw(GraphicsContext g){
+        super.onDraw(g);
     }
 
     public TileType getType(){

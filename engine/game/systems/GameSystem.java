@@ -5,6 +5,8 @@ import engine.game.components.Tag;
 import engine.game.objects.GameObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import wiz.game.objects.Map;
+import wiz.game.objects.Tile;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -25,13 +27,16 @@ public class GameSystem {
         if(this.collidable && obj.get(Tag.COLLIDABLE) != null){
             gameObjects.add(obj);
             return true;
-        } else if(this.tickable && obj.get(Tag.TICKABLE) != null){
+        }
+        if(this.tickable && obj.get(Tag.TICKABLE) != null){
             gameObjects.add(obj);
             return true;
-        } else if(this.drawable && obj.get(Tag.DRAWABLE) != null){
+        }
+        if(this.drawable && obj.getWorldDraw() && obj.get(Tag.DRAWABLE) != null){
             gameObjects.add(obj);
             return true;
-        } else if(this.takesInput && (obj.get(Tag.DRAGGABLE) != null || obj.get(Tag.CLICKABLE) != null || obj.get(Tag.KEYABLE) != null)){
+        }
+        if(this.takesInput && (obj.get(Tag.DRAGGABLE) != null || obj.get(Tag.CLICKABLE) != null || obj.get(Tag.KEYABLE) != null)){
             gameObjects.add(obj);
             return true;
         }
@@ -43,8 +48,7 @@ public class GameSystem {
     }
 
     public boolean isTickable() {
-//        return tickable;
-        return true;
+        return tickable;
     }
 
     public boolean isDrawable() {
