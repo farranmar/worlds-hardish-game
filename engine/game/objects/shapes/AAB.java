@@ -29,30 +29,62 @@ public class AAB implements Shape {
     }
 
     @Override
-    public boolean collidesWith(Shape shape) {
-        if(shape == null) { return false; }
+    public Vec2d collidesWith(Shape shape) {
+        if(shape == null) { return null; }
         return shape.collidesWithAAB(this);
     }
 
     @Override
-    public boolean collidesWithAAB(AAB aab) {
-        boolean projX = (this.position.x <= aab.getPosition().x+aab.getSize().x) && (this.position.x+this.size.x >= aab.position.x);
-        boolean projY = (this.position.y <= aab.getPosition().y+aab.getSize().y) && (this.position.y+this.size.y >= aab.position.y);
-        return projX && projY;
+    public Vec2d collidesWithAAB(AAB aab) {
+        boolean projX = (this.position.x <= aab.getPosition().x+aab.getSize().x) && (this.position.x+this.size.x >= aab.getPosition().x);
+        boolean projY = (this.position.y <= aab.getPosition().y+aab.getSize().y) && (this.position.y+this.size.y >= aab.getPosition().y);
+        if(!projX || !projY){
+            return null;
+        }
+        Vec2d up = new Vec2d(0, this.position.y+this.getSize().y - aab.getPosition().y);
+        Vec2d down = new Vec2d(0, this.position.y - (aab.getPosition().y+aab.getSize().y));
+        Vec2d left = new Vec2d(this.position.x+this.getSize().x - aab.getPosition().x, 0);
+        Vec2d right = new Vec2d(this.position.x - (aab.getPosition().x+aab.getSize().x), 0);
+        return Vec2d.min(up, Vec2d.min(down, Vec2d.min(left, right))).reflect();
     }
 
     @Override
-    public boolean collidesWithCircle(Circle circle) {
-        Vec2d maxes = new Vec2d(this.position.x + this.size.x, this.position.y + this.size.y);
+    public Vec2d collidesWithCircle(Circle circle) {
+        Vec2d maxes = new Vec2d(this.position.x + this.getSize().x, this.position.y + this.getSize().y);
         Vec2d nearestPoint = this.clamp(circle.getPosition(), this.position, maxes);
         double dist = circle.getPosition().dist2(nearestPoint);
-        return dist < (circle.getSize().x * circle.getSize().x);
+        if(dist > (circle.getSize().x * circle.getSize().x)){ return null; }
+        // if circle center in aab
+        if(circle.getPosition().x >= this.position.x && circle.getPosition().x <= this.position.x+this.getSize().x && circle.getPosition().y >= this.position.y && circle.getPosition().y <= this.position.y+this.getSize().y){
+            double left = circle.getPosition().x - this.position.x;
+            double right = this.position.x+this.getSize().x - circle.getPosition().x;
+            double down = this.position.y+this.getSize().y - circle.getPosition().y;
+            double up = circle.getPosition().y - this.position.y;
+            double min = Math.min(left, Math.min(right, Math.min(up, down)));
+            if(min == left){ return new Vec2d(-1 * (circle.getSize().x + left), 0).reflect(); }
+            else if(min == right){ return new Vec2d(right + circle.getSize().x, 0).reflect(); }
+            else if(min == up){ return new Vec2d(0, -1 * (up + circle.getSize().x)).reflect(); }
+            else { return new Vec2d(0, circle.getSize().x + down).reflect(); }
+        } else { // circle center not in aab
+            double mag = circle.getSize().x - circle.getPosition().dist(nearestPoint);
+            double angle = new Vec2d(circle.getPosition().x - nearestPoint.x, circle.getPosition().y - nearestPoint.y).angle();
+            return Vec2d.fromPolar(angle, mag).reflect();
+        }
     }
 
-    public boolean collidesWithPoint(Vec2d point){
-        boolean inX = this.position.x <= point.x && this.position.x+this.size.x >= point.x;
-        boolean inY = this.position.y <= point.y && this.position.y+this.size.y >= point.y;
-        return inX && inY;
+    public Vec2d collidesWithPoint(Vec2d point){
+        if(point.x < this.position.x || point.x > this.position.x+this.getSize().x || point.y < this.position.y || point.y > this.position.y+this.getSize().y){
+            return null;
+        }
+        double right = this.position.x + this.getSize().x - point.x;
+        double left = point.x - this.position.x;
+        double up = point.y - this.position.y;
+        double down = this.position.y + this.getSize().y - point.y;
+        double min = Math.min(right, Math.min(left, Math.min(up, down)));
+        if(min == right){ return new Vec2d(-1 * right, 0); }
+        else if(min == left){ return new Vec2d(left, 0); }
+        else if(min == up){ return new Vec2d(0, -1 * up); }
+        else { return new Vec2d(0, down); }
     }
 
     private Vec2d clamp(Vec2d value, Vec2d mins, Vec2d maxes){

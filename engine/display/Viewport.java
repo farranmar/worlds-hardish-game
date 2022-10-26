@@ -12,7 +12,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
-import wiz.display.EndScreen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -130,6 +129,7 @@ public class Viewport extends UIElement {
 
     public void onResize(Vec2d newWindowSize, Vec2d newScreenSize){
         super.onResize(newWindowSize, newScreenSize);
+        System.out.println("resizing viewport, screensize is "+this.screenSize+", window size is +"+this.windowSize+", position = "+this.position);
         double newLeftSpacing = (newWindowSize.x - newScreenSize.x) / 2;
         double newTopSpacing = (newWindowSize.y - newScreenSize.y) / 2;
         List<Vec2d> positions = Arrays.asList(new Vec2d(0), new Vec2d(newWindowSize.x-newLeftSpacing, 0), new Vec2d(0), new Vec2d(0, newWindowSize.y-newTopSpacing));

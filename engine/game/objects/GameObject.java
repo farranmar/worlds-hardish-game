@@ -182,13 +182,13 @@ public class GameObject {
         return null;
     }
 
-    public boolean collidesWith(GameObject obj){
+    public Vec2d collidesWith(GameObject obj){
         for(GameComponent component : components){
             if(component.getTag() == Tag.COLLIDABLE){
                 return ((Collidable)component).collidesWith(obj);
             }
         }
-        return false;
+        return null;
     }
 
     public void onCollide(GameObject obj){

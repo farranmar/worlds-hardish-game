@@ -4,13 +4,13 @@ import engine.support.Vec2d;
 
 public interface Shape {
 
-    boolean collidesWith(Shape shape);
+    Vec2d collidesWith(Shape shape);
 
-    boolean collidesWithAAB(AAB aab);
+    Vec2d collidesWithAAB(AAB aab);
 
-    boolean collidesWithCircle(Circle circle);
+    Vec2d collidesWithCircle(Circle circle);
 
-    boolean collidesWithPoint(Vec2d point);
+    Vec2d collidesWithPoint(Vec2d point);
 
     Vec2d getSize();
 

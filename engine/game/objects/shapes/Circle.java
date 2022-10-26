@@ -29,29 +29,49 @@ public class Circle implements Shape {
     }
 
     @Override
-    public boolean collidesWith(Shape shape) {
+    public Vec2d collidesWith(Shape shape) {
+        if(shape == null) { return null; }
         return shape.collidesWithCircle(this);
     }
 
     @Override
-    public boolean collidesWithAAB(AAB aab) {
+    public Vec2d collidesWithAAB(AAB aab) {
         Vec2d maxes = new Vec2d(aab.getPosition().x + aab.getSize().x, aab.getPosition().y + aab.getSize().y);
         Vec2d nearestPoint = this.clamp(this.position, aab.getPosition(), maxes);
         double dist = this.position.dist2(nearestPoint);
-        return dist < (this.radius * this.radius);
+        if(dist > (this.radius * this.radius)){ return null; }
+        // if circle center in aab
+        if(this.position.x >= aab.getPosition().x && this.position.x <= aab.getPosition().x+aab.getSize().x && this.position.y >= aab.getPosition().y && this.position.y <= aab.getPosition().y+aab.getSize().y){
+            double left = this.position.x - aab.getPosition().x;
+            double right = aab.getPosition().x+aab.getSize().x - this.position.x;
+            double down = aab.getPosition().y+aab.getSize().y - this.position.y;
+            double up = this.position.y - aab.getPosition().y;
+            double min = Math.min(left, Math.min(right, Math.min(up, down)));
+            if(min == left){ return new Vec2d(-1 * (this.radius + left), 0).reflect(); }
+            else if(min == right){ return new Vec2d(right + this.radius, 0).reflect(); }
+            else if(min == up){ return new Vec2d(0, -1 * (up + this.radius)).reflect(); }
+            else { return new Vec2d(0, this.radius + down).reflect(); }
+        } else { // circle center not in aab
+            double mag = this.radius - this.position.dist(nearestPoint);
+            double angle = new Vec2d(this.position.x - nearestPoint.x, this.position.y - nearestPoint.y).angle();
+            return Vec2d.fromPolar(angle, mag).reflect();
+        }
     }
 
     @Override
-    public boolean collidesWithCircle(Circle circle) {
-        double distCenters = this.position.dist2(circle.getPosition());
-        double sum = this.radius + circle.getSize().x;
-        double distRadius = sum*sum;
-        return distCenters <= distRadius;
+    public Vec2d collidesWithCircle(Circle circle) {
+        if(this.position.dist(circle.getPosition()) > this.radius + circle.getSize().x){ return null; }
+        double mag = this.radius + circle.getSize().x - this.position.dist(circle.getPosition());
+        double angle = new Vec2d(this.position.x - circle.getPosition().x, this.position.y - circle.getPosition().y).angle();
+        return Vec2d.fromPolar(angle, mag);
     }
 
-    public boolean collidesWithPoint(Vec2d point){
-        double dist = this.position.dist2(point);
-        return dist < (this.radius * this.radius);
+    public Vec2d collidesWithPoint(Vec2d point){
+        if(this.getPosition().dist(point) > this.radius){ return null; }
+        double distToEdge = this.radius - (this.getPosition().dist(point));
+        double angle = new debugger.support.Vec2d(point.x - this.getPosition().x, point.y - this.getPosition().y).angle();
+        Vec2d vec = new Vec2d(distToEdge, 0);
+        return vec.rotate(angle);
     }
 
     private Vec2d clamp(Vec2d value, Vec2d mins, Vec2d maxes){

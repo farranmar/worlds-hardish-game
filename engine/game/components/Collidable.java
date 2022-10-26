@@ -49,11 +49,11 @@ public class Collidable extends GameComponent {
         return this.collidable;
     }
 
-    public boolean collidesWith(GameObject obj){
+    public Vec2d collidesWith(GameObject obj){
         if(collidable){
             return shape.collidesWith(obj.getCollisionShape());
         }
-        return false;
+        return null;
     }
 
 }
