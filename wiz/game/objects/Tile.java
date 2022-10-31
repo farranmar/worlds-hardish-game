@@ -8,6 +8,7 @@ import engine.game.objects.GameObject;
 import engine.game.objects.shapes.AAB;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
+import engine.support.Vec2i;
 import javafx.scene.canvas.GraphicsContext;
 import wiz.game.helpers.TileType;
 import wiz.resources.Resource;
@@ -15,6 +16,7 @@ import wiz.resources.Resource;
 public class Tile extends GameObject {
 
     private TileType type;
+    private Vec2i mapPosition;
     private static final String passableSpriteFile = "purple_floor.png";
     private static final String impassableSpriteFile = "impassable_brick.png";
     private static final String exitSpriteFile = "stairs.png";
@@ -37,6 +39,12 @@ public class Tile extends GameObject {
         this.gameWorld.add(this);
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if(!(obj instanceof Tile) || this.mapPosition == null){ return false; }
+        return this.type == ((Tile)obj).getType() && this.mapPosition.equals(((Tile)obj).getMapPosition());
+    }
+
     public void setType(TileType type){
         this.type = type;
         for(GameComponent component : this.components){
@@ -49,6 +57,14 @@ public class Tile extends GameObject {
                 ((Collidable)component).setCollidable(false);
             }
         }
+    }
+
+    public Vec2i getMapPosition() {
+        return mapPosition;
+    }
+
+    public void setMapPosition(Vec2i mPos){
+        this.mapPosition = mPos;
     }
 
     public void onDraw(GraphicsContext g){

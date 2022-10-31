@@ -7,6 +7,11 @@ import engine.game.objects.GameObject;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import engine.support.Vec2i;
+import engine.support.graph.Graph;
+import engine.support.graph.Node;
+import engine.support.pathfinding.Heuristic;
+import engine.support.pathfinding.Pathfinder;
+import engine.support.pathfinding.PathfinderHelper;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,6 +20,7 @@ import wiz.game.helpers.TileType;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 public class Map extends GameObject {
 
@@ -43,6 +49,7 @@ public class Map extends GameObject {
         this.minimap = new Minimap(this, new Vec2d(200,200), new Vec2d(760, 0));
         this.minimap.setPlayerLoc(this.playerPos);
         this.gameWorld.add(minimap);
+        this.toGraph();
     }
 
     private void createPlayer(){
@@ -140,13 +147,47 @@ public class Map extends GameObject {
     private void generate(long seed){
         MapGenerator mapGen = new MapGenerator(this.dims, this.depth, 3, 3);
         TileType[][] tileTypes = mapGen.generate(seed);
-        for(int i = 0; i < dims.y; i++){
-            for(int j = 0; j < dims.x; j++){
-                Tile tile = tiles[i][j];
-                TileType type = tileTypes[i][j];
+        for(int j = 0; j < dims.y; j++){
+            for(int i = 0; i < dims.x; i++){
+                Tile tile = tiles[j][i];
+                TileType type = tileTypes[j][i];
                 tile.setType(type);
+                tile.setMapPosition(new Vec2i(i, j));
             }
         }
+    }
+
+    private Graph<Tile> toGraph(){
+        Graph<Tile> graph = new Graph<>();
+        for(int j = 0; j < dims.y; j++){
+            for(int i = 0; i < dims.x; i++){
+                if(this.tiles[j][i].getType() == TileType.IMPASSABLE){ continue; }
+                Node<Tile> main = new Node(this.tiles[j][i]);
+                graph.addNode(main);
+                if(j > 0 && this.tiles[j-1][i].getType() != TileType.IMPASSABLE){
+                    Node<Tile> up = new Node(this.tiles[j-1][i]);
+                    graph.connect(main, up);
+                    graph.addNode(up);
+                }
+                if(j < dims.y-1 && this.tiles[j+1][i].getType() != TileType.IMPASSABLE){
+                    Node<Tile> down = new Node(this.tiles[j+1][i]);
+                    graph.connect(main, down);
+                    graph.addNode(down);
+                }
+                if(i > 0 && this.tiles[j][i-1].getType() != TileType.IMPASSABLE){
+                    Node<Tile> left = new Node(this.tiles[j][i-1]);
+                    graph.connect(main, left);
+                    graph.addNode(left);
+                }
+                if(i < dims.x-1 && this.tiles[j][i+1].getType() != TileType.IMPASSABLE){
+                    Node<Tile> right = new Node(this.tiles[j][i+1]);
+                    graph.connect(main, right);
+                    graph.addNode(right);
+                }
+            }
+        }
+
+        return graph;
     }
 
     public void onKeyPressed(KeyEvent e){
