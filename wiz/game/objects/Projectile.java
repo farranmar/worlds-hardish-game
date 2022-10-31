@@ -17,7 +17,7 @@ public class Projectile extends GameObject {
     private Direction direction;
     private double speed = 5;
     private static final Vec2d defaultSize = new Vec2d(5, 20);
-    private Player player;
+    private MoveableUnit moveableUnit;
 
     public enum Direction {
         RIGHT,
@@ -26,21 +26,21 @@ public class Projectile extends GameObject {
         DOWN
     }
 
-    public Projectile(GameWorld gameWorld, Player p, Vec2d size, Vec2d position, Direction direction) {
+    public Projectile(GameWorld gameWorld, MoveableUnit mU, Vec2d size, Vec2d position, Direction direction) {
         super(gameWorld, size, position);
         this.worldDraw = false;
         this.direction = direction;
         this.spriteFileName = "projectile.png";
-        this.player = p;
+        this.moveableUnit = mU;
         this.addComponents();
     }
 
-    public Projectile(GameWorld gameWorld, Player p, Vec2d position, Direction direction, String file) {
+    public Projectile(GameWorld gameWorld, MoveableUnit mU, Vec2d position, Direction direction, String file) {
         super(gameWorld, defaultSize, position);
         this.worldDraw = false;
         this.direction = direction;
         this.spriteFileName = file;
-        this.player = p;
+        this.moveableUnit = mU;
         this.addComponents();
     }
 
@@ -52,12 +52,12 @@ public class Projectile extends GameObject {
     }
 
     public void onCollide(GameObject obj){
-        if(obj.equals(player)){ return; }
-        player.removeProjectile(this);
+        if(obj.equals(moveableUnit)){ return; }
+        moveableUnit.removeProjectile(this);
     }
 
     public void delete(){
-        player.removeProjectile(this);
+        moveableUnit.removeProjectile(this);
     }
 
     public void onDraw(GraphicsContext g){

@@ -9,17 +9,26 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import wiz.resources.Resource;
 
-public class Enemy extends GameObject {
+public class Enemy extends MoveableUnit {
 
     private String spriteFileName;
-    private Map map;
+    private EnemyState state;
+
+    public enum EnemyState{
+        MOVING_LEFT,
+        MOVING_RIGHT,
+        MOVING_UP,
+        MOVING_DOWN,
+        IDLE;
+    }
 
     public Enemy(GameWorld gameWorld, Map map, Vec2d size, Vec2d position, String fileName){
-        super(gameWorld, size, position);
+        super(gameWorld, map, size, position, fileName);
         this.spriteFileName = fileName;
         this.map = map;
         this.addComponents();
         this.worldDraw = false;
+        this.state = EnemyState.IDLE;
     }
 
     private void addComponents(){

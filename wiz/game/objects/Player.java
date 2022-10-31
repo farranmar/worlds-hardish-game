@@ -10,17 +10,9 @@ import wiz.resources.Resource;
 
 import java.util.ArrayList;
 
-public class Player extends GameObject {
+public class Player extends MoveableUnit {
 
     private PlayerState state;
-    private double speed;
-    private Vec2d destination;
-    private ArrayList<Projectile> projectiles = new ArrayList<>();
-    private static final int numFrames = 4;
-    private static final Vec2d frameSize = new Vec2d(300);
-    private static final int animationSpeed = 3;
-    private Map map;
-    private int ticksSinceDeath = -1;
 
     public enum PlayerState {
         FACING_LEFT(2),
@@ -40,20 +32,10 @@ public class Player extends GameObject {
     }
 
     public Player(GameWorld gameWorld, Map map, Vec2d size, Vec2d position, String spriteFile){
-        super(gameWorld, size, position);
+        super(gameWorld, map, size, position, spriteFile);
         this.worldDraw = false;
-        this.map = map;
-        this.state = PlayerState.FACING_DOWN;
-        this.speed = 5.0;
-        this.add(new Collidable(new AAB(size, position)));
-        this.add(new Drawable());
-        this.add(new HasSprite(new Resource().get(spriteFile)));
-        this.add(new Tickable());
+        this.state = Player.PlayerState.FACING_DOWN;
         this.setSubImage(new HasSprite.SubImage(frameSize, new Vec2d(0, this.state.index*frameSize.y)));
-    }
-
-    public void setSpeed(double s){
-        this.speed = s;
     }
 
     public PlayerState getState(){
@@ -96,44 +78,20 @@ public class Player extends GameObject {
     }
 
     public void fireProjectile(){
-        Projectile.Direction direction;
-        Vec2d curPos = this.getPosition();
-        Vec2d curSize = this.getSize();
-        Vec2d projSize = new Vec2d(curSize.x/2, curSize.y/2);
-        Vec2d projPos;
         if(this.state == PlayerState.FACING_LEFT || this.state == PlayerState.WALKING_LEFT){
-            direction = Projectile.Direction.LEFT;
-            projPos = new Vec2d(curPos.x - projSize.x, (curPos.y+curSize.y/2) - (projSize.y/2));
+            super.fireProjectile(Projectile.Direction.LEFT);
         } else if (this.state == PlayerState.FACING_RIGHT || this.state == PlayerState.WALKING_RIGHT){
-            direction = Projectile.Direction.RIGHT;
-            projPos = new Vec2d(curPos.x+curSize.x, (curPos.y+curSize.y/2) - (projSize.y/2));
+            super.fireProjectile(Projectile.Direction.RIGHT);
         } else if (this.state == PlayerState.FACING_DOWN || this.state == PlayerState.WALKING_DOWN){
-            direction = Projectile.Direction.DOWN;
-            projPos = new Vec2d((curPos.x + curSize.x/2) - projSize.x/2, curPos.y+curSize.y);
+            super.fireProjectile(Projectile.Direction.DOWN);
         } else {
-            direction = Projectile.Direction.UP;
-            projPos = new Vec2d((curPos.x + curSize.x/2) - projSize.x/2, curPos.y);
+            super.fireProjectile(Projectile.Direction.UP);
         }
-        Projectile proj = new Projectile(this.gameWorld, this, projSize, projPos, direction);
-        this.projectiles.add(proj);
-        this.gameWorld.addToAdditionQueue(proj);
-    }
-
-    public void removeProjectile(Projectile proj){
-        this.gameWorld.addToRemovalQueue(proj);
-        this.projectiles.remove(proj);
     }
 
     public void onCollide(GameObject obj){
         if(obj instanceof Enemy){
             this.die();
-        }
-    }
-
-    public void onDraw(GraphicsContext g){
-        super.onDraw(g);
-        for(Projectile proj : projectiles){
-            proj.onDraw(g);
         }
     }
 
