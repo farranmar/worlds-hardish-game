@@ -43,7 +43,7 @@ public class Map extends GameObject {
 
     private void createPlayer(){
         Vec2d pos = this.getWorldPos(this.getSpawn());
-        Player player = new Player(this.gameWorld, this, new Vec2d(tileSize.x-1, tileSize.y-1), pos, "blob_sprite_sheet.png");
+        Player player = new Player(this.gameWorld, this, new Vec2d(tileSize.x-2, tileSize.y-2), pos, "blob_sprite_sheet.png");
         this.playerPos = this.getSpawn();
         this.player = player;
         this.gameWorld.addToAdditionQueue(player);

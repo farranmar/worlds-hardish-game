@@ -8,6 +8,7 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import wiz.game.objects.Player;
 
 import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
@@ -162,6 +163,22 @@ public class GameObject {
             }
         }
         return false;
+    }
+
+    public void setSubImage(HasSprite.SubImage subImage){
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.HAS_SPRITE){
+                ((HasSprite)component).setSubImage(subImage.getSize(), subImage.getPosition());
+            }
+        }
+    }
+
+    public void animate(Vec2d size, double y, double padding, int frames, int speed){
+        for(GameComponent component : components){
+            if(component.getTag() == Tag.HAS_SPRITE){
+                ((HasSprite)component).animate(size, y, padding, frames, speed);
+            }
+        }
     }
 
     public boolean isCollidable(){

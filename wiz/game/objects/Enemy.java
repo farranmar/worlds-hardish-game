@@ -31,7 +31,6 @@ public class Enemy extends GameObject {
     public void onCollide(GameObject obj){
         if(obj instanceof Projectile){
             this.map.removeEnemy(this);
-            ((Projectile)obj).delete();
         } else if(obj instanceof Player){
             ((Player)obj).die();
         }
