@@ -5,6 +5,8 @@ import engine.game.components.Tag;
 import engine.game.objects.GameObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Transform;
 import wiz.game.objects.Map;
 import wiz.game.objects.Tile;
 
@@ -72,7 +74,16 @@ public class GameSystem {
 
     public void onDraw(GraphicsContext g, TreeSet<GameObject> drawOrder){
         for(GameObject obj : drawOrder){
-            obj.onDraw(g);
+            if(obj.isFloating()){
+                Affine ogTransform = g.getTransform();
+                Affine identity = new Affine();
+                identity.setToIdentity();
+                g.setTransform(identity);
+                obj.onDraw(g);
+                g.setTransform(ogTransform);
+            } else {
+                obj.onDraw(g);
+            }
         }
     }
 

@@ -94,6 +94,14 @@ public class UIElement {
 
     }
 
+    public Vec2d getWindowSize(){
+        return this.windowSize;
+    }
+
+    public Vec2d getScreenSize(){
+        return this.screenSize;
+    }
+
     public String getName(){
         return this.name;
     }

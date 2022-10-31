@@ -23,6 +23,7 @@ public class GameObject {
     protected ArrayList<GameObject> children = new ArrayList<>();
     protected GameWorld gameWorld;
     protected boolean worldDraw = true; // whether drawing is handled by world or not
+    protected boolean floating = false;
 
     public GameObject(GameWorld gameWorld){
         numObjs++;
@@ -63,6 +64,18 @@ public class GameObject {
         for(GameObject child : children){
             child.reset();
         }
+    }
+
+    public GameWorld getGameWorld() {
+        return gameWorld;
+    }
+
+    public boolean isFloating(){
+        return this.floating;
+    }
+
+    public void setFloating(boolean f){
+        this.floating = f;
     }
 
     public void setWorldDraw(boolean wd){

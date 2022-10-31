@@ -128,6 +128,7 @@ public class Viewport extends UIElement {
     }
 
     public void onResize(Vec2d newWindowSize, Vec2d newScreenSize){
+        gameWorld.onResize(newWindowSize, newScreenSize);
         super.onResize(newWindowSize, newScreenSize);
         double newLeftSpacing = (newWindowSize.x - newScreenSize.x) / 2;
         double newTopSpacing = (newWindowSize.y - newScreenSize.y) / 2;

@@ -2,6 +2,7 @@ package engine.game.world;
 
 import alc.game.units.Unit;
 import engine.display.Viewport;
+import engine.display.uiElements.UIElement;
 import engine.game.objects.GameObject;
 import engine.game.systems.*;
 import engine.support.Vec2d;
@@ -9,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -141,6 +143,39 @@ public class GameWorld {
                 sys.onDraw(g, this.drawOrder);
             }
         }
+    }
+
+    public void onResize(Vec2d newWindowSize, Vec2d newScreenSize){
+        System.out.println("resizing gameworld");
+        for(GameObject obj : gameObjects){
+            if(!obj.isFloating()){ continue; }
+            System.out.println("resizing floating oj");
+            resizeFloatingObj(obj, newWindowSize, newScreenSize);
+            for(GameObject child : obj.getChildren()){
+                resizeFloatingObj(child, newWindowSize, newScreenSize);
+            }
+        }
+    }
+
+    private void resizeFloatingObj(GameObject obj, Vec2d newWindowSize, Vec2d newScreenSize){
+        Vec2d oldSize = obj.getSize();
+        Vec2d oldPos = obj.getPosition();
+        Vec2d oldScreenSize = this.viewport.getScreenSize();
+        Vec2d oldWindowSize = this.viewport.getWindowSize();
+
+        double width = newScreenSize.x * (oldSize.x / oldScreenSize.x);
+        double height = newScreenSize.y * (oldSize.y / oldScreenSize.y);
+        obj.setSize(new Vec2d(width, height));
+
+        double leftSpacing = (this.viewport.getWindowSize().x - oldScreenSize.x) / 2;
+        double newLeftSpacing = (newWindowSize.x - newScreenSize.x) / 2;
+        double x = (oldPos.x - leftSpacing) / oldScreenSize.x * newScreenSize.x + newLeftSpacing;
+        double topSpacing = (oldWindowSize.y - oldScreenSize.y) / 2;
+        double newTopSpacing = (newWindowSize.y - newScreenSize.y) / 2;
+        double y = (oldPos.y - topSpacing) / oldScreenSize.y * newScreenSize.y + newTopSpacing;
+        obj.setPosition(new Vec2d(x,y));
+
+        System.out.println("oldSize: "+oldSize+", oldPos: "+oldPos+", new size: "+new Vec2d(width, height)+", new pos: "+new Vec2d(x,y));
     }
 
     public void onMousePressed(double x, double y) {
