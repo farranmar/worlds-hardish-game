@@ -23,7 +23,11 @@ public class Enemy extends MoveableUnit {
     private BTHandler btHandler;
     private int ticksSinceUpdate = -1;
     private long nanosSinceUpdate = -1;
-    private static final int delay = 12;
+    private static int delay = 12;
+
+    public static void setDelay(int newDelay){
+        delay = newDelay;
+    }
 
     public enum EnemyState{
         MOVING_LEFT,
