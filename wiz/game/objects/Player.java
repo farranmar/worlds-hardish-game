@@ -5,6 +5,7 @@ import engine.game.objects.GameObject;
 import engine.game.objects.shapes.AAB;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
+import engine.support.Vec2i;
 import javafx.scene.canvas.GraphicsContext;
 import wiz.resources.Resource;
 
@@ -31,8 +32,8 @@ public class Player extends MoveableUnit {
         }
     }
 
-    public Player(GameWorld gameWorld, Map map, Vec2d size, Vec2d position, String spriteFile){
-        super(gameWorld, map, size, position, spriteFile);
+    public Player(GameWorld gameWorld, Map map, Vec2d size, Vec2i mapPosition, String spriteFile){
+        super(gameWorld, map, size, mapPosition, spriteFile);
         this.worldDraw = false;
         this.state = Player.PlayerState.FACING_DOWN;
         this.setSubImage(new HasSprite.SubImage(frameSize, new Vec2d(0, this.state.index*frameSize.y)));
@@ -60,7 +61,9 @@ public class Player extends MoveableUnit {
         this.animate(frameSize, 4*frameSize.y, 0, numFrames, 2);
     }
 
-    public void moveTo(Vec2d newPos){
+    public void moveTo(Vec2i newMapPos){
+        this.mapPosition = newMapPos;
+        Vec2d newPos = map.getWorldPos(newMapPos);
         if(this.isMoving()){
             return;
         }
@@ -96,9 +99,7 @@ public class Player extends MoveableUnit {
     }
 
     public void onTick(long nanosSinceLastTick){
-        for(Projectile proj : projectiles){
-            proj.onTick(nanosSinceLastTick);
-        }
+        super.onTick(nanosSinceLastTick);
         if(this.state == PlayerState.DYING){
             if(this.ticksSinceDeath >= 8){ this.map.setResult(GameWorld.Result.DEFEAT); }
             this.ticksSinceDeath++;
@@ -134,7 +135,6 @@ public class Player extends MoveableUnit {
         } else if(this.state != PlayerState.DYING) {
             this.setSubImage(new HasSprite.SubImage(frameSize, new Vec2d(0, this.state.index*frameSize.y)));
         }
-        super.onTick(nanosSinceLastTick);
     }
 
 }

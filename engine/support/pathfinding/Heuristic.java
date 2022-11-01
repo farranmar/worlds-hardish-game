@@ -4,6 +4,6 @@ import engine.support.graph.Node;
 
 public interface Heuristic<T> {
 
-    double heur(T start, T dest);
+    double heur(Node<T> start, Node<T> dest);
 
 }

@@ -71,9 +71,6 @@ public class HasSprite extends Drawable {
 
     public void onDraw(GraphicsContext g, TransformComponent tC){
         this.ticksSinceUpdate++;
-        if(this.proj){
-            System.out.println("prjectile");
-        }
         if(subImagePos == null || subImageSize == null){
             g.drawImage(image, tC.getPosition().x, tC.getPosition().y, tC.getSize().x, tC.getSize().y);
         } else {

@@ -33,6 +33,7 @@ public class Map extends GameObject {
     private GameWorld.Result result = GameWorld.Result.PLAYING;
     private ArrayList<Enemy> enemies = new ArrayList<>();
     private Minimap minimap;
+    private Graph<Tile> graph;
 
     public Map(GameWorld world, Vec2i dims, int depth, Vec2d tileSize, long seed){
         super(world);
@@ -49,12 +50,11 @@ public class Map extends GameObject {
         this.minimap = new Minimap(this, new Vec2d(200,200), new Vec2d(760, 0));
         this.minimap.setPlayerLoc(this.playerPos);
         this.gameWorld.add(minimap);
-        this.toGraph();
+        this.graph = this.toGraph();
     }
 
     private void createPlayer(){
-        Vec2d pos = this.getWorldPos(this.getSpawn());
-        Player player = new Player(this.gameWorld, this, new Vec2d(tileSize.x-2, tileSize.y-2), pos, "blob_sprite_sheet.png");
+        Player player = new Player(this.gameWorld, this, new Vec2d(tileSize.x-2, tileSize.y-2), this.getSpawn(), "blob_sprite_sheet.png");
         this.playerPos = this.getSpawn();
         this.player = player;
         this.gameWorld.addToAdditionQueue(player);
@@ -62,6 +62,23 @@ public class Map extends GameObject {
 
     public Player getPlayer(){
         return this.player;
+    }
+
+    public Tile getTile(Vec2d worldPos){
+        int x = (int)Math.floor(worldPos.x / tileSize.x);
+        int y = (int)Math.floor(worldPos.y / tileSize.y);
+        if(x >= 0 && x < this.dims.x && y >= 0 && y < this.dims.y){
+            return this.tiles[y][x];
+        }
+        return null;
+    }
+
+    public Tile getTile(Vec2i mapPos){
+        return this.tiles[mapPos.y][mapPos.x];
+    }
+
+    public Graph<Tile> getGraph(){
+        return this.graph;
     }
 
     public GameWorld.Result getResult(){
@@ -99,7 +116,7 @@ public class Map extends GameObject {
                     pos = new Vec2i(x, y);
                 }
             }
-            Enemy enemy = new Enemy(this.gameWorld, this, new Vec2d(tileSize.x-1, tileSize.y-1), this.getWorldPos(pos), "enemy.png");
+            Enemy enemy = new Enemy(this.gameWorld, this, new Vec2d(tileSize.x-1, tileSize.y-1), pos, "enemy.png");
             this.enemies.add(enemy);
             this.gameWorld.addToAdditionQueue(enemy);
         }
@@ -129,7 +146,7 @@ public class Map extends GameObject {
         return new Vec2i(0);
     }
 
-    private Vec2d getWorldPos(Vec2i mapPos){
+    public Vec2d getWorldPos(Vec2i mapPos){
         double newX = this.getPosition().x + (mapPos.x * this.tileSize.x);
         double newY = this.getPosition().y + (mapPos.y * this.tileSize.y);
         return new Vec2d(newX+1, newY+1);
@@ -186,7 +203,6 @@ public class Map extends GameObject {
                 }
             }
         }
-
         return graph;
     }
 
@@ -203,7 +219,7 @@ public class Map extends GameObject {
             TileType type = this.tiles[playerPos.y-1][playerPos.x].getType();
             if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x, playerPos.y-1);
-                player.moveTo(this.getWorldPos(playerPos));
+                player.moveTo(playerPos);
                 this.minimap.setPlayerLoc(playerPos);
                 if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }
@@ -215,7 +231,7 @@ public class Map extends GameObject {
             TileType type = this.tiles[playerPos.y+1][playerPos.x].getType();
             if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x, playerPos.y+1);
-                player.moveTo(this.getWorldPos(playerPos));
+                player.moveTo(playerPos);
                 this.minimap.setPlayerLoc(playerPos);
                 if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }
@@ -227,7 +243,7 @@ public class Map extends GameObject {
             TileType type = this.tiles[playerPos.y][playerPos.x-1].getType();
             if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x-1, playerPos.y);
-                player.moveTo(this.getWorldPos(playerPos));
+                player.moveTo(playerPos);
                 this.minimap.setPlayerLoc(playerPos);
                 if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }
@@ -239,7 +255,7 @@ public class Map extends GameObject {
             TileType type = this.tiles[playerPos.y][playerPos.x+1].getType();
             if(type != TileType.IMPASSABLE){
                 playerPos = new Vec2i(playerPos.x+1, playerPos.y);
-                player.moveTo(this.getWorldPos(playerPos));
+                player.moveTo(playerPos);
                 this.minimap.setPlayerLoc(playerPos);
                 if(type == TileType.EXIT){ this.result = GameWorld.Result.VICTORY; }
             }

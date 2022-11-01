@@ -9,14 +9,10 @@ public class Graph<T> {
     public Graph(){}
 
     public void addNode(Node<T> node){
-        System.out.println("nodes size: "+nodes.size());
-        if(nodes.size()>0){ System.out.println("nodes.get(nodes.size()-1)==node? "+(nodes.get(nodes.size()-1)==node)+", nodes.get(nodes.size()-1).equals(node)? "+(nodes.get(nodes.size()-1).equals(node))); }
         if(this.nodes.contains(node)){
-            System.out.println("already added");
             return;
         }
         this.nodes.add(node);
-        System.out.println("nodes size: "+nodes.size());
     }
 
     public void connect(Node<T> node1, Node<T> node2){

@@ -51,6 +51,10 @@ public class GameWorld {
         this.add(obj);
     }
 
+    public Viewport getViewport(){
+        return this.viewport;
+    }
+
     public void addToAdditionQueue(GameObject obj){
         this.additionQueue.add(obj);
     }
@@ -146,10 +150,8 @@ public class GameWorld {
     }
 
     public void onResize(Vec2d newWindowSize, Vec2d newScreenSize){
-        System.out.println("resizing gameworld");
         for(GameObject obj : gameObjects){
             if(!obj.isFloating()){ continue; }
-            System.out.println("resizing floating oj");
             resizeFloatingObj(obj, newWindowSize, newScreenSize);
             for(GameObject child : obj.getChildren()){
                 resizeFloatingObj(child, newWindowSize, newScreenSize);
@@ -174,8 +176,6 @@ public class GameWorld {
         double newTopSpacing = (newWindowSize.y - newScreenSize.y) / 2;
         double y = (oldPos.y - topSpacing) / oldScreenSize.y * newScreenSize.y + newTopSpacing;
         obj.setPosition(new Vec2d(x,y));
-
-        System.out.println("oldSize: "+oldSize+", oldPos: "+oldPos+", new size: "+new Vec2d(width, height)+", new pos: "+new Vec2d(x,y));
     }
 
     public void onMousePressed(double x, double y) {
