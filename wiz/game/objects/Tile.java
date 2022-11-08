@@ -1,9 +1,9 @@
 package wiz.game.objects;
 
-import engine.game.components.Collidable;
+import engine.game.components.CollideComponent;
 import engine.game.components.GameComponent;
-import engine.game.components.HasSprite;
-import engine.game.components.Tag;
+import engine.game.components.SpriteComponent;
+import engine.game.components.ComponentTag;
 import engine.game.objects.GameObject;
 import engine.game.objects.shapes.AAB;
 import engine.game.world.GameWorld;
@@ -25,16 +25,16 @@ public class Tile extends GameObject {
         super(world, size, position);
         this.worldDraw = false;
         this.type = type;
-        Collidable collidable = new Collidable(new AAB(this.getSize(), this.getPosition()));
-        collidable.setStatic(true);
-        collidable.setCollidable(type == TileType.IMPASSABLE);
-        this.add(collidable);
+        CollideComponent collideComponent = new CollideComponent(new AAB(this.getSize(), this.getPosition()));
+        collideComponent.setStatic(true);
+        collideComponent.setCollidable(type == TileType.IMPASSABLE);
+        this.add(collideComponent);
         if(this.type == TileType.PASSABLE || this.type == TileType.SPAWN){
-            this.add(new HasSprite(new Resource().get(passableSpriteFile)));
+            this.add(new SpriteComponent(new Resource().get(passableSpriteFile)));
         } else if(this.type == TileType.EXIT){
-            this.add(new HasSprite(new Resource().get(exitSpriteFile)));
+            this.add(new SpriteComponent(new Resource().get(exitSpriteFile)));
         } else {
-            this.add(new HasSprite(new Resource().get(impassableSpriteFile)));
+            this.add(new SpriteComponent(new Resource().get(impassableSpriteFile)));
         }
         this.gameWorld.add(this);
     }
@@ -48,13 +48,13 @@ public class Tile extends GameObject {
     public void setType(TileType type){
         this.type = type;
         for(GameComponent component : this.components){
-            if(component.getTag() == Tag.HAS_SPRITE){
-                if(this.type == TileType.PASSABLE || this.type == TileType.SPAWN){ ((HasSprite)component).setImage(new Resource().get(passableSpriteFile)); }
-                else if(this.type == TileType.EXIT){ ((HasSprite)component).setImage(new Resource().get(exitSpriteFile)); }
-                else { ((HasSprite)component).setImage(new Resource().get(impassableSpriteFile)); }
+            if(component.getTag() == ComponentTag.SPRITE){
+                if(this.type == TileType.PASSABLE || this.type == TileType.SPAWN){ ((SpriteComponent)component).setImage(new Resource().get(passableSpriteFile)); }
+                else if(this.type == TileType.EXIT){ ((SpriteComponent)component).setImage(new Resource().get(exitSpriteFile)); }
+                else { ((SpriteComponent)component).setImage(new Resource().get(impassableSpriteFile)); }
             }
-            if(type != TileType.IMPASSABLE && component.getTag() == Tag.COLLIDABLE){
-                ((Collidable)component).setCollidable(false);
+            if(type != TileType.IMPASSABLE && component.getTag() == ComponentTag.COLLIDE){
+                ((CollideComponent)component).setCollidable(false);
             }
         }
     }

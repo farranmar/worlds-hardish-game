@@ -1,9 +1,9 @@
 package wiz.game.objects;
 
-import engine.game.components.Collidable;
-import engine.game.components.Drawable;
-import engine.game.components.HasSprite;
-import engine.game.components.Tickable;
+import engine.game.components.CollideComponent;
+import engine.game.components.DrawComponent;
+import engine.game.components.SpriteComponent;
+import engine.game.components.TickComponent;
 import engine.game.objects.GameObject;
 import engine.game.objects.shapes.AAB;
 import engine.game.world.GameWorld;
@@ -45,10 +45,10 @@ public class Projectile extends GameObject {
     }
 
     private void addComponents(){
-        this.add(new Collidable(new AAB(this.getSize(), this.getPosition())));
-        this.add(new Drawable());
-        this.add(new HasSprite(new Resource().get(spriteFileName)));
-        this.add(new Tickable());
+        this.add(new CollideComponent(new AAB(this.getSize(), this.getPosition())));
+        this.add(new DrawComponent());
+        this.add(new SpriteComponent(new Resource().get(spriteFileName)));
+        this.add(new TickComponent());
     }
 
     public void onCollide(GameObject obj){

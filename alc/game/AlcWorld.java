@@ -2,8 +2,7 @@ package alc.game;
 
 import alc.game.units.Unit;
 import alc.game.units.UnitMenu;
-import engine.game.components.Collidable;
-import engine.game.components.Tickable;
+import engine.game.components.CollideComponent;
 import engine.game.objects.shapes.AAB;
 import engine.game.systems.CollisionSystem;
 import engine.game.systems.GraphicsSystem;
@@ -13,8 +12,6 @@ import engine.game.world.GameWorld;
 import engine.game.objects.BackgroundObject;
 import engine.support.Vec2d;
 import javafx.scene.paint.Color;
-
-import java.util.HashMap;
 
 public class AlcWorld extends GameWorld {
 
@@ -46,7 +43,7 @@ public class AlcWorld extends GameWorld {
         Unit trash = new Unit(this, Unit.Type.TRASH);
         trash.setSize(new Vec2d(30,30));
         trash.setPosition(new Vec2d(1340, 744));
-        trash.add(new Collidable(new AAB(new Vec2d(30), new Vec2d(1340,744))));
+        trash.add(new CollideComponent(new AAB(new Vec2d(30), new Vec2d(1340,744))));
         this.add(trash);
         this.add(unitMenu);
     }

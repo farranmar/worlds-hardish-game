@@ -1,5 +1,6 @@
 package engine.display.screens;
 
+import engine.display.Viewport;
 import engine.support.Vec2d;
 import engine.display.uiElements.UIElement;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,6 +21,7 @@ public class Screen {
     protected ScreenName name;
     protected ScreenName nextScreen = null;
     protected Color[] palette = new Color[0];
+    protected Viewport viewport;
 
     public Screen(ScreenName name){
         this.uiElements = new ArrayList<>();

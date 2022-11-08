@@ -17,10 +17,9 @@ public class UnitMenu extends GameObject {
 
     public UnitMenu(GameWorld gameWorld, Color color, Vec2d size, Vec2d position){
         super(gameWorld);
-        Drawable drawable = new Drawable(color);
-        drawable.fix();
-        this.components.add(drawable);
-        this.components.add(new Clickable());
+        DrawComponent drawComponent = new DrawComponent(color);
+        this.components.add(drawComponent);
+        this.components.add(new ClickComponent());
         this.transformComponent = new TransformComponent(size, position);
         this.drawPriority = 1;
         this.unitSize = new Vec2d(size.x - padding*2);
@@ -52,8 +51,8 @@ public class UnitMenu extends GameObject {
     public void onDraw(GraphicsContext g){
         Color color = Color.rgb(0,0,0);
         for(GameComponent component : this.components){
-            if(component.getTag() == Tag.DRAWABLE){
-                color = ((Drawable)component).getColor();
+            if(component.getTag() == ComponentTag.DRAW){
+                color = ((DrawComponent)component).getColor();
             }
         }
         g.setFill(color);
@@ -71,9 +70,9 @@ public class UnitMenu extends GameObject {
         for(GameObject child : children){
             if(child.inRange(x, y)){
                 GameObject clone = child.clone();
-                Draggable draggable = new Draggable(clone);
-                clone.add(draggable);
-                draggable.onMousePressed(x, y);
+                DragComponent dragComponent = new DragComponent(clone);
+                clone.add(dragComponent);
+                dragComponent.onMousePressed(x, y);
                 this.gameWorld.addToAdditionQueue(clone);
             }
         }

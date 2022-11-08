@@ -4,7 +4,7 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class HasSprite extends Drawable {
+public class SpriteComponent extends DrawComponent {
 
     private Image image;
     private Vec2d subImagePos = null;
@@ -29,21 +29,21 @@ public class HasSprite extends Drawable {
         public Vec2d getPosition(){ return this.position; }
     }
 
-    public HasSprite(){
+    public SpriteComponent(){
         super();
-        this.tag = Tag.HAS_SPRITE;
+        this.tag = ComponentTag.SPRITE;
     }
 
-    public HasSprite(Image image){
+    public SpriteComponent(Image image){
         super();
         this.image = image;
-        this.tag = Tag.HAS_SPRITE;
+        this.tag = ComponentTag.SPRITE;
     }
 
-    public HasSprite(Image image, boolean t){
+    public SpriteComponent(Image image, boolean t){
         super();
         this.image = image;
-        this.tag = Tag.HAS_SPRITE;
+        this.tag = ComponentTag.SPRITE;
         this.proj = true;
     }
 

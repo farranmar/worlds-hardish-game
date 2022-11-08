@@ -1,17 +1,14 @@
 package wiz.game.objects;
 
-import engine.game.components.Drawable;
-import engine.game.components.Keyable;
-import engine.game.components.Tickable;
+import engine.game.components.DrawComponent;
+import engine.game.components.KeyComponent;
+import engine.game.components.TickComponent;
 import engine.game.objects.GameObject;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import engine.support.Vec2i;
 import engine.support.graph.Graph;
 import engine.support.graph.Node;
-import engine.support.pathfinding.Heuristic;
-import engine.support.pathfinding.Pathfinder;
-import engine.support.pathfinding.PathfinderHelper;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -20,7 +17,6 @@ import wiz.game.helpers.TileType;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 
 public class Map extends GameObject {
 
@@ -37,9 +33,9 @@ public class Map extends GameObject {
 
     public Map(GameWorld world, Vec2i dims, int depth, Vec2d tileSize, long seed){
         super(world);
-        this.add(new Keyable());
-        this.add(new Tickable());
-        this.add(new Drawable());
+        this.add(new KeyComponent());
+        this.add(new TickComponent());
+        this.add(new DrawComponent());
         tiles = new Tile[dims.x][dims.y];
         this.dims = dims;
         this.depth = depth;

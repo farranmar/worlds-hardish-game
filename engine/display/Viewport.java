@@ -165,7 +165,7 @@ public class Viewport extends UIElement {
         } else if((e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) && panning == Direction.RIGHT){
             panning = Direction.NONE;
         }
-
+        gameWorld.onKeyReleased(e);
     }
 
     public void onMousePressed(MouseEvent e){

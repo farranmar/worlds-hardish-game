@@ -1,6 +1,6 @@
 package engine.game.systems;
 
-import engine.game.components.Tag;
+import engine.game.components.ComponentTag;
 import engine.game.objects.GameObject;
 
 public class StaticSystem extends GameSystem {
@@ -10,11 +10,11 @@ public class StaticSystem extends GameSystem {
     }
 
     public boolean attemptAdd(GameObject obj){
-        if(this.tickable && obj.get(Tag.TICKABLE) != null){
+        if(this.tickable && obj.get(ComponentTag.TICK) != null){
             return false;
-        } else if(this.drawable && obj.get(Tag.DRAWABLE) != null){
+        } else if(this.drawable && obj.get(ComponentTag.DRAW) != null){
             return false;
-        } else if(this.takesInput && obj.get(Tag.DRAGGABLE) != null){
+        } else if(this.takesInput && obj.get(ComponentTag.DRAG) != null){
             return false;
         }
         this.gameObjects.add(obj);

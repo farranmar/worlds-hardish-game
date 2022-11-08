@@ -1,8 +1,8 @@
 package wiz.game.objects;
 
-import engine.game.components.Collidable;
-import engine.game.components.HasSprite;
-import engine.game.components.Tickable;
+import engine.game.components.CollideComponent;
+import engine.game.components.SpriteComponent;
+import engine.game.components.TickComponent;
 import engine.game.objects.GameObject;
 import engine.game.objects.shapes.AAB;
 import engine.game.world.GameWorld;
@@ -48,9 +48,9 @@ public class Enemy extends MoveableUnit {
     }
 
     private void addComponents(){
-        this.add(new Collidable(new AAB(this.getSize(), this.getPosition())));
-        this.add(new HasSprite(new Resource().get(this.spriteFileName)));
-        this.add(new Tickable());
+        this.add(new CollideComponent(new AAB(this.getSize(), this.getPosition())));
+        this.add(new SpriteComponent(new Resource().get(this.spriteFileName)));
+        this.add(new TickComponent());
     }
 
     public void setPath(Stack<Node<Tile>> newPath){

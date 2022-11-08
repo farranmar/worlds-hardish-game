@@ -2,14 +2,9 @@ package wiz.game.objects;
 
 import engine.game.components.*;
 import engine.game.objects.GameObject;
-import engine.game.objects.shapes.AAB;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import engine.support.Vec2i;
-import javafx.scene.canvas.GraphicsContext;
-import wiz.resources.Resource;
-
-import java.util.ArrayList;
 
 public class Player extends MoveableUnit {
 
@@ -36,7 +31,7 @@ public class Player extends MoveableUnit {
         super(gameWorld, map, size, mapPosition, spriteFile);
         this.worldDraw = false;
         this.state = Player.PlayerState.FACING_DOWN;
-        this.setSubImage(new HasSprite.SubImage(frameSize, new Vec2d(0, this.state.index*frameSize.y)));
+        this.setSubImage(new SpriteComponent.SubImage(frameSize, new Vec2d(0, this.state.index*frameSize.y)));
     }
 
     public PlayerState getState(){
@@ -133,7 +128,7 @@ public class Player extends MoveableUnit {
         if(this.isMoving()){
             this.animate(frameSize, this.state.index*frameSize.y, 0, numFrames, animationSpeed);
         } else if(this.state != PlayerState.DYING) {
-            this.setSubImage(new HasSprite.SubImage(frameSize, new Vec2d(0, this.state.index*frameSize.y)));
+            this.setSubImage(new SpriteComponent.SubImage(frameSize, new Vec2d(0, this.state.index*frameSize.y)));
         }
     }
 

@@ -210,4 +210,12 @@ public class GameWorld {
         }
     }
 
+    public void onKeyReleased(KeyEvent e){
+        for(GameSystem sys : systems){
+            if(sys.takesInput()){
+                sys.onKeyReleased(e);
+            }
+        }
+    }
+
 }

@@ -1,8 +1,8 @@
 package engine.game.objects;
 
-import engine.game.components.Drawable;
+import engine.game.components.DrawComponent;
 import engine.game.components.GameComponent;
-import engine.game.components.Tag;
+import engine.game.components.ComponentTag;
 import engine.game.components.TransformComponent;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
@@ -13,9 +13,8 @@ public class BackgroundObject extends GameObject {
 
     public BackgroundObject(GameWorld gameWorld, Color color, Vec2d size){
         super(gameWorld);
-        Drawable drawable = new Drawable(color);
-        drawable.fix();
-        this.components.add(drawable);
+        DrawComponent drawComponent = new DrawComponent(color);
+        this.components.add(drawComponent);
         this.transformComponent = new TransformComponent(size, new Vec2d(0,0));
         this.drawPriority = 0;
     }
@@ -23,8 +22,8 @@ public class BackgroundObject extends GameObject {
     public void onDraw(GraphicsContext g){
         Color color = Color.rgb(0,0,0);
         for(GameComponent component : this.components){
-            if(component.getTag() == Tag.DRAWABLE){
-                color = ((Drawable)component).getColor();
+            if(component.getTag() == ComponentTag.DRAW){
+                color = ((DrawComponent)component).getColor();
             }
         }
         g.setFill(color);

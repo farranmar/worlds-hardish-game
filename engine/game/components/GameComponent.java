@@ -8,13 +8,17 @@ import javafx.scene.input.MouseEvent;
 
 public class GameComponent {
 
-    protected Tag tag = null;
+    protected ComponentTag tag = null;
     protected boolean tickable = false;
     protected boolean drawable = false;
     protected boolean keyInput = false;
     protected boolean mouseInput = false;
 
-    public Tag getTag(){ return this.tag; }
+    public GameComponent(ComponentTag tag){
+        this.tag = tag;
+    }
+
+    public ComponentTag getTag(){ return this.tag; }
 
     public boolean isTickable(){ return this.tickable; }
 

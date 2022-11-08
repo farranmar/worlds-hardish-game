@@ -1,9 +1,9 @@
 package wiz.game.objects;
 
-import engine.game.components.Collidable;
-import engine.game.components.Drawable;
-import engine.game.components.HasSprite;
-import engine.game.components.Tickable;
+import engine.game.components.CollideComponent;
+import engine.game.components.DrawComponent;
+import engine.game.components.SpriteComponent;
+import engine.game.components.TickComponent;
 import engine.game.objects.GameObject;
 import engine.game.objects.shapes.AAB;
 import engine.game.world.GameWorld;
@@ -31,10 +31,10 @@ public class MoveableUnit extends GameObject {
         this.map = map;
         this.speed = 5.0;
         this.mapPosition = mapPosition;
-        this.add(new Collidable(new AAB(size, map.getWorldPos(mapPosition))));
-        this.add(new Drawable());
-        this.add(new HasSprite(new Resource().get(spriteFile)));
-        this.add(new Tickable());
+        this.add(new CollideComponent(new AAB(size, map.getWorldPos(mapPosition))));
+        this.add(new DrawComponent());
+        this.add(new SpriteComponent(new Resource().get(spriteFile)));
+        this.add(new TickComponent());
     }
 
     public void setSpeed(double s){

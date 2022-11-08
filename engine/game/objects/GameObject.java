@@ -1,16 +1,12 @@
 package engine.game.objects;
 
-import alc.game.units.Unit;
 import engine.game.components.*;
-import engine.game.objects.shapes.AAB;
 import engine.game.objects.shapes.Shape;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
-import wiz.game.objects.Player;
 
-import javax.swing.table.TableRowSorter;
 import java.util.ArrayList;
 
 public class GameObject {
@@ -47,11 +43,11 @@ public class GameObject {
         this.components.remove(component);
     }
 
-    public void remove(Tag tagToRemove){
+    public void remove(ComponentTag tagToRemove){
         components.removeIf(component -> component.getTag() == (tagToRemove));
     }
 
-    public GameComponent get(Tag tagToGet){
+    public GameComponent get(ComponentTag tagToGet){
         for(GameComponent component : components){
             if(component.getTag() == tagToGet){
                 return component;
@@ -118,8 +114,8 @@ public class GameObject {
     public void setSize(Vec2d newSize){
         this.transformComponent.setSize(newSize);
         for(GameComponent component : components){
-            if(component.getTag() == Tag.COLLIDABLE){
-                ((Collidable)component).setSize(newSize);
+            if(component.getTag() == ComponentTag.COLLIDE){
+                ((CollideComponent)component).setSize(newSize);
             }
         }
     }
@@ -131,8 +127,8 @@ public class GameObject {
     public void setPosition(Vec2d newPosition){
         this.transformComponent.setPosition(newPosition);
         for(GameComponent component : components){
-            if(component.getTag() == Tag.COLLIDABLE){
-                ((Collidable)component).setPosition(newPosition);
+            if(component.getTag() == ComponentTag.COLLIDE){
+                ((CollideComponent)component).setPosition(newPosition);
             }
         }
     }
@@ -163,41 +159,41 @@ public class GameObject {
 
     public void setCollidable(boolean collidable){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.COLLIDABLE){
-                ((Collidable)component).setCollidable(collidable);
+            if(component.getTag() == ComponentTag.COLLIDE){
+                ((CollideComponent)component).setCollidable(collidable);
             }
         }
     }
 
     public boolean isStatic(){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.COLLIDABLE){
-                return ((Collidable)component).isStatic();
+            if(component.getTag() == ComponentTag.COLLIDE){
+                return ((CollideComponent)component).isStatic();
             }
         }
         return false;
     }
 
-    public void setSubImage(HasSprite.SubImage subImage){
+    public void setSubImage(SpriteComponent.SubImage subImage){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.HAS_SPRITE){
-                ((HasSprite)component).setSubImage(subImage.getSize(), subImage.getPosition());
+            if(component.getTag() == ComponentTag.SPRITE){
+                ((SpriteComponent)component).setSubImage(subImage.getSize(), subImage.getPosition());
             }
         }
     }
 
     public void animate(Vec2d size, double y, double padding, int frames, int speed){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.HAS_SPRITE){
-                ((HasSprite)component).animate(size, y, padding, frames, speed);
+            if(component.getTag() == ComponentTag.SPRITE){
+                ((SpriteComponent)component).animate(size, y, padding, frames, speed);
             }
         }
     }
 
     public boolean isCollidable(){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.COLLIDABLE){
-                return ((Collidable)component).getCollidable();
+            if(component.getTag() == ComponentTag.COLLIDE){
+                return ((CollideComponent)component).getCollidable();
             }
         }
         return false;
@@ -205,8 +201,8 @@ public class GameObject {
 
     public Shape getCollisionShape(){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.COLLIDABLE){
-                return ((Collidable)component).getShape();
+            if(component.getTag() == ComponentTag.COLLIDE){
+                return ((CollideComponent)component).getShape();
             }
         }
         return null;
@@ -214,8 +210,8 @@ public class GameObject {
 
     public Vec2d collidesWith(GameObject obj){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.COLLIDABLE){
-                return ((Collidable)component).collidesWith(obj);
+            if(component.getTag() == ComponentTag.COLLIDE){
+                return ((CollideComponent)component).collidesWith(obj);
             }
         }
         return null;
@@ -238,8 +234,8 @@ public class GameObject {
 
     public void onDraw(GraphicsContext g){
         for(GameComponent component : components){
-            if(component.getTag() == Tag.HAS_SPRITE){
-                ((HasSprite)component).onDraw(g, this.transformComponent);
+            if(component.getTag() == ComponentTag.SPRITE){
+                ((SpriteComponent)component).onDraw(g, this.transformComponent);
             } else if(component.isDrawable()){
                 component.onDraw(g);
             }
@@ -255,9 +251,9 @@ public class GameObject {
         return inX && inY;
     }
 
-    public void onKeyPressed(KeyEvent e){
+    public void onKeyPressed(KeyEvent e){}
 
-    }
+    public void onKeyReleased(KeyEvent e){}
 
     public void onMousePressed(double x, double y){
         if(inRange(x, y)){

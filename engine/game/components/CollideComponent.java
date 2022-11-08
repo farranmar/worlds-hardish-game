@@ -4,20 +4,20 @@ import engine.game.objects.GameObject;
 import engine.game.objects.shapes.Shape;
 import engine.support.Vec2d;
 
-public class Collidable extends GameComponent {
+public class CollideComponent extends GameComponent {
 
     private Shape shape;
     private boolean collidable = true; // whether it can actually collide at the moment (eg is false when actively dragging)
     private boolean isStatic = false;
 
-    public Collidable(Shape shape){
+    public CollideComponent(Shape shape){
+        super(ComponentTag.COLLIDE);
         this.shape = shape;
-        this.tag = Tag.COLLIDABLE;
     }
 
-    public Collidable(Shape shape, boolean isStatic){
+    public CollideComponent(Shape shape, boolean isStatic){
+        super(ComponentTag.COLLIDE);
         this.shape = shape;
-        this.tag = Tag.COLLIDABLE;
         this.isStatic = isStatic;
     }
 

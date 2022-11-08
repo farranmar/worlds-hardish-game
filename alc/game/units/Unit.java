@@ -35,7 +35,7 @@ public class Unit extends GameObject {
         this.constructTypeNameMap();
         this.drawPriority = index;
         this.type = type;
-        this.components.add(new HasSprite(new Resource().get(typeNameMap.get(type))));
+        this.components.add(new SpriteComponent(new Resource().get(typeNameMap.get(type))));
         this.components.add(new TransformComponent(new Vec2d(0), new Vec2d(0)));
         this.addComponentsAndHash();
         index++;
@@ -46,7 +46,7 @@ public class Unit extends GameObject {
         this.constructTypeNameMap();
         this.drawPriority = index;
         this.type = null;
-        this.components.add(new HasSprite());
+        this.components.add(new SpriteComponent());
         this.components.add(new TransformComponent(size, position));
         this.addComponentsAndHash();
         index++;
@@ -57,7 +57,7 @@ public class Unit extends GameObject {
         this.constructTypeNameMap();
         this.drawPriority = index;
         this.type = type;
-        this.components.add(new HasSprite(new Resource().get(typeNameMap.get(type))));
+        this.components.add(new SpriteComponent(new Resource().get(typeNameMap.get(type))));
         if(type == Type.TRASH) {
         }
         this.components.add(new TransformComponent(size, position));
@@ -127,8 +127,8 @@ public class Unit extends GameObject {
     }
 
     private void addComponentsAndHash(){
-        this.components.add(new Drawable());
-        this.components.add(new Clickable());
+        this.components.add(new DrawComponent());
+        this.components.add(new ClickComponent());
         if(collisionMap == null){
             collisionMap = constructHash();
         }
@@ -141,8 +141,8 @@ public class Unit extends GameObject {
     private void setType(Type type){
         this.type = type;
         for(GameComponent component : components){
-            if(component.getTag() == Tag.HAS_SPRITE){
-                ((HasSprite)component).setImage(new Resource().get(typeNameMap.get(type)));
+            if(component.getTag() == ComponentTag.SPRITE){
+                ((SpriteComponent)component).setImage(new Resource().get(typeNameMap.get(type)));
             }
         }
     }
@@ -155,7 +155,7 @@ public class Unit extends GameObject {
         Unit clone = new Unit(this);
         clone.setSize(this.getSize());
         clone.setPosition(this.getPosition());
-        clone.add(new Collidable(new AAB(this.getSize(), this.getPosition())));
+        clone.add(new CollideComponent(new AAB(this.getSize(), this.getPosition())));
         return clone;
     }
 
@@ -176,7 +176,7 @@ public class Unit extends GameObject {
         Type newType = collisionMap.get(this.type).get(unit.getType());
         if(newType == null){ return; }
         Unit newUnit = new Unit(this.gameWorld, newType);
-        newUnit.add(new Draggable(newUnit));
+        newUnit.add(new DragComponent(newUnit));
         Vec2d thisPosition = this.getPosition();
         Vec2d objPosition = obj.getPosition();
         Vec2d newPosition = new Vec2d((thisPosition.x + objPosition.x)/2, (thisPosition.y + objPosition.y)/2);
@@ -184,7 +184,7 @@ public class Unit extends GameObject {
         Vec2d objSize = obj.getSize();
         Vec2d newSize = new Vec2d((thisSize.x + objSize.x)/2, (thisSize.y + objSize.y)/2);
         AAB aab = new AAB(newSize, newPosition);
-        newUnit.add(new Collidable(aab));
+        newUnit.add(new CollideComponent(aab));
         newUnit.setPosition(newPosition);
         newUnit.setSize(newSize);
         this.gameWorld.addToAdditionQueue(newUnit);

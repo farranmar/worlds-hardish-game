@@ -1,18 +1,16 @@
 package engine.game.components;
 
 import engine.game.objects.GameObject;
-import engine.support.Vec2d;
-import javafx.scene.input.MouseEvent;
 
-public class Draggable extends GameComponent {
+public class DragComponent extends GameComponent {
 
     private boolean dragging = false; // whether object is currently being dragged
     private double preX;
     private double preY;
     private GameObject obj;
 
-    public Draggable(GameObject obj){
-        this.tag = Tag.DRAGGABLE;
+    public DragComponent(GameObject obj){
+        super(ComponentTag.DRAG);
         this.mouseInput = true;
         this.obj = obj;
     }
