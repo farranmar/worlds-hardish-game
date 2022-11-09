@@ -26,14 +26,13 @@ public class Platform extends GameObject {
     }
 
     private void addComponents(){
-        CollideComponent collide = new CollideComponent(new AAB(this.getSize(), this.getPosition()), true);
+        CollideComponent collide = new CollideComponent(new AAB(this.getSize(), this.getPosition()), true, 1);
         this.add(collide);
         DrawComponent draw = new DrawComponent();
         this.add(draw);
     }
 
     public void onDraw(GraphicsContext g){
-        System.out.println("drawing platform of size "+this.getSize()+" at position "+this.getPosition());
         g.setFill(this.color);
         Vec2d size = this.getSize();
         Vec2d pos = this.getPosition();

@@ -74,6 +74,17 @@ public class Circle implements Shape {
         return vec.rotate(angle);
     }
 
+    public Vec2d collidesWithRay(Ray ray){
+        Vec2d end = ray.getPosition().plus(ray.getSize());
+        boolean containsStart = ray.getPosition().dist(this.position) <= this.radius;
+        boolean containsEnd = end.dist(this.position) <= this.radius;
+        if(containsStart || containsEnd){
+            return new Vec2d(0);
+        } else {
+            return null;
+        }
+    }
+
     private Vec2d clamp(Vec2d value, Vec2d mins, Vec2d maxes){
         double xClamp = Math.max(mins.x, Math.min(maxes.x, value.x));
         double yClamp = Math.max(mins.y, Math.min(maxes.y, value.y));

@@ -65,9 +65,9 @@ public class Unit extends GameObject {
         index++;
     }
 
-    public Unit(Unit unit) {
-        this(unit.gameWorld, unit.getSize(), unit.getPosition());
-        this.setType(unit.getType());
+    public Unit(Unit block) {
+        this(block.gameWorld, block.getSize(), block.getPosition());
+        this.setType(block.getType());
     }
 
     private static HashMap<Type, HashMap<Type, Type>> constructHash() {
@@ -163,17 +163,17 @@ public class Unit extends GameObject {
         super.onDraw(g);
     }
 
-    // assumes GameObject unit is a Unit, as those are the only collidable GameObjects in alc
+    // assumes GameObject block is a Unit, as those are the only collidable GameObjects in alc
     public void onCollide(GameObject obj){
-        Unit unit = (Unit)obj;
-        if(unit.getType() == Type.TRASH){
+        Unit block = (Unit)obj;
+        if(block.getType() == Type.TRASH){
             this.gameWorld.addToRemovalQueue(this);
             return;
         } else if(this.type == Type.TRASH){
-            this.gameWorld.addToRemovalQueue(unit);
+            this.gameWorld.addToRemovalQueue(block);
             return;
         }
-        Type newType = collisionMap.get(this.type).get(unit.getType());
+        Type newType = collisionMap.get(this.type).get(block.getType());
         if(newType == null){ return; }
         Unit newUnit = new Unit(this.gameWorld, newType);
         newUnit.add(new DragComponent(newUnit));

@@ -1,6 +1,9 @@
 package engine.game.systems;
 
 import engine.game.objects.GameObject;
+import engine.support.Vec2d;
+import nin.game.objects.GravityRay;
+import nin.game.objects.Platform;
 import wiz.game.objects.Enemy;
 import wiz.game.objects.Player;
 
@@ -19,14 +22,13 @@ public class CollisionSystem extends GameSystem {
             if(obj1.isStatic() || !obj1.isCollidable()){ continue; }
             for(GameObject obj2 : gameObjects){
                 if(obj1 == obj2 || !obj2.isCollidable()){ continue; }
-                if(obj1.collidesWith(obj2) != null){
-                    if((obj1 instanceof Enemy && obj2 instanceof Player) || (obj1 instanceof Player && obj2 instanceof Enemy)){
-                    }
+                Vec2d mtv = obj1.collidesWith(obj2);
+                if(mtv != null){
                     if(collisions.get(obj1) == obj2 || collisions.get(obj2) == obj1){
                         continue;
                     }
                     collisions.put(obj1, obj2);
-                    obj1.onCollide(obj2);
+                    obj1.onCollide(obj2, mtv);
                 }
             }
         }

@@ -31,7 +31,6 @@ public class NinScreen extends Screen {
 
     public void onTick(long nanosSinceLastTick){
         super.onTick(nanosSinceLastTick);
-        System.out.println("viewport of size "+this.viewport.getDisplaySize()+" at position "+this.viewport.getDisplayPosition());
         if(this.viewport.getResult() != GameWorld.Result.PLAYING){
             this.nextScreen = ScreenName.GAME_OVER;
         }

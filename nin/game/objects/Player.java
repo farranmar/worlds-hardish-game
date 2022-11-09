@@ -1,9 +1,6 @@
 package nin.game.objects;
 
 import engine.game.components.*;
-import engine.game.objects.GameObject;
-import engine.game.objects.shapes.AAB;
-import engine.game.systems.GameSystem;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,19 +10,17 @@ import javafx.scene.paint.Color;
 
 import static nin.game.objects.Player.PlayerState.*;
 
-public class Player extends GameObject {
+public class Player extends Block {
 
     private PlayerState state;
-    private static final double speed = 5;
-    private static final double mass = 5;
-    private boolean gravity;
+    private static final double speed = 3;
+    private boolean toJump = false;
 
     public enum PlayerState {
         FACING_LEFT(2),
         FACING_RIGHT(1),
         WALKING_LEFT(2),
-        WALKING_RIGHT(1),
-        DYING(4);
+        WALKING_RIGHT(1);
 
         public int index;
         PlayerState(int index){
@@ -34,24 +29,10 @@ public class Player extends GameObject {
     }
 
     public Player(GameWorld world, Vec2d size, Vec2d position){
-        super(world, size, position);
-        this.addComponents();
-        this.state = FACING_RIGHT;
-        this.gravity = false;
-        this.setMass(mass);
-    }
-
-    private void addComponents(){
-        CollideComponent collide = new CollideComponent(new AAB(this.getSize(), this.getPosition()));
-        this.add(collide);
+        super(world, size, position, 0);
         KeyComponent key = new KeyComponent();
         this.add(key);
-        DrawComponent draw = new DrawComponent();
-        this.add(draw);
-        PhysicsComponent physics = new PhysicsComponent(this);
-        this.add(physics);
-        TickComponent tick = new TickComponent();
-        this.add(tick);
+        this.state = FACING_RIGHT;
     }
 
     public PlayerState getState(){
@@ -60,125 +41,6 @@ public class Player extends GameObject {
 
     public void setState(PlayerState state){
         this.state = state;
-    }
-
-    public double getMass() {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                return ((PhysicsComponent)component).getMass();
-            }
-        }
-        return 0;
-    }
-
-    public void setMass(double mass) {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).setMass(mass);
-            }
-        }
-    }
-
-    public Vec2d getForce() {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                return ((PhysicsComponent)component).getForce();
-            }
-        }
-        return new Vec2d(0);
-    }
-
-    public void setForce(Vec2d force) {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).setForce(force);
-            }
-        }
-    }
-
-    public Vec2d getImpulse() {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                return ((PhysicsComponent)component).getImpulse();
-            }
-        }
-        return new Vec2d(0);
-    }
-
-    public void setImpulse(Vec2d impulse) {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).setImpulse(impulse);
-            }
-        }
-    }
-
-    public Vec2d getVelocity() {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                return ((PhysicsComponent)component).getVelocity();
-            }
-        }
-        return new Vec2d(0);
-    }
-
-    public void setVelocity(Vec2d velocity) {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).setVelocity(velocity);
-            }
-        }
-    }
-
-    public Vec2d getAcceleration() {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                return ((PhysicsComponent)component).getAcceleration();
-            }
-        }
-        return new Vec2d(0);
-    }
-
-    public void setAcceleration(Vec2d acceleration) {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).setAcceleration(acceleration);
-            }
-        }
-    }
-
-    public boolean getGravity(){
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).getGravity();
-            }
-        }
-        return false;
-    }
-
-    public void setGravity(boolean grav){
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).setGravity(grav);
-            }
-        }
-    }
-
-    public double getRestitution() {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                return ((PhysicsComponent)component).getRestitution();
-            }
-        }
-        return 0;
-    }
-
-    public void setRestitution(double restitution) {
-        for(GameComponent component : this.components){
-            if(component.getTag() == ComponentTag.PHYSICS){
-                ((PhysicsComponent)component).setRestitution(restitution);
-            }
-        }
     }
 
     public boolean isMoving(){
@@ -190,6 +52,8 @@ public class Player extends GameObject {
             this.state = WALKING_RIGHT;
         } else if(e.getCode() == KeyCode.A){
             this.state = WALKING_LEFT;
+        } else if(e.getCode() == KeyCode.SHIFT){
+            this.toJump = true;
         }
     }
 
@@ -209,7 +73,6 @@ public class Player extends GameObject {
     }
 
     public void onTick(long nanosSinceLastTick){
-        super.onTick(nanosSinceLastTick);
         Vec2d curPos = this.getPosition();
         if(this.state == WALKING_LEFT){
             Vec2d newPos = new Vec2d(curPos.x-speed, curPos.y);
@@ -218,6 +81,11 @@ public class Player extends GameObject {
             Vec2d newPos = new Vec2d(curPos.x+speed, curPos.y);
             this.setPosition(newPos);
         }
+        if(!gravity && toJump){
+            this.applyImpulse(new Vec2d(0, -50));
+            this.toJump = false;
+        }
+        super.onTick(nanosSinceLastTick);
     }
 
 }

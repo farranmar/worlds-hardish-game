@@ -12,6 +12,8 @@ public interface Shape {
 
     Vec2d collidesWithPoint(Vec2d point);
 
+    Vec2d collidesWithRay(Ray ray);
+
     Vec2d getSize();
 
     void setSize(Vec2d newSize);

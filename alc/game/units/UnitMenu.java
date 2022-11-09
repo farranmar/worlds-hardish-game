@@ -25,12 +25,12 @@ public class UnitMenu extends GameObject {
         this.unitSize = new Vec2d(size.x - padding*2);
     }
 
-    public void add(GameObject unit){
-        unit.setSize(unitSize);
-        unit.setPosition(this.getNextUnitPosition());
-        unit.setParent(this);
-        this.addChild(unit);
-        this.gameWorld.addToAdditionQueue(unit);
+    public void add(GameObject block){
+        block.setSize(unitSize);
+        block.setPosition(this.getNextUnitPosition());
+        block.setParent(this);
+        this.addChild(block);
+        this.gameWorld.addToAdditionQueue(block);
     }
 
     private Vec2d getNextUnitPosition(){

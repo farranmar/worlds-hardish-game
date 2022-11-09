@@ -6,6 +6,9 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import nin.game.objects.Block;
+import nin.game.objects.Platform;
+import nin.game.objects.Player;
 
 import java.util.ArrayList;
 
@@ -147,6 +150,7 @@ public class GameObject {
 
     public void addChild(GameObject child){
         this.children.add(child);
+        this.gameWorld.add(child);
     }
 
     public void setChildren(ArrayList<GameObject> children){
@@ -217,8 +221,47 @@ public class GameObject {
         return null;
     }
 
-    public void onCollide(GameObject obj){
-        return;
+    public void onCollide(GameObject obj, Vec2d mtv){
+        if(this instanceof Block && !(this instanceof Player) && obj instanceof Platform){
+            System.out.println("collide");
+        }
+
+        if(this.isStatic()){
+            Vec2d newPosition = obj.getPosition().plus(mtv);
+            obj.setPosition(newPosition);
+        } else if(obj.isStatic()){
+            Vec2d newPosition = this.getPosition().plus(mtv.smult(-1));
+            this.setPosition(newPosition);
+        } else {
+            Vec2d newPosition1 = this.getPosition().plus(mtv.sdiv(2).smult(-1));
+            this.setPosition(newPosition1);
+            Vec2d newPosition2 = obj.getPosition().plus(mtv.sdiv(2));
+            obj.setPosition(newPosition2);
+        }
+
+        mtv = mtv.mag() != 0 ? mtv.normalize().smult(-1) : new Vec2d(0);
+
+        boolean thisHasPhysics = this.get(ComponentTag.PHYSICS) != null;
+        boolean objHasPhysics = obj.get(ComponentTag.PHYSICS) != null;
+        if(!thisHasPhysics && !objHasPhysics){ return; }
+        double cor = Math.sqrt(obj.getRestitution() * this.getRestitution());
+        double ma = this.getMass();
+        double mb = obj.getMass();
+        Vec2d ua = mtv.mag() != 0 ? this.getVelocity().projectOnto(mtv) : new Vec2d(0);
+        Vec2d ub = mtv.mag() != 0 ? obj.getVelocity().projectOnto(mtv.smult(-1)) : new Vec2d(0);
+        if(thisHasPhysics  && objHasPhysics){
+            Vec2d ia = obj.isStatic() ? ub.minus(ua).smult(mb*(1+cor)) : ub.minus(ua).smult(ma*mb*(1+cor)).sdiv((float)(ma+mb));
+            Vec2d ib = this.isStatic() ? ua.minus(ub).smult(mb*(1+cor)) : ua.minus(ub).smult(ma*mb*(1+cor)).sdiv((float)(ma+mb));
+            this.applyImpulse(ia);
+            obj.applyImpulse(ib);
+        } else if(thisHasPhysics && obj.isStatic()){
+            Vec2d ia = ub.minus(ua).smult(ma*(1+cor));
+            this.applyImpulse(ia);
+            System.out.println("applying impulse "+ia+" to "+this);
+        } else if(objHasPhysics && this.isStatic()){
+            Vec2d ib = ua.minus(ub).smult(mb*(1+cor));
+            obj.applyImpulse(ib);
+        }
     }
 
     public void onTick(long nanosSincePreviousTick){
@@ -289,6 +332,132 @@ public class GameObject {
         }
         for(GameObject child : children){
             child.onMouseDragged(x, y);
+        }
+    }
+
+    public double getMass() {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                return ((PhysicsComponent)component).getMass();
+            }
+        }
+        return 0;
+    }
+
+    public void setMass(double mass) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).setMass(mass);
+            }
+        }
+    }
+
+    public Vec2d getForce() {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                return ((PhysicsComponent)component).getForce();
+            }
+        }
+        return new Vec2d(0);
+    }
+
+    public void setForce(Vec2d force) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).setForce(force);
+            }
+        }
+    }
+
+    public Vec2d getImpulse() {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                return ((PhysicsComponent)component).getImpulse();
+            }
+        }
+        return new Vec2d(0);
+    }
+
+    public void setImpulse(Vec2d impulse) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).setImpulse(impulse);
+            }
+        }
+    }
+
+    public Vec2d getVelocity() {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                return ((PhysicsComponent)component).getVelocity();
+            }
+        }
+        return new Vec2d(0);
+    }
+
+    public void setVelocity(Vec2d velocity) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).setVelocity(velocity);
+            }
+        }
+    }
+
+    public Vec2d getAcceleration() {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                return ((PhysicsComponent)component).getAcceleration();
+            }
+        }
+        return new Vec2d(0);
+    }
+
+    public void setAcceleration(Vec2d acceleration) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).setAcceleration(acceleration);
+            }
+        }
+    }
+
+    public double getRestitution() {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.COLLIDE){
+                return ((CollideComponent)component).getRestitution();
+            }
+        }
+        return 0;
+    }
+
+    public void setRestitution(double restitution) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.COLLIDE){
+                ((CollideComponent)component).setRestitution(restitution);
+            }
+        }
+    }
+
+    public void applyForce(Vec2d force) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).applyForce(force);
+            }
+        }
+    }
+
+    public void applyImpulse(Vec2d impulse) {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).applyImpulse(impulse);
+            }
+        }
+    }
+
+    public void applyGravity() {
+        for(GameComponent component : this.components){
+            if(component.getTag() == ComponentTag.PHYSICS){
+                ((PhysicsComponent)component).applyGravity();
+            }
         }
     }
 

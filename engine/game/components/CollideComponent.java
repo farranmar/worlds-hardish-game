@@ -9,16 +9,30 @@ public class CollideComponent extends GameComponent {
     private Shape shape;
     private boolean collidable = true; // whether it can actually collide at the moment (eg is false when actively dragging)
     private boolean isStatic = false;
+    private double restitution = 1;
 
     public CollideComponent(Shape shape){
         super(ComponentTag.COLLIDE);
         this.shape = shape;
     }
 
+    public CollideComponent(Shape shape, double restitution){
+        super(ComponentTag.COLLIDE);
+        this.shape = shape;
+        this.restitution = restitution;
+    }
+
     public CollideComponent(Shape shape, boolean isStatic){
         super(ComponentTag.COLLIDE);
         this.shape = shape;
         this.isStatic = isStatic;
+    }
+
+    public CollideComponent(Shape shape, boolean isStatic, double restitution){
+        super(ComponentTag.COLLIDE);
+        this.shape = shape;
+        this.isStatic = isStatic;
+        this.restitution = restitution;
     }
 
     public Shape getShape() {
@@ -47,6 +61,14 @@ public class CollideComponent extends GameComponent {
 
     public boolean getCollidable(){
         return this.collidable;
+    }
+
+    public double getRestitution(){
+        return this.restitution;
+    }
+
+    public void setRestitution(double restitution){
+        this.restitution = restitution;
     }
 
     public Vec2d collidesWith(GameObject obj){

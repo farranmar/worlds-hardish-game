@@ -2,6 +2,9 @@ package engine.game.components;
 
 import engine.game.objects.GameObject;
 import engine.support.Vec2d;
+import nin.game.objects.Block;
+import nin.game.objects.Platform;
+import nin.game.objects.Player;
 
 public class PhysicsComponent extends GameComponent {
 
@@ -10,8 +13,6 @@ public class PhysicsComponent extends GameComponent {
     private Vec2d impulse = new Vec2d(0);
     private Vec2d velocity = new Vec2d(0);
     private Vec2d acceleration = new Vec2d(0);
-    private boolean gravity = false;
-    private double restitution = 0;
     private GameObject obj;
 
     public PhysicsComponent(GameObject obj){
@@ -60,22 +61,6 @@ public class PhysicsComponent extends GameComponent {
         this.acceleration = acceleration;
     }
 
-    public boolean getGravity(){
-        return this.gravity;
-    }
-
-    public void setGravity(boolean grav){
-        this.gravity = grav;
-    }
-
-    public double getRestitution() {
-        return restitution;
-    }
-
-    public void setRestitution(double restitution) {
-        this.restitution = restitution;
-    }
-
     public void applyForce(Vec2d newForce){
         this.force = this.force.plus(newForce);
     }
@@ -84,14 +69,24 @@ public class PhysicsComponent extends GameComponent {
         this.impulse = this.impulse.plus(newImpulse);
     }
 
+    public void applyGravity(){
+        this.applyForce(new Vec2d(0, 25 * this.mass));
+    }
+
     public void onTick(long nanosSincePreviousTick){
+        if(obj instanceof Block && !(obj instanceof Player) && !impulse.equals(new Vec2d(0))){
+            System.out.println("getsf");
+        }
         double secSincePreviousTick = nanosSincePreviousTick * 0.000000001;
-        this.velocity = this.velocity.plus(this.force.smult(secSincePreviousTick).sdiv((float)this.mass)); // apply force
+        if(!impulse.equals(new Vec2d(0))){
+            System.out.println("grea");
+        }
         this.velocity = this.velocity.plus(this.impulse.sdiv((float)this.mass)); // apply impulse
+        this.velocity = this.velocity.plus(this.force.smult(secSincePreviousTick).sdiv((float)this.mass)); // apply force
         this.velocity = this.velocity.plus(this.acceleration.smult(secSincePreviousTick)); // acceleration
         this.force = new Vec2d(0);
         this.impulse = new Vec2d(0);
         Vec2d oldPos = obj.getPosition();
-        obj.setPosition(oldPos.plus(this.velocity));
+        obj.setPosition(oldPos.plus(this.velocity.smult(secSincePreviousTick * 10)));
     }
 }

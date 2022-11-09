@@ -14,10 +14,10 @@
 | Your engine must have a System class that contains GameObjects. | The `GameSystem` class is located in `engine/game/systems/GameSystem` and contains an ArrayList of game objects. |
 | Your engine must have a class representing the game world. That class must hold at least one system. | The `GameWorld` class is located in `engine/game/world/GameWorld` and it contains an ArrayList of systems. |
 | The viewport should be visible once the game is run (either directly or through a menu). The player must be able to pan the viewport (the viewport cannot display a solid color). | When you run the game and press the "play" button, the viewport is visible and takes up the entire screen. You can pan with either the arrow keys or wasd. |
-| There must be a “unit” visible in the viewport. | There is a white and gray rectangular menu containing a unit, which is a unit. |
-| The “unit” must respond to being clicked (only when the unit itself is clicked). | When you click and drag the unit ("unit"), it will be dragged around the screen. |
-| The “unit” must be able to be dragged freely. | This is true. When you drag the unit, it moves freely around the screen. |
-| The “unit” should be drawn and moved using separate components. | The unit is drawn using the `Drawable` component, although this `onDraw` method is overridden to draw a simple unit instead of an image. It is dragged using the `Draggable` component. Both of these components are located in `engine/game/components`. |
+| There must be a “block” visible in the viewport. | There is a white and gray rectangular menu containing a block, which is a block. |
+| The “block” must respond to being clicked (only when the block itself is clicked). | When you click and drag the block ("block"), it will be dragged around the screen. |
+| The “block” must be able to be dragged freely. | This is true. When you drag the block, it moves freely around the screen. |
+| The “block” should be drawn and moved using separate components. | The block is drawn using the `Drawable` component, although this `onDraw` method is overridden to draw a simple block instead of an image. It is dragged using the `Draggable` component. Both of these components are located in `engine/game/components`. |
 
 
 ## Secondary Requirements:
@@ -25,8 +25,8 @@
 |---|---|
 | Your engine must meet all primary engine requirements | See above |
 | The viewport must support zooming (scaling of the currently viewable GameState). When zooming, the viewport must either keep the center of the game in the same position or keep the location currently under the mouse in the same position. | You can zoom in an out be scrolling. The center of the screen is not maintained, which is a bug that I plan to fix for Alc 2. |
-| The player must be able to zoom the map (make sure the unit still responds to being clicked!). | See above. The player can zoom in and out on the map, and the unit still can be dragged properly, however the center is not maintained when zooming. |
-| There must be a menu from which the player can make a copy of a “unit” by clicking and dragging it, without the original being destroyed or moved. | There is a menu from which the player can click and drag the unit ("unit"). Dragging will create a duplicate of the unit in the menu that the player drags. |
+| The player must be able to zoom the map (make sure the block still responds to being clicked!). | See above. The player can zoom in and out on the map, and the block still can be dragged properly, however the center is not maintained when zooming. |
+| There must be a menu from which the player can make a copy of a “block” by clicking and dragging it, without the original being destroyed or moved. | There is a menu from which the player can click and drag the block ("block"). Dragging will create a duplicate of the block in the menu that the player drags. |
 
 ## Extras:
 | Requirement | Location in code or steps to view in game  |
@@ -37,6 +37,6 @@
 
 Instructions on how to run
 
-Known bugs: As described above, zooming does not work properly, as the center is not maintained properly. Additionally, resizing will cause some objects to shift slightly to the bottom right. Both of these bugs, I plan to fix for the next submission of Alchemy. Finally, when the mouse is released, a click event is fired. This means that if a user drags a unit over to the back button, then releases it while the mouse is over the back button, it will click the button and send the user back to the menu.
+Known bugs: As described above, zooming does not work properly, as the center is not maintained properly. Additionally, resizing will cause some objects to shift slightly to the bottom right. Both of these bugs, I plan to fix for the next submission of Alchemy. Finally, when the mouse is released, a click event is fired. This means that if a user drags a block over to the back button, then releases it while the mouse is over the back button, it will click the button and send the user back to the menu.
 
 Hours spent on assignment: 30
