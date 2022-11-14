@@ -11,12 +11,15 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 public class Block extends GameObject {
 
     protected boolean gravity;
     protected static final double mass = 5;
     protected final GravityRay[] gravRays = new GravityRay[2];
     protected final double restitution;
+    protected ArrayList<Projectile> projectiles = new ArrayList<>();
     private Color color;
 
     public Block(GameWorld world, Vec2d size, Vec2d position, double restitution){
@@ -76,16 +79,50 @@ public class Block extends GameObject {
         this.gravRays[1].setPosition(new Vec2d(newPosition.x + size.x, newPosition.y + size.y/2));
     }
 
+    public void fireProjectile(Projectile.Direction direction){
+        Vec2d curPos = this.getPosition();
+        Vec2d curSize = this.getSize();
+        Vec2d projSize = new Vec2d(curSize.x/2, curSize.y/2);
+        Vec2d projPos;
+        Vec2d impulse;
+        if(direction == Projectile.Direction.LEFT){
+            projPos = new Vec2d(curPos.x - projSize.x, (curPos.y+curSize.y/2) - (projSize.y/2));
+            impulse = new Vec2d(-30, 0);
+        } else if (direction == Projectile.Direction.RIGHT){
+            projPos = new Vec2d(curPos.x+curSize.x, (curPos.y+curSize.y/2) - (projSize.y/2));
+            impulse = new Vec2d(30, 0);
+        } else if (direction == Projectile.Direction.DOWN){
+            projPos = new Vec2d((curPos.x + curSize.x/2) - projSize.x/2, curPos.y+curSize.y);
+            impulse = new Vec2d(0, 30);
+        } else {
+            projPos = new Vec2d((curPos.x + curSize.x/2) - projSize.x/2, curPos.y);
+            impulse = new Vec2d(0, -30);
+        }
+        Projectile proj = new Projectile(this.gameWorld, this, projSize, projPos, direction, Color.rgb(204, 40, 28));
+        proj.applyImpulse(impulse);
+        this.projectiles.add(proj);
+        this.gameWorld.addToAdditionQueue(proj);
+    }
+
+    public void removeProjectile(Projectile proj){
+        this.gameWorld.addToRemovalQueue(proj);
+        this.projectiles.remove(proj);
+    }
+
     public void onCollide(GameObject obj, Vec2d mtv){
         if(obj instanceof GravityRay){ return; }
         super.onCollide(obj, mtv);
     }
 
     public void onDraw(GraphicsContext g){
+        super.onDraw(g);
         g.setFill(this.color);
         Vec2d size = this.getSize();
         Vec2d pos = this.getPosition();
         g.fillRect(pos.x, pos.y, size.x, size.y);
+        for(Projectile proj : this.projectiles){
+            proj.onDraw(g);
+        }
     }
 
     public void onTick(long nanosSinceLastTick){

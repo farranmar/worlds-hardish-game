@@ -4,6 +4,7 @@ import engine.game.objects.GameObject;
 import engine.support.Vec2d;
 import nin.game.objects.GravityRay;
 import nin.game.objects.Platform;
+import nin.game.objects.Projectile;
 import wiz.game.objects.Enemy;
 import wiz.game.objects.Player;
 
@@ -29,6 +30,7 @@ public class CollisionSystem extends GameSystem {
                     }
                     collisions.put(obj1, obj2);
                     obj1.onCollide(obj2, mtv);
+                    obj2.onCollide(obj1, mtv.smult(-1));
                 }
             }
         }

@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
 import nin.game.objects.Block;
 import nin.game.objects.Platform;
 import nin.game.objects.Player;
+import nin.game.objects.Projectile;
 
 import java.util.ArrayList;
 
@@ -222,21 +223,12 @@ public class GameObject {
     }
 
     public void onCollide(GameObject obj, Vec2d mtv){
-        if(this instanceof Block && !(this instanceof Player) && obj instanceof Platform){
-            System.out.println("collide");
-        }
-
-        if(this.isStatic()){
-            Vec2d newPosition = obj.getPosition().plus(mtv);
-            obj.setPosition(newPosition);
-        } else if(obj.isStatic()){
+        if(!this.isStatic() && obj.isStatic()){
             Vec2d newPosition = this.getPosition().plus(mtv.smult(-1));
             this.setPosition(newPosition);
-        } else {
-            Vec2d newPosition1 = this.getPosition().plus(mtv.sdiv(2).smult(-1));
-            this.setPosition(newPosition1);
-            Vec2d newPosition2 = obj.getPosition().plus(mtv.sdiv(2));
-            obj.setPosition(newPosition2);
+        } else if(!this.isStatic()) {
+            Vec2d newPosition = this.getPosition().plus(mtv.sdiv(2).smult(-1));
+            this.setPosition(newPosition);
         }
 
         mtv = mtv.mag() != 0 ? mtv.normalize().smult(-1) : new Vec2d(0);
@@ -251,16 +243,10 @@ public class GameObject {
         Vec2d ub = mtv.mag() != 0 ? obj.getVelocity().projectOnto(mtv.smult(-1)) : new Vec2d(0);
         if(thisHasPhysics  && objHasPhysics){
             Vec2d ia = obj.isStatic() ? ub.minus(ua).smult(mb*(1+cor)) : ub.minus(ua).smult(ma*mb*(1+cor)).sdiv((float)(ma+mb));
-            Vec2d ib = this.isStatic() ? ua.minus(ub).smult(mb*(1+cor)) : ua.minus(ub).smult(ma*mb*(1+cor)).sdiv((float)(ma+mb));
             this.applyImpulse(ia);
-            obj.applyImpulse(ib);
         } else if(thisHasPhysics && obj.isStatic()){
             Vec2d ia = ub.minus(ua).smult(ma*(1+cor));
             this.applyImpulse(ia);
-            System.out.println("applying impulse "+ia+" to "+this);
-        } else if(objHasPhysics && this.isStatic()){
-            Vec2d ib = ua.minus(ub).smult(mb*(1+cor));
-            obj.applyImpulse(ib);
         }
     }
 

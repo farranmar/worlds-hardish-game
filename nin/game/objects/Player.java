@@ -1,6 +1,7 @@
 package nin.game.objects;
 
 import engine.game.components.*;
+import engine.game.objects.GameObject;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
@@ -47,6 +48,14 @@ public class Player extends Block {
         return this.state == WALKING_LEFT || this.state == WALKING_RIGHT;
     }
 
+    public void fireProjectile(){
+        if(this.state == FACING_LEFT || this.state == WALKING_LEFT){
+            super.fireProjectile(Projectile.Direction.LEFT);
+        } else if (this.state == FACING_RIGHT || this.state == WALKING_RIGHT){
+            super.fireProjectile(Projectile.Direction.RIGHT);
+        }
+    }
+
     public void onKeyPressed(KeyEvent e){
         if(e.getCode() == KeyCode.D){
             this.state = WALKING_RIGHT;
@@ -54,6 +63,8 @@ public class Player extends Block {
             this.state = WALKING_LEFT;
         } else if(e.getCode() == KeyCode.SHIFT){
             this.toJump = true;
+        } else if(e.getCode() == KeyCode.SPACE){
+            this.fireProjectile();
         }
     }
 
@@ -70,6 +81,12 @@ public class Player extends Block {
         Vec2d size = this.getSize();
         Vec2d pos = this.getPosition();
         g.fillRect(pos.x, pos.y, size.x, size.y);
+        super.onDraw(g);
+    }
+
+    public void onCollide(GameObject obj, Vec2d mtv){
+        if(this.projectiles.contains(obj)){ return; }
+        super.onCollide(obj, mtv);
     }
 
     public void onTick(long nanosSinceLastTick){

@@ -21,6 +21,13 @@ public class PhysicsComponent extends GameComponent {
         this.tickable = true;
     }
 
+    public PhysicsComponent(GameObject obj, double mass){
+        super(ComponentTag.PHYSICS);
+        this.obj = obj;
+        this.tickable = true;
+        this.mass = mass;
+    }
+
     public double getMass() {
         return mass;
     }
@@ -74,13 +81,7 @@ public class PhysicsComponent extends GameComponent {
     }
 
     public void onTick(long nanosSincePreviousTick){
-        if(obj instanceof Block && !(obj instanceof Player) && !impulse.equals(new Vec2d(0))){
-            System.out.println("getsf");
-        }
         double secSincePreviousTick = nanosSincePreviousTick * 0.000000001;
-        if(!impulse.equals(new Vec2d(0))){
-            System.out.println("grea");
-        }
         this.velocity = this.velocity.plus(this.impulse.sdiv((float)this.mass)); // apply impulse
         this.velocity = this.velocity.plus(this.force.smult(secSincePreviousTick).sdiv((float)this.mass)); // apply force
         this.velocity = this.velocity.plus(this.acceleration.smult(secSincePreviousTick)); // acceleration
