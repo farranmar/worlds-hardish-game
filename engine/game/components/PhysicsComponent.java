@@ -5,6 +5,10 @@ import engine.support.Vec2d;
 import nin.game.objects.Block;
 import nin.game.objects.Platform;
 import nin.game.objects.Player;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class PhysicsComponent extends GameComponent {
 
@@ -89,5 +93,41 @@ public class PhysicsComponent extends GameComponent {
         this.impulse = new Vec2d(0);
         Vec2d oldPos = obj.getPosition();
         obj.setPosition(oldPos.plus(this.velocity.smult(secSincePreviousTick * 10)));
+    }
+
+    public Element toXml(Document doc){
+        Element ele = doc.createElement("Component");
+        ele.setAttribute("tag", this.tag.toString());
+        ele.setAttribute("tickable", this.tickable+"");
+        ele.setAttribute("drawable", this.drawable+"");
+        ele.setAttribute("keyInput", this.keyInput+"");
+        ele.setAttribute("mouseInput", this.mouseInput+"");
+        ele.setAttribute("mass", this.mass+"");
+        Element force = this.force.toXml(doc, "Force");
+        ele.appendChild(force);
+        Element impulse = this.impulse.toXml(doc, "Impulse");
+        ele.appendChild(impulse);
+        Element velocity = this.velocity.toXml(doc, "Velocity");
+        ele.appendChild(velocity);
+        Element acceleration = this.acceleration.toXml(doc, "Acceleration");
+        ele.appendChild(acceleration);
+        return ele;
+    }
+
+    public static PhysicsComponent fromXml(Element ele, GameObject obj){
+        if(!ele.getTagName().equals("Component")){ return null; }
+        if(!ele.getAttribute("tag").equals("PHYSICS")){ return null; }
+        PhysicsComponent physicsComponent = new PhysicsComponent(obj);
+        physicsComponent.setConstants(ele);
+        physicsComponent.setMass(Double.parseDouble(ele.getAttribute("mass")));
+        Vec2d force = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Force").item(0)));
+        physicsComponent.setForce(force);
+        Vec2d impulse = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Impulse").item(0)));
+        physicsComponent.setForce(impulse);
+        Vec2d velocity = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Velocity").item(0)));
+        physicsComponent.setForce(velocity);
+        Vec2d acceleration = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Acceleration").item(0)));
+        physicsComponent.setForce(acceleration);
+        return physicsComponent;
     }
 }

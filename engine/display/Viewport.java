@@ -12,6 +12,8 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +28,7 @@ public class Viewport extends UIElement {
     private Direction panning = Direction.NONE;
     private static final int panningSpeed = 5;
     private static final int zoomSpeed = 1; // percent that you zoom
-    private final ArrayList<Background> clippingBackgrounds = new ArrayList<>(4);
+    private static final ArrayList<Background> clippingBackgrounds = new ArrayList<>(4);
     private static final Vec2d minDisplaySize = new Vec2d(120,67.5);
 
     public enum Direction {
@@ -43,7 +45,7 @@ public class Viewport extends UIElement {
         this.displayPosition = new Vec2d(0);
         for(int i = 0; i < 4; i++){
             Background background = new Background(Color.rgb(0,0,0), new Vec2d(0), new Vec2d(0));
-            this.clippingBackgrounds.add(background);
+            clippingBackgrounds.add(background);
             this.addChild(background);
         }
     }

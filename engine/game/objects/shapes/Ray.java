@@ -1,6 +1,10 @@
 package engine.game.objects.shapes;
 
 import engine.support.Vec2d;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class Ray implements Shape {
 
@@ -90,5 +94,24 @@ public class Ray implements Shape {
     @Override
     public void setPosition(Vec2d newPosition) {
         this.position = newPosition;
+    }
+
+    @Override
+    public Element toXml(Document doc) {
+        Element ele = doc.createElement("Shape");
+        ele.setAttribute("class", "Ray");
+        Element size = this.size.toXml(doc, "Size");
+        Element pos = this.position.toXml(doc, "Position");
+        ele.appendChild(size);
+        ele.appendChild(pos);
+        return ele;
+    }
+
+    public static Ray fromXml(Element ele){
+        if(!ele.getTagName().equals("Shape")){ return null; }
+        if(!ele.getAttribute("class").equals("Ray")){ return null; }
+        Vec2d size = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Size").item(0)));
+        Vec2d pos = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Position").item(0)));
+        return new Ray(size, pos);
     }
 }

@@ -8,7 +8,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import nin.game.NinWorld;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 import static nin.game.objects.Player.PlayerState.*;
 
 public class Player extends Block {
@@ -18,14 +23,14 @@ public class Player extends Block {
     private boolean toJump = false;
 
     public enum PlayerState {
-        FACING_LEFT(2),
-        FACING_RIGHT(1),
-        WALKING_LEFT(2),
-        WALKING_RIGHT(1);
+        FACING_LEFT("FACING_LEFT"),
+        FACING_RIGHT("FACING_RIGHT"),
+        WALKING_LEFT("WALKING_LEFT"),
+        WALKING_RIGHT("WALKING_RIGHT");
 
-        public int index;
-        PlayerState(int index){
-            this.index = index;
+        public String string;
+        PlayerState(String s){
+            this.string = s;
         }
     }
 
@@ -105,4 +110,30 @@ public class Player extends Block {
         super.onTick(nanosSinceLastTick);
     }
 
+    @Override
+    public Element toXml(Document doc) {
+        Element ele = super.toXml(doc);
+        ele.setAttribute("class", "Player");
+        ele.setAttribute("playerState", this.state.string);
+        ele.setAttribute("toJump", this.toJump+"");
+        return ele;
+    }
+
+    public Player(Element ele, GameWorld world){
+        if(!ele.getTagName().equals("GameObject")){ return; }
+        if(!ele.getAttribute("class").equals("Player")){ return; }
+        this.gameWorld = world;
+        this.setConstantsXml(ele);
+        this.toJump = Boolean.parseBoolean(ele.getAttribute("toJump"));
+        this.state = PlayerState.valueOf(ele.getAttribute("playerState"));
+
+        Element componentsEle = (Element)(getTopElementsByTagName(ele, "Components").item(0));
+        this.addComponentsXml(componentsEle);
+
+        Element projsEle = (Element)(getTopElementsByTagName(ele, "Projectiles").item(0));
+        this.addGravRaysAndProjs(projsEle);
+
+        Element childrenEle = (Element)(getTopElementsByTagName(ele, "Children").item(0));
+        this.setChildrenXml(childrenEle, NinWorld.getClassMap());
+    }
 }

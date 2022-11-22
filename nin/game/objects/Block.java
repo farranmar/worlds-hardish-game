@@ -10,17 +10,26 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import nin.game.NinWorld;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 
+import static engine.game.world.GameWorld.getTopElementsByTagName;
+
 public class Block extends GameObject {
 
-    protected boolean gravity;
+    protected boolean gravity = false;
     protected static final double mass = 5;
-    protected final GravityRay[] gravRays = new GravityRay[2];
-    protected final double restitution;
+    protected double restitution = 1;
     protected ArrayList<Projectile> projectiles = new ArrayList<>();
     private Color color;
+
+    public Block(GameWorld world){
+        super(world, new Vec2d(0), new Vec2d(0));
+    }
 
     public Block(GameWorld world, Vec2d size, Vec2d position, double restitution){
         super(world, size, position);
@@ -32,8 +41,6 @@ public class Block extends GameObject {
         GravityRay right = new GravityRay(this.gameWorld, this, new Vec2d(0, size.y/2 + 3), new Vec2d(position.x + size.x - 3, position.y + size.y/2));
         this.addChild(left);
         this.addChild(right);
-        this.gravRays[0] = left;
-        this.gravRays[1] = right;
         this.setMass(mass);
     }
 
@@ -47,9 +54,10 @@ public class Block extends GameObject {
         GravityRay right = new GravityRay(this.gameWorld, this, new Vec2d(0, size.y/2 + 3), new Vec2d(position.x + size.x - 3, position.y + size.y/2));
         this.addChild(left);
         this.addChild(right);
-        this.gravRays[0] = left;
-        this.gravRays[1] = right;
         this.setMass(mass);
+    }
+
+    public Block() {
     }
 
     private void addComponents(){
@@ -71,12 +79,16 @@ public class Block extends GameObject {
         this.gravity = g;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     @Override
     public void setPosition(Vec2d newPosition) {
         super.setPosition(newPosition);
         Vec2d size = this.getSize();
-        this.gravRays[0].setPosition(new Vec2d(newPosition.x, newPosition.y + size.y/2));
-        this.gravRays[1].setPosition(new Vec2d(newPosition.x + size.x, newPosition.y + size.y/2));
+        this.children.get(0).setPosition(new Vec2d(newPosition.x, newPosition.y + size.y/2));
+        this.children.get(1).setPosition(new Vec2d(newPosition.x + size.x, newPosition.y + size.y/2));
     }
 
     public void fireProjectile(Projectile.Direction direction){
@@ -101,7 +113,8 @@ public class Block extends GameObject {
         Projectile proj = new Projectile(this.gameWorld, this, projSize, projPos, direction, Color.rgb(204, 40, 28));
         proj.applyImpulse(impulse);
         this.projectiles.add(proj);
-        this.gameWorld.addToAdditionQueue(proj);
+//        this.gameWorld.addToAdditionQueue(proj);
+        this.gameWorld.addToSystems(proj);
     }
 
     public void removeProjectile(Projectile proj){
@@ -127,10 +140,72 @@ public class Block extends GameObject {
 
     public void onTick(long nanosSinceLastTick){
         super.onTick(nanosSinceLastTick);
+        for(Projectile proj : this.projectiles){
+            proj.onTick(nanosSinceLastTick);
+        }
         if(this.gravity){
             applyGravity();
         }
         this.gravity = true;
     }
 
+    @Override
+    public Element toXml(Document doc) {
+        Element ele =  super.toXml(doc);
+        ele.setAttribute("class", "Block");
+        ele.setAttribute("gravity", this.gravity+"");
+        ele.setAttribute("restitution", this.restitution+"");
+        Element color = colorToXml(doc, this.color);
+        ele.appendChild(color);
+
+//        Element gravRays = doc.createElement("GravityRays");
+//        for(GravityRay gravRay : this.gravRays){
+//            Element grEle = gravRay.toXml(doc);
+//            gravRays.appendChild(grEle);
+//        }
+//        ele.appendChild(gravRays);
+
+        Element projs = doc.createElement("Projectiles");
+        for(Projectile proj : this.projectiles){
+            Element projEle = proj.toXml(doc);
+            projs.appendChild(projEle);
+        }
+        ele.appendChild(projs);
+
+        return ele;
+    }
+
+    public Block (Element ele, GameWorld world){
+        if(!ele.getTagName().equals("GameObject")){ return; }
+        if(!ele.getAttribute("class").equals("Block")){ return; }
+        this.gameWorld = world;
+        this.setConstantsXml(ele);
+        this.setGravity(Boolean.parseBoolean(ele.getAttribute("gravity")));
+        this.setRestitution(Double.parseDouble(ele.getAttribute("restitution")));
+        Color color = colorFromXml((Element)(getTopElementsByTagName(ele, "Color").item(0)));
+        this.setColor(color);
+
+        Element componentsEle = (Element)(getTopElementsByTagName(ele, "Components").item(0));
+        this.addComponentsXml(componentsEle);
+
+        Element projsEle = (Element)(getTopElementsByTagName(ele,"Projectiles").item(0));
+        this.addGravRaysAndProjs(projsEle);
+
+        Element childrenEle = (Element)(getTopElementsByTagName(ele, "Children").item(0));
+        this.setChildrenXml(childrenEle, NinWorld.getClassMap());
+        assert(this.children.size() == 2);
+        assert(this.children.get(0) instanceof GravityRay);
+        assert(this.children.get(1) instanceof GravityRay);
+    }
+
+    protected void addGravRaysAndProjs(Element projsEle){
+        NodeList projsList = getTopElementsByTagName(projsEle, "GameObject");
+        for(int i = 0; i < projsList.getLength(); i++){
+            Element projEle = (Element)(projsList.item(i));
+            assert(projEle.getAttribute("class").equals("Projectile"));
+            Projectile proj = new Projectile(projEle, this.gameWorld);
+            proj.setParent(this);
+            this.projectiles.add(proj);
+        }
+    }
 }

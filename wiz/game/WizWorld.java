@@ -32,7 +32,6 @@ public class WizWorld extends GameWorld {
     private void addSystems(){
         this.addSystem(new GraphicsSystem());
         this.addSystem(new InputSystem());
-        this.addSystem(new StaticSystem());
         this.addSystem(new CollisionSystem());
         this.addSystem(new TickingSystem());
     }
