@@ -1,6 +1,8 @@
 package engine.game.objects.shapes;
 
 import engine.support.Vec2d;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public interface Shape {
 
@@ -21,5 +23,20 @@ public interface Shape {
     Vec2d getPosition();
 
     void setPosition(Vec2d newPosition);
+
+    Element toXml(Document doc);
+
+    static Shape fromXml(Element ele){
+        if(!ele.getTagName().equals("Shape")){ return null; }
+        Shape shape = null;
+        if(ele.getAttribute("class").equals("Circle")){
+            shape = Circle.fromXml(ele);
+        } else if(ele.getAttribute("class").equals("AAB")){
+            shape = AAB.fromXml(ele);
+        } else if(ele.getAttribute("class").equals("Ray")){
+            shape = Ray.fromXml(ele);
+        }
+        return shape;
+    }
 
 }

@@ -4,10 +4,16 @@ import engine.game.components.CollideComponent;
 import engine.game.components.DrawComponent;
 import engine.game.objects.GameObject;
 import engine.game.objects.shapes.AAB;
+import engine.game.objects.shapes.Ray;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import nin.game.NinWorld;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class Platform extends GameObject {
 
@@ -39,4 +45,26 @@ public class Platform extends GameObject {
         g.fillRect(pos.x, pos.y, size.x, size.y);
     }
 
+    @Override
+    public Element toXml(Document doc) {
+        Element ele = super.toXml(doc);
+        ele.setAttribute("class", "Platform");
+        Element color = colorToXml(doc, this.color);
+        ele.appendChild(color);
+        return ele;
+    }
+
+    public Platform(Element ele, GameWorld world){
+        if(!ele.getTagName().equals("GameObject")){ return; }
+        if(!ele.getAttribute("class").equals("Platform")){ return; }
+        this.gameWorld = world;
+        this.setConstantsXml(ele);
+        this.color = colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
+
+        Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
+        this.addComponentsXml(componentsEle);
+
+        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
+        this.setChildrenXml(childrenEle, NinWorld.getClassMap());
+    }
 }

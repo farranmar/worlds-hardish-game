@@ -1,11 +1,17 @@
 package engine.game.components;
 
+import engine.game.objects.GameObject;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class SpriteComponent extends DrawComponent {
 
+    // @TODO: convert Image to be String of filename
     private Image image;
     private Vec2d subImagePos = null;
     private Vec2d subImageSize = null;
@@ -14,8 +20,6 @@ public class SpriteComponent extends DrawComponent {
     private int frames = 1;
     private int animationSpeed = 1;
     private int ticksSinceUpdate = 0;
-
-    private boolean proj = false;
 
     public static class SubImage {
         Vec2d position;
@@ -38,13 +42,6 @@ public class SpriteComponent extends DrawComponent {
         super();
         this.image = image;
         this.tag = ComponentTag.SPRITE;
-    }
-
-    public SpriteComponent(Image image, boolean t){
-        super();
-        this.image = image;
-        this.tag = ComponentTag.SPRITE;
-        this.proj = true;
     }
 
     public void setImage(Image image){
@@ -81,6 +78,61 @@ public class SpriteComponent extends DrawComponent {
             this.ticksSinceUpdate = 0;
         }
         super.onDraw(g);
+    }
+
+    public void setAnimationIndex(int animationIndex) {
+        this.animationIndex = animationIndex;
+    }
+
+    public void setAnimated(boolean animated) {
+        this.animated = animated;
+    }
+
+    public void setFrames(int frames) {
+        this.frames = frames;
+    }
+
+    public void setAnimationSpeed(int animationSpeed) {
+        this.animationSpeed = animationSpeed;
+    }
+
+    public void setTicksSinceUpdate(int ticksSinceUpdate) {
+        this.ticksSinceUpdate = ticksSinceUpdate;
+    }
+
+    public Element toXml(Document doc){
+        Element ele = doc.createElement("Component");
+        ele.setAttribute("tag", this.tag.toString());
+        ele.setAttribute("tickable", this.tickable+"");
+        ele.setAttribute("drawable", this.drawable+"");
+        ele.setAttribute("keyInput", this.keyInput+"");
+        ele.setAttribute("mouseInput", this.mouseInput+"");
+        Element subImagePos = this.subImagePos.toXml(doc, "SubImagePosition");
+        ele.appendChild(subImagePos);
+        Element subImageSize = this.subImageSize.toXml(doc, "SubImageSize");
+        ele.appendChild(subImageSize);
+        ele.setAttribute("animationIndex", this.animationIndex+"");
+        ele.setAttribute("animated", this.animated+"");
+        ele.setAttribute("frames", this.frames+"");
+        ele.setAttribute("animationSpeed", this.animationSpeed+"");
+        ele.setAttribute("ticksSinceUpdate", this.ticksSinceUpdate+"");
+        return ele;
+    }
+
+    public static SpriteComponent fromXml(Element ele){
+        if(!ele.getTagName().equals("Component")){ return null; }
+        if(!ele.getAttribute("tag").equals("SPRITE")){ return null; }
+        SpriteComponent spriteComponent = new SpriteComponent();
+        spriteComponent.setConstants(ele);
+        Vec2d subImagePos = Vec2d.fromXml(getTopElementsByTagName(ele, "SubImagePosition").get(0));
+        Vec2d subImageSize = Vec2d.fromXml(getTopElementsByTagName(ele, "SubImageSize").get(0));
+        spriteComponent.setSubImage(subImageSize, subImagePos);
+        spriteComponent.setAnimationIndex(Integer.parseInt(ele.getAttribute("animationIndex")));
+        spriteComponent.setAnimated(Boolean.parseBoolean(ele.getAttribute("animated")));
+        spriteComponent.setFrames(Integer.parseInt(ele.getAttribute("frames")));
+        spriteComponent.setAnimationSpeed(Integer.parseInt(ele.getAttribute("animationSpeed")));
+        spriteComponent.setTicksSinceUpdate(Integer.parseInt(ele.getAttribute("ticksSinceUpdate")));
+        return spriteComponent;
     }
 
 }

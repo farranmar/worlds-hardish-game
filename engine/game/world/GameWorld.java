@@ -1,18 +1,29 @@
 package engine.game.world;
 
-import alc.game.units.Unit;
 import engine.display.Viewport;
-import engine.display.uiElements.UIElement;
 import engine.game.objects.GameObject;
 import engine.game.systems.*;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.TreeSet;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.*;
 
 public class GameWorld {
 
@@ -28,10 +39,31 @@ public class GameWorld {
     protected Result result = Result.PLAYING;
 
     public enum Result {
-        VICTORY,
-        DEFEAT,
-        PLAYING
+        VICTORY("VICTORY"),
+        DEFEAT("DEFEAT"),
+        PLAYING("PLAYING");
+
+        String string;
+        Result(String s){
+            this.string = s;
+        }
+        @Override
+        public String toString() {
+            return string;
+        }
     }
+
+    public static final NodeList emptyNodeList = new NodeList() {
+        @Override
+        public Node item(int index) {
+            return null;
+        }
+
+        @Override
+        public int getLength() {
+            return 0;
+        }
+    };
 
     public GameWorld(String name){
         this.name = name;
@@ -42,7 +74,7 @@ public class GameWorld {
         this.gameObjects.add(obj);
         if(obj.getWorldDraw()){ drawOrder.add(obj); }
         for(GameSystem system : systems){
-            boolean added = system.attemptAdd(obj);
+            system.attemptAdd(obj);
         }
     }
 
@@ -51,12 +83,27 @@ public class GameWorld {
         this.add(obj);
     }
 
+    public void setSize(Vec2d size) {
+        this.size = size;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
     public Viewport getViewport(){
         return this.viewport;
     }
 
     public void addToAdditionQueue(GameObject obj){
         this.additionQueue.add(obj);
+    }
+
+    public void addToSystems(GameObject obj){
+        if(this.gameObjects.contains(obj)){ return; }
+        for(GameSystem system : systems){
+            system.attemptAdd(obj);
+        }
     }
 
     protected void addQueue(){
@@ -203,6 +250,9 @@ public class GameWorld {
     }
 
     public void onKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.P){
+            this.saveTo("save-file.xml");
+        }
         for(GameSystem sys : systems){
             if(sys.takesInput()){
                 sys.onKeyPressed(e);
@@ -214,6 +264,164 @@ public class GameWorld {
         for(GameSystem sys : systems){
             if(sys.takesInput()){
                 sys.onKeyReleased(e);
+            }
+        }
+    }
+
+    private Document toXml() throws ParserConfigurationException {
+        this.addQueue();
+        this.removeQueue();
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.newDocument();
+        Element world = doc.createElement("GameWorld");
+        world.setAttribute("name", this.name);
+        Element worldSize = this.size.toXml(doc, "Size");
+        world.appendChild(worldSize);
+        world.setAttribute("result", this.result.toString());
+
+        Element systems = doc.createElement("Systems");
+        for(GameSystem sys : this.systems){
+            Element ele = sys.toXml(doc);
+            systems.appendChild(ele);
+        }
+        world.appendChild(systems);
+
+        Element gameObjects = doc.createElement("GameObjects");
+        for(GameObject obj : this.gameObjects){
+            Element ele = obj.toXml(doc);
+            if(obj == centerObj){
+                ele.setAttribute("centerObj", "true");
+            } else {
+                ele.setAttribute("centerObj", "false");
+            }
+            gameObjects.appendChild(ele);
+        }
+        world.appendChild(gameObjects);
+
+        doc.appendChild(world);
+        return doc;
+    }
+
+    public static List<Element> getTopElementsByTagName(Element ele, String tagName){
+        if(ele == null){
+            return new ArrayList<>();
+        }
+        NodeList children = ele.getChildNodes();
+        ArrayList<Element> elements = new ArrayList<>();
+        for(int i = 0; i < children.getLength(); i++){
+            Node n = children.item(i);
+            if(n.getNodeType() != Node.ELEMENT_NODE){
+                continue;
+            }
+            Element child = (Element)children.item(i);
+            if(child.getTagName().equals(tagName)){
+                elements.add(child);
+            }
+        }
+        return elements;
+    }
+
+    public void saveTo(String fileName) {
+        Document doc;
+        try{
+            doc = this.toXml();
+        } catch (Exception e){
+            System.out.println("***Error creating document***");
+            return;
+        }
+        TransformerFactory factory = TransformerFactory.newInstance();
+        Transformer transformer;
+        try{
+            transformer = factory.newTransformer();
+        } catch (Exception e){
+            System.out.println("***Error creating transformer***");
+            return;
+        }
+        DOMSource source = new DOMSource(doc);
+        FileWriter writer;
+        try{
+            writer = new FileWriter(new File(fileName));
+        } catch (Exception e){
+            System.out.println("***Error creating file/file writer***");
+            return;
+        }
+        StreamResult result = new StreamResult(writer);
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+        try{
+            transformer.transform(source, result);
+        } catch (Exception e){
+            System.out.println("***Error transforming***");
+            return;
+        }
+    }
+
+    public static GameWorld loadFrom(String fileName) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document doc = builder.parse(new File(fileName));
+        return GameWorld.fromXml(doc, null);
+    }
+
+    public static GameWorld fromXml(Document doc, Map<String, Class<? extends GameObject>> classMap){
+        Element ele = doc.getDocumentElement();
+        String name = ele.getAttribute("name");
+        GameWorld gameWorld = new GameWorld(name);
+        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
+        gameWorld.setSize(size);
+        gameWorld.setResult(Result.valueOf(ele.getAttribute("result")));
+
+        // SYSTEMS
+        Element systemsEle = getTopElementsByTagName(ele, "Systems").get(0);
+        gameWorld.addSystemsXml(systemsEle);
+
+        // GAME OBJECTS
+        Element objsEle = getTopElementsByTagName(ele, "GameObjects").get(0);
+        gameWorld.addGameObjectsXml(objsEle, classMap);
+
+        return gameWorld;
+    }
+
+    public void addSystemsXml(Element systemsEle){
+        List<Element> systemsList = getTopElementsByTagName(systemsEle, "System");
+        for(int i = 0; i < systemsList.size(); i++){
+            Element sysEle = systemsList.get(i);
+            GameSystem sys = GameSystem.fromXml(sysEle);
+            this.addSystem(sys);
+        }
+    }
+
+    public void addGameObjectsXml(Element objsEle, Map<String, Class<? extends GameObject>> classMap){
+        List<Element> objsList = getTopElementsByTagName(objsEle, "GameObject");
+        for(int i = 0; i < objsList.size(); i++){
+            Element objEle = (objsList.get(i));
+            String classStr = objEle.getAttribute("class");
+            GameObject obj = null;
+            if(classStr.equals("GameObject")) {
+                obj = new GameObject(objEle, this);
+                this.add(obj);
+            } else {
+                // get class of this GameObject
+                Class<?>[] parameterTypes = new Class[]{Element.class, GameWorld.class};
+                Constructor<? extends GameObject> constructor;
+                try {
+                    // get xml constructor of correct class
+                    constructor = classMap.get(classStr).getConstructor(parameterTypes);
+                } catch (Exception e){
+                    System.out.println("***Error getting constuctor of GameObject subclass2***");
+                    continue;
+                }
+                try {
+                    // construct object
+                    obj = constructor.newInstance(objEle, this);
+                } catch (Exception e){
+                    System.out.println("***Error constructing instance of GameObject subclass2***");
+                }
+                if(obj != null){ this.add(obj); }
+            }
+            if(obj != null && Boolean.parseBoolean(objEle.getAttribute("centerObj"))){
+                this.centerOn(obj);
             }
         }
     }

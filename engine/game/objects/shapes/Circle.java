@@ -1,6 +1,10 @@
 package engine.game.objects.shapes;
 
 import engine.support.Vec2d;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class Circle implements Shape {
 
@@ -89,5 +93,24 @@ public class Circle implements Shape {
         double xClamp = Math.max(mins.x, Math.min(maxes.x, value.x));
         double yClamp = Math.max(mins.y, Math.min(maxes.y, value.y));
         return new Vec2d(xClamp, yClamp);
+    }
+
+    @Override
+    public Element toXml(Document doc) {
+        Element ele = doc.createElement("Shape");
+        ele.setAttribute("class", "Circle");
+        Element radius = new Vec2d(this.radius).toXml(doc, "Radius");
+        Element pos = this.position.toXml(doc, "Position");
+        ele.appendChild(radius);
+        ele.appendChild(pos);
+        return ele;
+    }
+
+    public static Circle fromXml(Element ele){
+        if(!ele.getTagName().equals("Shape")){ return null; }
+        if(!ele.getAttribute("class").equals("Circle")){ return null; }
+        Vec2d radius = Vec2d.fromXml((getTopElementsByTagName(ele, "Radius").get(0)));
+        Vec2d position = Vec2d.fromXml((getTopElementsByTagName(ele, "Position").get(0)));
+        return new Circle(radius.x, position);
     }
 }

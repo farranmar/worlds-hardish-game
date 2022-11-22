@@ -7,11 +7,15 @@ import engine.display.uiElements.BackButton;
 import engine.display.uiElements.UIElement;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import nin.game.NinWorld;
 
 public class NinScreen extends Screen {
+
+    private NinWorld world;
 
     public NinScreen(){
         super(ScreenName.GAME);
@@ -24,8 +28,9 @@ public class NinScreen extends Screen {
 
     public void activate(){
         super.activate();
-        NinWorld ninWorld = new NinWorld();
+        NinWorld ninWorld = new NinWorld(false);
         ninWorld.setViewport(this.viewport);
+        this.world = ninWorld;
         viewport.setWorld(ninWorld);
     }
 
@@ -33,6 +38,17 @@ public class NinScreen extends Screen {
         super.onTick(nanosSinceLastTick);
         if(this.viewport.getResult() != GameWorld.Result.PLAYING){
             this.nextScreen = ScreenName.GAME_OVER;
+        }
+    }
+
+    public void onKeyPressed(KeyEvent e){
+        super.onKeyPressed(e);
+        if(e.getCode() == KeyCode.L){
+            this.world = null;
+            NinWorld newWorld = NinWorld.loadFrom("save-file.xml");
+            newWorld.setViewport(this.viewport);
+            this.world = newWorld;
+            this.viewport.setWorld(this.world);
         }
     }
 

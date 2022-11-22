@@ -5,6 +5,8 @@ import engine.game.objects.GameObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Affine;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -61,6 +63,22 @@ public class GameSystem {
         return collidable;
     }
 
+    public void setTickable(boolean tickable) {
+        this.tickable = tickable;
+    }
+
+    public void setDrawable(boolean drawable) {
+        this.drawable = drawable;
+    }
+
+    public void setTakesInput(boolean takesInput) {
+        this.takesInput = takesInput;
+    }
+
+    public void setCollidable(boolean collidable) {
+        this.collidable = collidable;
+    }
+
     public void onTick(long nanosSinceLastTick){
         if(!tickable){ return; }
         for(GameObject obj : gameObjects){
@@ -111,6 +129,39 @@ public class GameSystem {
         for(GameObject obj : gameObjects){
             obj.onKeyReleased(e);
         }
+    }
+
+    public void setConstants(Element ele){
+        this.setTickable(Boolean.parseBoolean(ele.getAttribute("tickable")));
+        this.setDrawable(Boolean.parseBoolean(ele.getAttribute("drawable")));
+        this.setTakesInput(Boolean.parseBoolean(ele.getAttribute("takesInput")));
+        this.setCollidable(Boolean.parseBoolean(ele.getAttribute("collidable")));
+    }
+
+    public Element toXml(Document doc){
+        Element ele = doc.createElement("System");
+        ele.setAttribute("collidable", this.collidable+"");
+        ele.setAttribute("tickable", this.tickable+"");
+        ele.setAttribute("drawable", this.drawable+"");
+        ele.setAttribute("takesInput", this.takesInput+"");
+        return ele;
+    }
+
+    public static GameSystem fromXml(Element ele){
+        GameSystem sys;
+        if(Boolean.parseBoolean(ele.getAttribute("collidable"))){
+            sys = new CollisionSystem();
+        } else if(Boolean.parseBoolean(ele.getAttribute("drawable"))){
+            sys = new GraphicsSystem();
+        } else if(Boolean.parseBoolean(ele.getAttribute("takesInput"))){
+            sys = new InputSystem();
+        } else if(Boolean.parseBoolean(ele.getAttribute("tickable"))){
+            sys = new TickingSystem();
+        } else {
+            sys = new GameSystem();
+        }
+        sys.setConstants(ele);
+        return sys;
     }
 
 }

@@ -1,5 +1,8 @@
 package engine.support;// package
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.io.Serializable;
 
 /**
@@ -27,6 +30,12 @@ public final class Vec2d implements Serializable {
 
 	public static final Vec2d max(Vec2d a, Vec2d b) {
 		return a.mag2() < b.mag2() ? b : a;
+	}
+
+	public static Vec2d fromXml(Element ele){
+		double x = Double.parseDouble(ele.getAttribute("x"));
+		double y = Double.parseDouble(ele.getAttribute("y"));
+		return new Vec2d(x,y);
 	}
 
 	/**
@@ -435,6 +444,13 @@ public final class Vec2d implements Serializable {
 		double dx = this.x - x;
 		double dy = this.y - y;
 		return dx * dx + dy * dy;
+	}
+
+	public Element toXml(Document doc, String name){
+		Element ele = doc.createElement(name);
+		ele.setAttribute("x", this.x+"");
+		ele.setAttribute("y", this.y+"");
+		return ele;
 	}
 
 	/**

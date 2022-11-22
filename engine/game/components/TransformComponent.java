@@ -1,6 +1,12 @@
 package engine.game.components;
 
 import engine.support.Vec2d;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.swing.tree.TreeNode;
+
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class TransformComponent extends GameComponent{
 
@@ -31,6 +37,28 @@ public class TransformComponent extends GameComponent{
 
     public void translate(double dx, double dy){
         this.position = new Vec2d(this.position.x + dx, this.position.y + dy);
+    }
+
+    public Element toXml(Document doc){
+        Element ele = doc.createElement("Component");
+        ele.setAttribute("tag", this.tag.toString());
+        ele.setAttribute("tickable", this.tickable+"");
+        ele.setAttribute("drawable", this.drawable+"");
+        ele.setAttribute("keyInput", this.keyInput+"");
+        ele.setAttribute("mouseInput", this.mouseInput+"");
+        Element pos = this.position.toXml(doc, "Position");
+        ele.appendChild(pos);
+        Element size = this.size.toXml(doc, "Size");
+        ele.appendChild(size);
+        return ele;
+    }
+
+    public static TransformComponent fromXml(Element ele){
+        if(!ele.getTagName().equals("Component")){ return null; }
+        if(!ele.getAttribute("tag").equals("TRANSFORM")){ return null; }
+        Vec2d pos = Vec2d.fromXml(getTopElementsByTagName(ele, "Position").get(0));
+        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
+        return new TransformComponent(size, pos);
     }
 
 }

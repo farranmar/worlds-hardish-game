@@ -28,7 +28,7 @@ public class Display extends Application {
 	}
 
 	// TODO: change the week number to one of { 2, 3, 5, 6 } to debug more things
-	private static int week = 3;
+	private static int week = 6;
 		
 	public static void main(String[] argv) {
 		launch();

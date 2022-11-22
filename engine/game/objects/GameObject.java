@@ -6,12 +6,23 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import nin.game.objects.Block;
 import nin.game.objects.Platform;
 import nin.game.objects.Player;
 import nin.game.objects.Projectile;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.swing.tree.TreeNode;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class GameObject {
 
@@ -39,6 +50,9 @@ public class GameObject {
         this.transformComponent = new TransformComponent(size, position);
     }
 
+    public GameObject() {
+    }
+
     public void add(GameComponent component){
         this.components.add(component);
     }
@@ -64,6 +78,10 @@ public class GameObject {
         for(GameObject child : children){
             child.reset();
         }
+    }
+
+    public void setTransformComponent(TransformComponent transformComponent) {
+        this.transformComponent = transformComponent;
     }
 
     public GameWorld getGameWorld() {
@@ -151,7 +169,8 @@ public class GameObject {
 
     public void addChild(GameObject child){
         this.children.add(child);
-        this.gameWorld.add(child);
+        this.gameWorld.addToSystems(child);
+        child.setParent(this);
     }
 
     public void setChildren(ArrayList<GameObject> children){
@@ -443,6 +462,136 @@ public class GameObject {
         for(GameComponent component : this.components){
             if(component.getTag() == ComponentTag.PHYSICS){
                 ((PhysicsComponent)component).applyGravity();
+            }
+        }
+    }
+
+    public static Element colorToXml(Document doc, Color color){
+        Element ele = doc.createElement("Color");
+        ele.setAttribute("red", (color.getRed()*256)+"");
+        ele.setAttribute("green", (color.getGreen()*256)+"");
+        ele.setAttribute("blue", (color.getBlue()*256)+"");
+        return ele;
+    }
+
+    public static Color colorFromXml(Element ele){
+        if(!ele.getTagName().equals("Color")){ return null; }
+        int red = (int) Math.floor(Double.parseDouble(ele.getAttribute("red")));
+        int green = (int) Math.floor(Double.parseDouble(ele.getAttribute("green")));
+        int blue = (int) Math.floor(Double.parseDouble(ele.getAttribute("blue")));
+        return Color.rgb(red, green, blue);
+    }
+
+    public Element toXml(Document doc){
+        Element ele = doc.createElement("GameObject");
+        ele.setAttribute("drawPriority", this.drawPriority+"");
+        ele.setAttribute("worldDraw", this.worldDraw+"");
+        ele.setAttribute("floating", this.floating+"");
+        ele.setAttribute("class", "GameObject");
+
+        Element components = doc.createElement("Components");
+        Element transform = this.transformComponent.toXml(doc);
+        components.appendChild(transform);
+        for(GameComponent component : this.components){
+            Element compEle = component.toXml(doc);
+            components.appendChild(compEle);
+        }
+        ele.appendChild(components);
+
+        Element children = doc.createElement("Children");
+        for(GameObject child : this.children){
+            Element childEle = child.toXml(doc);
+            children.appendChild(childEle);
+        }
+        ele.appendChild(children);
+
+        return ele;
+    }
+
+    public GameObject(Element ele, GameWorld world){
+        if(!ele.getTagName().equals("GameObject")){ return; }
+        this.gameWorld = world;
+        this.setConstantsXml(ele);
+
+        Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
+        this.addComponentsXml(componentsEle);
+
+        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
+        this.setChildrenXml(childrenEle, null);
+    }
+
+    protected void setChildrenXml(Element childrenEle, Map<String, Class<? extends GameObject>> classMap){
+        List<Element> childrenList = getTopElementsByTagName(childrenEle, "GameObject");
+        for(int i = 0; i < childrenList.size(); i++){
+            Element childEle = (Element)(childrenList.get(i));
+            String classStr = childEle.getAttribute("class");
+            GameObject child = null;
+            if(classStr.equals("GameObject")) {
+                child = new GameObject(childEle, this.gameWorld);
+                this.addChild(child);
+            } else {
+                if(classMap == null || classMap.get(classStr) == null){ continue; }
+                // get class of this GameObject
+                Class<?>[] parameterTypes = new Class[]{Element.class, GameWorld.class};
+                Constructor<? extends GameObject> constructor;
+                try {
+                    // get xml constructor of correct class
+                    constructor = classMap.get(classStr).getConstructor(parameterTypes);
+                } catch (Exception e){
+                    System.out.println("***Error getting constuctor of GameObject subclass1***");
+                    continue;
+                }
+                try {
+                    // construct object
+                    child = constructor.newInstance(childEle, this.gameWorld);
+                } catch (Exception e){
+                    System.out.println("***Error constructing instance of GameObject subclass1***");
+                }
+                if(child != null){
+                    this.addChild(child);
+                }
+            }
+        }
+    }
+
+    protected void setConstantsXml(Element ele){
+        this.setDrawPriority(Integer.parseInt(ele.getAttribute("drawPriority")));
+        this.setWorldDraw(Boolean.parseBoolean(ele.getAttribute("worldDraw")));
+        this.setFloating(Boolean.parseBoolean(ele.getAttribute("floating")));
+    }
+
+    protected void addComponentsXml(Element componentsEle){
+        List<Element> componentsList = getTopElementsByTagName(componentsEle, "Component");
+        for(int i = 0; i < componentsList.size(); i++){
+            Element compEle = componentsList.get(i);
+            String compTag = compEle.getAttribute("tag");
+            if(compTag.equals("CLICK")){
+                ClickComponent clickComp = ClickComponent.fromXml(compEle);
+                this.add(clickComp);
+            } else if(compTag.equals("COLLIDE")){
+                CollideComponent collideComp = CollideComponent.fromXml(compEle);
+                this.add(collideComp);
+            } else if(compTag.equals("DRAG")){
+                DragComponent dragComp = DragComponent.fromXml(compEle, this);
+                this.add(dragComp);
+            } else if(compTag.equals("DRAW")){
+                DrawComponent drawComp = DrawComponent.fromXml(compEle);
+                this.add(drawComp);
+            } else if(compTag.equals("KEY")){
+                KeyComponent keyComp = KeyComponent.fromXml(compEle);
+                this.add(keyComp);
+            } else if(compTag.equals("PHYSICS")){
+                PhysicsComponent physicsComp = PhysicsComponent.fromXml(compEle, this);
+                this.add(physicsComp);
+            } else if(compTag.equals("SPRITE")){
+                SpriteComponent spriteComp = SpriteComponent.fromXml(compEle);
+                this.add(spriteComp);
+            } else if(compTag.equals("TICK")){
+                TickComponent tickComp = TickComponent.fromXml(compEle);
+                this.add(tickComp);
+            } else if(compTag.equals("TRANSFORM")){
+                TransformComponent transComp = TransformComponent.fromXml(compEle);
+                this.setTransformComponent(transComp);
             }
         }
     }

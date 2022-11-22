@@ -7,7 +7,6 @@ import engine.game.objects.shapes.AAB;
 import engine.game.systems.CollisionSystem;
 import engine.game.systems.GraphicsSystem;
 import engine.game.systems.InputSystem;
-import engine.game.systems.StaticSystem;
 import engine.game.world.GameWorld;
 import engine.game.objects.BackgroundObject;
 import engine.support.Vec2d;
@@ -51,7 +50,6 @@ public class AlcWorld extends GameWorld {
     private void addSystems(){
         this.addSystem(new GraphicsSystem());
         this.addSystem(new InputSystem());
-        this.addSystem(new StaticSystem());
         this.addSystem(new CollisionSystem());
     }
 
