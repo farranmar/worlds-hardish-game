@@ -124,8 +124,8 @@ public class SpriteComponent extends DrawComponent {
         if(!ele.getAttribute("tag").equals("SPRITE")){ return null; }
         SpriteComponent spriteComponent = new SpriteComponent();
         spriteComponent.setConstants(ele);
-        Vec2d subImagePos = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "SubImagePosition").item(0)));
-        Vec2d subImageSize = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "SubImageSize").item(0)));
+        Vec2d subImagePos = Vec2d.fromXml(getTopElementsByTagName(ele, "SubImagePosition").get(0));
+        Vec2d subImageSize = Vec2d.fromXml(getTopElementsByTagName(ele, "SubImageSize").get(0));
         spriteComponent.setSubImage(subImageSize, subImagePos);
         spriteComponent.setAnimationIndex(Integer.parseInt(ele.getAttribute("animationIndex")));
         spriteComponent.setAnimated(Boolean.parseBoolean(ele.getAttribute("animated")));

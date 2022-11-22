@@ -123,8 +123,8 @@ public class AAB implements Shape {
     public static AAB fromXml(Element ele){
         if(!ele.getTagName().equals("Shape")){ return null; }
         if(!ele.getAttribute("class").equals("AAB")){ return null; }
-        Vec2d size = Vec2d.fromXml((Element)getTopElementsByTagName(ele, "Size").item(0));
-        Vec2d position = Vec2d.fromXml((Element)getTopElementsByTagName(ele, "Position").item(0));
+        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
+        Vec2d position = Vec2d.fromXml(getTopElementsByTagName(ele, "Position").get(0));
         return new AAB(size, position);
     }
 }

@@ -104,7 +104,7 @@ public class CollideComponent extends GameComponent {
     public static CollideComponent fromXml(Element ele){
         if(!ele.getTagName().equals("Component")){ return null; }
         if(!ele.getAttribute("tag").equals("COLLIDE")){ return null; }
-        Shape shape = Shape.fromXml((Element)(getTopElementsByTagName(ele, "Shape").item(0)));
+        Shape shape = Shape.fromXml(getTopElementsByTagName(ele, "Shape").get(0));
         CollideComponent collideComponent = new CollideComponent(shape);
         collideComponent.setConstants(ele);
         collideComponent.setCollidable(Boolean.parseBoolean(ele.getAttribute("collidable")));

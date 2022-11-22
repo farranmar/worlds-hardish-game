@@ -109,8 +109,8 @@ public class Circle implements Shape {
     public static Circle fromXml(Element ele){
         if(!ele.getTagName().equals("Shape")){ return null; }
         if(!ele.getAttribute("class").equals("Circle")){ return null; }
-        Vec2d radius = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Radius").item(0)));
-        Vec2d position = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Position").item(0)));
+        Vec2d radius = Vec2d.fromXml((getTopElementsByTagName(ele, "Radius").get(0)));
+        Vec2d position = Vec2d.fromXml((getTopElementsByTagName(ele, "Position").get(0)));
         return new Circle(radius.x, position);
     }
 }

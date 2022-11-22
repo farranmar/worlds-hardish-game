@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static engine.game.world.GameWorld.getTopElementsByTagName;
 
@@ -25,7 +26,7 @@ public class Block extends GameObject {
     protected static final double mass = 5;
     protected double restitution = 1;
     protected ArrayList<Projectile> projectiles = new ArrayList<>();
-    private Color color;
+    protected Color color;
 
     public Block(GameWorld world){
         super(world, new Vec2d(0), new Vec2d(0));
@@ -130,6 +131,7 @@ public class Block extends GameObject {
     public void onDraw(GraphicsContext g){
         super.onDraw(g);
         g.setFill(this.color);
+        System.out.println("coolro:"+this.color);
         Vec2d size = this.getSize();
         Vec2d pos = this.getPosition();
         g.fillRect(pos.x, pos.y, size.x, size.y);
@@ -158,13 +160,6 @@ public class Block extends GameObject {
         Element color = colorToXml(doc, this.color);
         ele.appendChild(color);
 
-//        Element gravRays = doc.createElement("GravityRays");
-//        for(GravityRay gravRay : this.gravRays){
-//            Element grEle = gravRay.toXml(doc);
-//            gravRays.appendChild(grEle);
-//        }
-//        ele.appendChild(gravRays);
-
         Element projs = doc.createElement("Projectiles");
         for(Projectile proj : this.projectiles){
             Element projEle = proj.toXml(doc);
@@ -182,16 +177,16 @@ public class Block extends GameObject {
         this.setConstantsXml(ele);
         this.setGravity(Boolean.parseBoolean(ele.getAttribute("gravity")));
         this.setRestitution(Double.parseDouble(ele.getAttribute("restitution")));
-        Color color = colorFromXml((Element)(getTopElementsByTagName(ele, "Color").item(0)));
+        Color color = colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
         this.setColor(color);
 
-        Element componentsEle = (Element)(getTopElementsByTagName(ele, "Components").item(0));
+        Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);
 
-        Element projsEle = (Element)(getTopElementsByTagName(ele,"Projectiles").item(0));
+        Element projsEle = getTopElementsByTagName(ele,"Projectiles").get(0);
         this.addGravRaysAndProjs(projsEle);
 
-        Element childrenEle = (Element)(getTopElementsByTagName(ele, "Children").item(0));
+        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
         this.setChildrenXml(childrenEle, NinWorld.getClassMap());
         assert(this.children.size() == 2);
         assert(this.children.get(0) instanceof GravityRay);
@@ -199,9 +194,9 @@ public class Block extends GameObject {
     }
 
     protected void addGravRaysAndProjs(Element projsEle){
-        NodeList projsList = getTopElementsByTagName(projsEle, "GameObject");
-        for(int i = 0; i < projsList.getLength(); i++){
-            Element projEle = (Element)(projsList.item(i));
+        List<Element> projsList = getTopElementsByTagName(projsEle, "GameObject");
+        for(int i = 0; i < projsList.size(); i++){
+            Element projEle = projsList.get(i);
             assert(projEle.getAttribute("class").equals("Projectile"));
             Projectile proj = new Projectile(projEle, this.gameWorld);
             proj.setParent(this);

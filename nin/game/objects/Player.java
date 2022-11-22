@@ -39,6 +39,7 @@ public class Player extends Block {
         KeyComponent key = new KeyComponent();
         this.add(key);
         this.state = FACING_RIGHT;
+        this.color = Color.rgb(184, 132, 150);
     }
 
     public PlayerState getState(){
@@ -82,10 +83,7 @@ public class Player extends Block {
     }
 
     public void onDraw(GraphicsContext g){
-        g.setFill(Color.rgb(184, 132, 150));
-        Vec2d size = this.getSize();
-        Vec2d pos = this.getPosition();
-        g.fillRect(pos.x, pos.y, size.x, size.y);
+        System.out.println("drawing player");
         super.onDraw(g);
     }
 
@@ -126,14 +124,18 @@ public class Player extends Block {
         this.setConstantsXml(ele);
         this.toJump = Boolean.parseBoolean(ele.getAttribute("toJump"));
         this.state = PlayerState.valueOf(ele.getAttribute("playerState"));
+        this.setGravity(Boolean.parseBoolean(ele.getAttribute("gravity")));
+        this.setRestitution(Double.parseDouble(ele.getAttribute("restitution")));
+        Color color = colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
+        this.setColor(color);
 
-        Element componentsEle = (Element)(getTopElementsByTagName(ele, "Components").item(0));
+        Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);
 
-        Element projsEle = (Element)(getTopElementsByTagName(ele, "Projectiles").item(0));
+        Element projsEle = getTopElementsByTagName(ele, "Projectiles").get(0);
         this.addGravRaysAndProjs(projsEle);
 
-        Element childrenEle = (Element)(getTopElementsByTagName(ele, "Children").item(0));
+        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
         this.setChildrenXml(childrenEle, NinWorld.getClassMap());
     }
 }

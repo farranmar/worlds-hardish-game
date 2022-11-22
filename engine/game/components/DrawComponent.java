@@ -47,7 +47,7 @@ public class DrawComponent extends GameComponent {
     public static DrawComponent fromXml(Element ele){
         if(!ele.getTagName().equals("Component")){ return null; }
         if(!ele.getAttribute("tag").equals("DRAW")){ return null; }
-        Color color = GameObject.colorFromXml((Element)(getTopElementsByTagName(ele, "Color").item(0)));
+        Color color = GameObject.colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
         DrawComponent drawComponent = new DrawComponent(color);
         drawComponent.setConstants(ele);
         return drawComponent;

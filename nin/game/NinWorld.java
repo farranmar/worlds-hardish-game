@@ -98,17 +98,24 @@ public class NinWorld extends GameWorld {
     public static NinWorld fromXml(Document doc, Map<String, Class<? extends GameObject>> classMap){
         Element ele = doc.getDocumentElement();
         NinWorld ninWorld = new NinWorld(true);
-        Vec2d size = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Size").item(0)));
+        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
         ninWorld.setSize(size);
         ninWorld.setResult(Result.valueOf(ele.getAttribute("result")));
 
         // SYSTEMS
-        Element systemsEle = (Element)(getTopElementsByTagName(ele, "Systems").item(0));
+        Element systemsEle = getTopElementsByTagName(ele, "Systems").get(0);
         ninWorld.addSystemsXml(systemsEle);
 
         // GAME OBJECTS
-        Element objsEle = (Element)(getTopElementsByTagName(ele, "GameObjects").item(0));
+        Element objsEle = getTopElementsByTagName(ele, "GameObjects").get(0);
         ninWorld.addGameObjectsXml(objsEle, classMap);
+
+        for(GameObject obj : ninWorld.gameObjects){
+            if(obj instanceof Player){
+                ninWorld.player = (Player)obj;
+                break;
+            }
+        }
 
         return ninWorld;
     }

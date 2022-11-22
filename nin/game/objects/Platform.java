@@ -59,12 +59,12 @@ public class Platform extends GameObject {
         if(!ele.getAttribute("class").equals("Platform")){ return; }
         this.gameWorld = world;
         this.setConstantsXml(ele);
-        this.color = colorFromXml((Element)(getTopElementsByTagName(ele, "Color").item(0)));
+        this.color = colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
 
-        Element componentsEle = (Element)(getTopElementsByTagName(ele, "Components").item(0));
+        Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);
 
-        Element childrenEle = (Element)(getTopElementsByTagName(ele, "Children").item(0));
+        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
         this.setChildrenXml(childrenEle, NinWorld.getClassMap());
     }
 }

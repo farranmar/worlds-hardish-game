@@ -304,13 +304,17 @@ public class GameWorld {
         return doc;
     }
 
-    public static NodeList getTopElementsByTagName(Element ele, String tagName){
+    public static List<Element> getTopElementsByTagName(Element ele, String tagName){
         if(ele == null){
             return new ArrayList<>();
         }
         NodeList children = ele.getChildNodes();
         ArrayList<Element> elements = new ArrayList<>();
         for(int i = 0; i < children.getLength(); i++){
+            Node n = children.item(i);
+            if(n.getNodeType() != Node.ELEMENT_NODE){
+                continue;
+            }
             Element child = (Element)children.item(i);
             if(child.getTagName().equals(tagName)){
                 elements.add(child);
@@ -364,16 +368,16 @@ public class GameWorld {
         Element ele = doc.getDocumentElement();
         String name = ele.getAttribute("name");
         GameWorld gameWorld = new GameWorld(name);
-        Vec2d size = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Size").item(0)));
+        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
         gameWorld.setSize(size);
         gameWorld.setResult(Result.valueOf(ele.getAttribute("result")));
 
         // SYSTEMS
-        Element systemsEle = (Element)(getTopElementsByTagName(ele, "Systems").item(0));
+        Element systemsEle = getTopElementsByTagName(ele, "Systems").get(0);
         gameWorld.addSystemsXml(systemsEle);
 
         // GAME OBJECTS
-        Element objsEle = (Element)(getTopElementsByTagName(ele, "GameObjects").item(0));
+        Element objsEle = getTopElementsByTagName(ele, "GameObjects").get(0);
         gameWorld.addGameObjectsXml(objsEle, classMap);
 
         return gameWorld;
@@ -389,9 +393,9 @@ public class GameWorld {
     }
 
     public void addGameObjectsXml(Element objsEle, Map<String, Class<? extends GameObject>> classMap){
-        NodeList objsList = getTopElementsByTagName(objsEle, "GameObject");
-        for(int i = 0; i < objsList.getLength(); i++){
-            Element objEle = (Element)(objsList.item(i));
+        List<Element> objsList = getTopElementsByTagName(objsEle, "GameObject");
+        for(int i = 0; i < objsList.size(); i++){
+            Element objEle = (objsList.get(i));
             String classStr = objEle.getAttribute("class");
             GameObject obj = null;
             if(classStr.equals("GameObject")) {

@@ -58,13 +58,13 @@ public class GravityRay extends GameObject {
         this.gameWorld = world;
         this.setConstantsXml(ele);
 
-        Element componentsEle = (Element)(getTopElementsByTagName(ele, "Components").item(0));
+        Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);
 
-        Element childrenEle = (Element)(getTopElementsByTagName(ele, "Children").item(0));
+        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
         this.setChildrenXml(childrenEle, NinWorld.getClassMap());
 
-        Element rayEle = (Element)(getTopElementsByTagName(ele, "Shape").item(0));
+        Element rayEle = getTopElementsByTagName(ele, "Shape").get(0);
         Ray ray = Ray.fromXml(rayEle);
         this.ray = ray;
     }

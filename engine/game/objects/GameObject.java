@@ -19,6 +19,7 @@ import org.w3c.dom.NodeList;
 import javax.swing.tree.TreeNode;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static engine.game.world.GameWorld.getTopElementsByTagName;
@@ -512,17 +513,17 @@ public class GameObject {
         this.gameWorld = world;
         this.setConstantsXml(ele);
 
-        Element componentsEle = (Element)(getTopElementsByTagName(ele, "Components").item(0));
+        Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);
 
-        Element childrenEle = (Element)(getTopElementsByTagName(ele, "Children").item(0));
+        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
         this.setChildrenXml(childrenEle, null);
     }
 
     protected void setChildrenXml(Element childrenEle, Map<String, Class<? extends GameObject>> classMap){
-        NodeList childrenList = getTopElementsByTagName(childrenEle, "GameObject");
-        for(int i = 0; i < childrenList.getLength(); i++){
-            Element childEle = (Element)(childrenList.item(i));
+        List<Element> childrenList = getTopElementsByTagName(childrenEle, "GameObject");
+        for(int i = 0; i < childrenList.size(); i++){
+            Element childEle = (Element)(childrenList.get(i));
             String classStr = childEle.getAttribute("class");
             GameObject child = null;
             if(classStr.equals("GameObject")) {
@@ -560,9 +561,9 @@ public class GameObject {
     }
 
     protected void addComponentsXml(Element componentsEle){
-        NodeList componentsList = getTopElementsByTagName(componentsEle, "Component");
-        for(int i = 0; i < componentsList.getLength(); i++){
-            Element compEle = (Element)(componentsList.item(i));
+        List<Element> componentsList = getTopElementsByTagName(componentsEle, "Component");
+        for(int i = 0; i < componentsList.size(); i++){
+            Element compEle = componentsList.get(i);
             String compTag = compEle.getAttribute("tag");
             if(compTag.equals("CLICK")){
                 ClickComponent clickComp = ClickComponent.fromXml(compEle);

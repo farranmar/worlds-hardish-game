@@ -110,8 +110,8 @@ public class Ray implements Shape {
     public static Ray fromXml(Element ele){
         if(!ele.getTagName().equals("Shape")){ return null; }
         if(!ele.getAttribute("class").equals("Ray")){ return null; }
-        Vec2d size = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Size").item(0)));
-        Vec2d pos = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Position").item(0)));
+        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
+        Vec2d pos = Vec2d.fromXml(getTopElementsByTagName(ele, "Position").get(0));
         return new Ray(size, pos);
     }
 }

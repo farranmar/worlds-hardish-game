@@ -56,8 +56,8 @@ public class TransformComponent extends GameComponent{
     public static TransformComponent fromXml(Element ele){
         if(!ele.getTagName().equals("Component")){ return null; }
         if(!ele.getAttribute("tag").equals("TRANSFORM")){ return null; }
-        Vec2d pos = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Position").item(0)));
-        Vec2d size = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Size").item(0)));
+        Vec2d pos = Vec2d.fromXml(getTopElementsByTagName(ele, "Position").get(0));
+        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
         return new TransformComponent(size, pos);
     }
 

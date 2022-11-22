@@ -5,6 +5,7 @@ import engine.support.Vec2d;
 import nin.game.objects.Block;
 import nin.game.objects.Platform;
 import nin.game.objects.Player;
+import nin.game.objects.Projectile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -117,17 +118,20 @@ public class PhysicsComponent extends GameComponent {
     public static PhysicsComponent fromXml(Element ele, GameObject obj){
         if(!ele.getTagName().equals("Component")){ return null; }
         if(!ele.getAttribute("tag").equals("PHYSICS")){ return null; }
+        if(obj instanceof Projectile){
+            System.out.println("bp");
+        }
         PhysicsComponent physicsComponent = new PhysicsComponent(obj);
         physicsComponent.setConstants(ele);
         physicsComponent.setMass(Double.parseDouble(ele.getAttribute("mass")));
-        Vec2d force = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Force").item(0)));
+        Vec2d force = Vec2d.fromXml(getTopElementsByTagName(ele, "Force").get(0));
         physicsComponent.setForce(force);
-        Vec2d impulse = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Impulse").item(0)));
-        physicsComponent.setForce(impulse);
-        Vec2d velocity = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Velocity").item(0)));
-        physicsComponent.setForce(velocity);
-        Vec2d acceleration = Vec2d.fromXml((Element)(getTopElementsByTagName(ele, "Acceleration").item(0)));
-        physicsComponent.setForce(acceleration);
+        Vec2d impulse = Vec2d.fromXml(getTopElementsByTagName(ele, "Impulse").get(0));
+        physicsComponent.setImpulse(impulse);
+        Vec2d velocity = Vec2d.fromXml(getTopElementsByTagName(ele, "Velocity").get(0));
+        physicsComponent.setVelocity(velocity);
+        Vec2d acceleration = Vec2d.fromXml(getTopElementsByTagName(ele, "Acceleration").get(0));
+        physicsComponent.setAcceleration(acceleration);
         return physicsComponent;
     }
 }
