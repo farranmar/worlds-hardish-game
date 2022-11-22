@@ -189,7 +189,6 @@ public class Week5 extends Week5Reqs {
         }
         if(!inside){ return null; }
         return new Vec2d(0);
-
     }
 
     @Override
