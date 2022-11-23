@@ -468,9 +468,9 @@ public class GameObject {
 
     public static Element colorToXml(Document doc, Color color){
         Element ele = doc.createElement("Color");
-        ele.setAttribute("red", (color.getRed()*256)+"");
-        ele.setAttribute("green", (color.getGreen()*256)+"");
-        ele.setAttribute("blue", (color.getBlue()*256)+"");
+        ele.setAttribute("red", (color.getRed()*255)+"");
+        ele.setAttribute("green", (color.getGreen()*255)+"");
+        ele.setAttribute("blue", (color.getBlue()*255)+"");
         return ele;
     }
 
@@ -509,6 +509,10 @@ public class GameObject {
     }
 
     public GameObject(Element ele, GameWorld world){
+        this(ele, world, null);
+    }
+
+    public GameObject(Element ele, GameWorld world, Map<String, Class<? extends GameObject>> classMap){
         if(!ele.getTagName().equals("GameObject")){ return; }
         this.gameWorld = world;
         this.setConstantsXml(ele);
@@ -517,7 +521,7 @@ public class GameObject {
         this.addComponentsXml(componentsEle);
 
         Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
-        this.setChildrenXml(childrenEle, null);
+        this.setChildrenXml(childrenEle, classMap);
     }
 
     protected void setChildrenXml(Element childrenEle, Map<String, Class<? extends GameObject>> classMap){

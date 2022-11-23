@@ -32,6 +32,7 @@ public class GameWorld {
     protected GameObject centerObj;
     protected ArrayList<GameObject> additionQueue = new ArrayList<>();
     protected ArrayList<GameObject> removalQueue = new ArrayList<>();
+    protected ArrayList<GameObject> systemsQueue = new ArrayList<>();
     protected ArrayList<GameSystem> systems = new ArrayList<>();
     protected TreeSet<GameObject> drawOrder = new TreeSet<>(new DrawOrderHelper());
     protected Vec2d size;
@@ -101,9 +102,7 @@ public class GameWorld {
 
     public void addToSystems(GameObject obj){
         if(this.gameObjects.contains(obj)){ return; }
-        for(GameSystem system : systems){
-            system.attemptAdd(obj);
-        }
+        this.systemsQueue.add(obj);
     }
 
     protected void addQueue(){
@@ -130,6 +129,15 @@ public class GameWorld {
         for(GameSystem system : systems){
             system.remove(obj);
         }
+    }
+
+    protected void addSystemsQueue(){
+        for(GameObject obj : this.systemsQueue){
+            for(GameSystem sys : this.systems){
+                sys.attemptAdd(obj);
+            }
+        }
+        this.systemsQueue.clear();
     }
 
     public void addSystem(GameSystem sys){
@@ -162,6 +170,7 @@ public class GameWorld {
         }
         this.addQueue();
         this.removeQueue();
+        this.addSystemsQueue();
     }
 
     public void onLateTick(){
@@ -268,14 +277,24 @@ public class GameWorld {
         }
     }
 
-    private Document toXml() throws ParserConfigurationException {
+    protected Document toXml(){
+        return this.toXml("GameWorld");
+    }
+
+    protected Document toXml(String topLevelName) {
         this.addQueue();
         this.removeQueue();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+        } catch (Exception e){
+            System.out.println("***Error creating document builder***");
+            return null;
+        }
         Document doc = builder.newDocument();
-        Element world = doc.createElement("GameWorld");
+        Element world = doc.createElement(topLevelName);
         world.setAttribute("name", this.name);
         Element worldSize = this.size.toXml(doc, "Size");
         world.appendChild(worldSize);
@@ -358,29 +377,34 @@ public class GameWorld {
         }
     }
 
-    public static GameWorld loadFrom(String fileName) throws ParserConfigurationException, IOException, SAXException {
-        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document doc = builder.parse(new File(fileName));
-        return GameWorld.fromXml(doc, null);
-    }
-
-    public static GameWorld fromXml(Document doc, Map<String, Class<? extends GameObject>> classMap){
+    public GameWorld(String fileName, Map<String, Class<? extends GameObject>> classMap) {
+        DocumentBuilder builder;
+        try {
+            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        } catch (Exception e){
+            System.out.println("***Error creating document builder***");
+            return;
+        }
+        Document doc;
+        try {
+            doc = builder.parse(new File(fileName));
+        } catch (Exception e){
+            System.out.println("***Error parsing file***");
+            return;
+        }
         Element ele = doc.getDocumentElement();
-        String name = ele.getAttribute("name");
-        GameWorld gameWorld = new GameWorld(name);
+        this.name = ele.getAttribute("name");
         Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
-        gameWorld.setSize(size);
-        gameWorld.setResult(Result.valueOf(ele.getAttribute("result")));
+        this.setSize(size);
+        this.setResult(Result.valueOf(ele.getAttribute("result")));
 
         // SYSTEMS
         Element systemsEle = getTopElementsByTagName(ele, "Systems").get(0);
-        gameWorld.addSystemsXml(systemsEle);
+        this.addSystemsXml(systemsEle);
 
         // GAME OBJECTS
         Element objsEle = getTopElementsByTagName(ele, "GameObjects").get(0);
-        gameWorld.addGameObjectsXml(objsEle, classMap);
-
-        return gameWorld;
+        this.addGameObjectsXml(objsEle, classMap);
     }
 
     public void addSystemsXml(Element systemsEle){
@@ -417,6 +441,12 @@ public class GameWorld {
                     obj = constructor.newInstance(objEle, this);
                 } catch (Exception e){
                     System.out.println("***Error constructing instance of GameObject subclass2***");
+                    try{
+                        obj = constructor.newInstance(objEle, this);
+                    } catch (Exception ex){
+                        System.out.println("error2");
+                    }
+
                 }
                 if(obj != null){ this.add(obj); }
             }

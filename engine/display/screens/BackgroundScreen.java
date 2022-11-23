@@ -24,6 +24,14 @@ public class BackgroundScreen extends Screen {
         this.createScreen();
     }
 
+    public BackgroundScreen(Color screenColor, Color edgeColor) {
+        super(ScreenName.BACKGROUND);
+        this.screenSize = DEFAULT_SCREEN_SIZE;
+        this.screenColor = screenColor;
+        this.edgeColor = edgeColor;
+        this.createScreen();
+    }
+
     public BackgroundScreen(Color screenColor, Vec2d size) {
         super(ScreenName.BACKGROUND);
         this.screenSize = size;

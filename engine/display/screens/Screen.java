@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Screen {
 
     protected ArrayList<UIElement> uiElements;
+    protected static final Vec2d DEFAULT_SCREEN_SIZE = new Vec2d(960, 540);
     protected Vec2d windowSize = new Vec2d(960,540);
     protected Vec2d screenSize = new Vec2d(960,540);
     protected boolean visible;

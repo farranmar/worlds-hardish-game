@@ -6,12 +6,16 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 
+import static engine.game.world.GameWorld.getTopElementsByTagName;
+import static last.screens.EditorScreen.classMap;
+
 public class UnitMenu extends GameObject {
 
-    private ArrayList<GameObject> units = new ArrayList<>();
     private Vec2d unitSize;
     private double padding = 12;
 
@@ -30,7 +34,7 @@ public class UnitMenu extends GameObject {
         block.setPosition(this.getNextUnitPosition());
         block.setParent(this);
         this.addChild(block);
-        this.gameWorld.addToAdditionQueue(block);
+        this.gameWorld.addToSystems(block);
     }
 
     private Vec2d getNextUnitPosition(){
@@ -76,5 +80,23 @@ public class UnitMenu extends GameObject {
                 this.gameWorld.addToAdditionQueue(clone);
             }
         }
+    }
+
+    @Override
+    public Element toXml(Document doc) {
+        Element ele = super.toXml(doc);
+        ele.setAttribute("class", "UnitMenu");
+        ele.setAttribute("padding", this.padding+"");
+        Element unitSize = this.unitSize.toXml(doc, "UnitSize");
+        ele.appendChild(unitSize);
+        return ele;
+    }
+
+    public UnitMenu(Element ele, GameWorld world){
+        super(ele, world, classMap);
+        if(!ele.getTagName().equals("GameObject")){ return; }
+        if(!ele.getAttribute("class").equals("UnitMenu")){ return; }
+        this.unitSize = Vec2d.fromXml(getTopElementsByTagName(ele, "UnitSize").get(0));
+        this.padding = Double.parseDouble(ele.getAttribute("padding"));
     }
 }
