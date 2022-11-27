@@ -2,10 +2,6 @@ package engine.game.components;
 
 import engine.game.objects.GameObject;
 import engine.support.Vec2d;
-import nin.game.objects.Block;
-import nin.game.objects.Platform;
-import nin.game.objects.Player;
-import nin.game.objects.Projectile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -118,9 +114,6 @@ public class PhysicsComponent extends GameComponent {
     public static PhysicsComponent fromXml(Element ele, GameObject obj){
         if(!ele.getTagName().equals("Component")){ return null; }
         if(!ele.getAttribute("tag").equals("PHYSICS")){ return null; }
-        if(obj instanceof Projectile){
-            System.out.println("bp");
-        }
         PhysicsComponent physicsComponent = new PhysicsComponent(obj);
         physicsComponent.setConstants(ele);
         physicsComponent.setMass(Double.parseDouble(ele.getAttribute("mass")));

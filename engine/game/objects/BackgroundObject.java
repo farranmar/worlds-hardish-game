@@ -1,8 +1,8 @@
 package engine.game.objects;
 
+import engine.game.components.ComponentTag;
 import engine.game.components.DrawComponent;
 import engine.game.components.GameComponent;
-import engine.game.components.ComponentTag;
 import engine.game.components.TransformComponent;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;

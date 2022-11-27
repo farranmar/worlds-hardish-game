@@ -1,6 +1,5 @@
 package engine.support.pathfinding;
 
-import engine.game.objects.GameObject;
 import engine.support.graph.Node;
 
 import java.util.Comparator;

@@ -1,6 +1,5 @@
 package engine.game.components;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class ClickComponent extends GameComponent {

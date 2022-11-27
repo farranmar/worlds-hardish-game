@@ -1,8 +1,8 @@
 package engine.display.screens;
 
 import engine.display.Viewport;
-import engine.support.Vec2d;
 import engine.display.uiElements.UIElement;
+import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -78,6 +78,10 @@ public class Screen {
     public void add(UIElement uiElement){
         this.uiElements.add(uiElement);
         uiElement.setScreen(this);
+    }
+
+    public void remove(UIElement uiElement){
+        this.uiElements.remove(uiElement);
     }
 
     public void setColor(Color[] palette){

@@ -3,8 +3,6 @@ package engine.support.pathfinding;
 import engine.support.graph.Graph;
 import engine.support.graph.Node;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Stack;

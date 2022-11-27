@@ -1,7 +1,6 @@
 package engine.game.components;
 
 import engine.game.objects.GameObject;
-import engine.game.objects.shapes.Shape;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

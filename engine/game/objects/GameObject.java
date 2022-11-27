@@ -7,16 +7,9 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import nin.game.objects.Block;
-import nin.game.objects.Platform;
-import nin.game.objects.Player;
-import nin.game.objects.Projectile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.swing.tree.TreeNode;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;

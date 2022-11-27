@@ -1,6 +1,5 @@
 package engine.game.components;
 
-import engine.game.objects.GameObject;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

@@ -12,8 +12,6 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,6 +82,10 @@ public class Viewport extends UIElement {
         this.gameWorld = world;
     }
 
+    public GameWorld getWorld(){
+        return this.gameWorld;
+    }
+
     public void reset(){
         if(gameWorld != null){ this.gameWorld.reset(); }
     }
@@ -130,7 +132,7 @@ public class Viewport extends UIElement {
     }
 
     public void onResize(Vec2d newWindowSize, Vec2d newScreenSize){
-        gameWorld.onResize(newWindowSize, newScreenSize);
+        if(gameWorld != null) { gameWorld.onResize(newWindowSize, newScreenSize); }
         super.onResize(newWindowSize, newScreenSize);
         double newLeftSpacing = (newWindowSize.x - newScreenSize.x) / 2;
         double newTopSpacing = (newWindowSize.y - newScreenSize.y) / 2;

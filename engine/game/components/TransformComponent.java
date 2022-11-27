@@ -4,8 +4,6 @@ import engine.support.Vec2d;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.swing.tree.TreeNode;
-
 import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class TransformComponent extends GameComponent{

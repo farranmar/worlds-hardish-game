@@ -103,6 +103,22 @@ public class Button extends UIElement {
         this.name = t+" Button";
     }
 
+    public Text getText(){
+        return this.text;
+    }
+
+    public String getTextString(){
+        return this.text.getText();
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
     public void onMouseMoved(MouseEvent e){
         super.onMouseMoved(e);
         if(!this.inRange(e)) {

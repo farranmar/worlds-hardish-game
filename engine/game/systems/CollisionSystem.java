@@ -2,11 +2,6 @@ package engine.game.systems;
 
 import engine.game.objects.GameObject;
 import engine.support.Vec2d;
-import nin.game.objects.GravityRay;
-import nin.game.objects.Platform;
-import nin.game.objects.Projectile;
-import wiz.game.objects.Enemy;
-import wiz.game.objects.Player;
 
 import java.util.HashMap;
 
