@@ -19,7 +19,18 @@ public class SaveScreen extends Screen {
     private Button[] saveSlotButtons = new Button[numSaveSlots];
     private String saveFile = null;
     private String filePrefix;
-    private boolean loading = false;
+    private SaveType type;
+
+    public enum SaveType {
+        SAVE_LEVEL,
+        SAVE_GAME,
+        LOAD_LEVEL,
+        LOAD_GAME;
+
+        public boolean isLoading(){
+            return this == LOAD_GAME || this == LOAD_LEVEL;
+        }
+    }
 
     public SaveScreen(ScreenName name, String prefix){
         super(name);
@@ -57,7 +68,7 @@ public class SaveScreen extends Screen {
         double padding = (height / (numSaveSlots+1)) * 0.15;
         Font font = new Font("Courier", sectionHeight - 2*padding);
         FontMetrics metrics = new FontMetrics("empty", font);
-        Text selectSaveSlot = new Text("select slot:", primaryColor, position.y+metrics.height+padding/2, font);
+        Text selectSaveSlot = new Text("select "+this.filePrefix+" slot:", primaryColor, position.y+metrics.height+padding/2, font);
         this.add(selectSaveSlot);
 
         for(int i = 0; i < numSaveSlots; i++){
@@ -69,9 +80,9 @@ public class SaveScreen extends Screen {
         }
     }
 
-    public void activate(boolean loading) {
+    public void activate(SaveType type) {
         super.activate();
-        this.loading = loading;
+        this.type = type;
     }
 
     public String getFilePrefix() {
@@ -97,20 +108,21 @@ public class SaveScreen extends Screen {
                 continue;
             }
             String name = ele.getName();
-            if(loading && name.contains("Back Button")){
+            if(type.isLoading() && name.contains("Back Button")){
                 this.nextScreen = ScreenName.MENU;
-            } else if (!loading && name.contains("Back Button")) {
+            } else if (!type.isLoading() && name.contains("Back Button")) {
                 this.nextScreen = ScreenName.PAUSE;
-            } else if(!loading && name.contains("deadbeef")){
+            } else if(!type.isLoading() && name.contains("deadbeef")){
                 int index = Integer.parseInt(name.charAt(name.length()-1)+"");
                 String fileName = LocalDateTime.now()+"";
                 this.saveSlotButtons[index].setText(fileName, "Courier");
                 this.saveSlotButtons[index].setName(this.saveSlotButtons[index].getName()+" deadbeef"+index);
                 this.saveFile = this.filePrefix + index + ".xml";
-            } else if(loading && name.contains("deadbeef") && !name.contains("empty")){
+            } else if(type.isLoading() && name.contains("deadbeef") && !name.contains("empty")){
                 int index = Integer.parseInt(name.charAt(name.length()-1)+"");
                 this.saveFile = this.filePrefix + index + ".xml";
-                this.nextScreen = ScreenName.EDITOR;
+                if(this.name == ScreenName.SAVE_LOAD_GAME){ this.nextScreen = ScreenName.GAME; }
+                else { this.nextScreen = ScreenName.EDITOR; }
             }
         }
     }

@@ -6,10 +6,7 @@ import engine.display.screens.Screen;
 import engine.display.screens.ScreenName;
 import engine.support.Vec2d;
 import javafx.scene.paint.Color;
-import last.screens.EditorScreen;
-import last.screens.MenuScreen;
-import last.screens.PauseScreen;
-import last.screens.SaveScreen;
+import last.screens.*;
 
 import java.util.ArrayList;
 
@@ -32,7 +29,6 @@ public class App extends Application {
 
     public void createScreens() {
         BackgroundScreen backgroundScreen = new BackgroundScreen(Color.rgb(69,69,69), Color.BLACK);
-        backgroundScreen.inactivate();
         backgroundScreen.makeVisible();
         this.add(backgroundScreen);
         MenuScreen menuScreen = new MenuScreen(primaryColor);
@@ -41,17 +37,15 @@ public class App extends Application {
         this.curActiveScreen = menuScreen;
         this.add(menuScreen);
         EditorScreen editorScreen = new EditorScreen(primaryColor);
-        editorScreen.makeInvisible();
-        editorScreen.inactivate();
         this.add(editorScreen);
+        LastScreen lastScreen = new LastScreen(primaryColor);
+        this.add(lastScreen);
         PauseScreen pauseScreen = new PauseScreen(primaryColor);
-        pauseScreen.makeInvisible();
-        pauseScreen.inactivate();
         this.add(pauseScreen);
         SaveScreen levelSaveScreen = new SaveScreen(ScreenName.SAVE_LOAD_LEVEL, primaryColor, "level");
-        levelSaveScreen.makeInvisible();
-        levelSaveScreen.inactivate();
         this.add(levelSaveScreen);
+        SaveScreen gameSaveScreen = new SaveScreen(ScreenName.SAVE_LOAD_GAME, primaryColor, "game");
+        this.add(gameSaveScreen);
     }
 
     @Override
@@ -98,9 +92,17 @@ public class App extends Application {
             for(Screen screen : screens){
                 if(screen.getName() == activeScreen.getName()){
                     if(screen.getName() == ScreenName.SAVE_LOAD_GAME){
-                        ((SaveScreen)screen).activate(choosingGame);
+                        if(choosingGame){ ((SaveScreen)screen).activate(SaveScreen.SaveType.LOAD_GAME); }
+                        else { ((SaveScreen)screen).activate(SaveScreen.SaveType.SAVE_GAME); }
                     } else if(screen.getName() == ScreenName.SAVE_LOAD_LEVEL){
-                        ((SaveScreen)screen).activate(choosingLevel);
+                        if(choosingLevel){ ((SaveScreen)screen).activate(SaveScreen.SaveType.LOAD_LEVEL); }
+                        else { ((SaveScreen)screen).activate(SaveScreen.SaveType.SAVE_LEVEL); }
+                    } else if(screen.getName() == ScreenName.PAUSE){
+                        if(this.curActiveScreen.getName() == ScreenName.GAME || curActiveScreen.getName() == ScreenName.SAVE_LOAD_GAME){
+                            ((PauseScreen)screen).activate(false);
+                        } else {
+                            ((PauseScreen)screen).activate(true);
+                        }
                     } else {
                         screen.activate();
                     }

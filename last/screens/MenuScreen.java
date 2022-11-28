@@ -150,9 +150,9 @@ public class MenuScreen extends Screen {
             } else if(name.contains("start new game")){
                 this.nextScreen = ScreenName.GAME;
             } else if(name.contains("load saved game")){
-                // @TODO: load game from file
+                this.nextScreen = ScreenName.SAVE_LOAD_GAME;
             } else if(name.contains("play custom level")){
-                // @TODO: load level from file
+                this.nextScreen = ScreenName.SAVE_LOAD_LEVEL;
             } else if(name.contains("new level")){
                 this.nextScreen = ScreenName.EDITOR;
             } else if(name.contains("edit level")){

@@ -35,6 +35,7 @@ public class GameWorld {
     protected ArrayList<GameObject> additionQueue = new ArrayList<>();
     protected ArrayList<GameObject> removalQueue = new ArrayList<>();
     protected ArrayList<GameObject> systemsQueue = new ArrayList<>();
+
     protected ArrayList<GameSystem> systems = new ArrayList<>();
     protected TreeSet<GameObject> drawOrder = new TreeSet<>(new DrawOrderHelper());
     protected Vec2d size;
@@ -148,6 +149,22 @@ public class GameWorld {
 
     public void setViewport(Viewport vp){
         this.viewport = vp;
+    }
+
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    public void setGameObjects(ArrayList<GameObject> gameObjects) {
+        this.gameObjects = gameObjects;
+    }
+
+    public ArrayList<GameSystem> getSystems() {
+        return systems;
+    }
+
+    public void setSystems(ArrayList<GameSystem> systems) {
+        this.systems = systems;
     }
     
     public void reset(){

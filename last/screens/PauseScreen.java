@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 public class PauseScreen extends Screen {
 
     private Color primaryColor;
+    private boolean level = false;
 
     public PauseScreen(){
         super(ScreenName.PAUSE);
@@ -48,6 +49,11 @@ public class PauseScreen extends Screen {
         this.add(quit);
     }
 
+    public void activate(boolean level) {
+        super.activate();
+        this.level = level;
+    }
+
     public void onMouseClicked(MouseEvent e){
         super.onMouseClicked(e);
         for(UIElement ele : uiElements) {
@@ -56,9 +62,11 @@ public class PauseScreen extends Screen {
             }
             String name = ele.getName();
             if (name.contains("continue")) {
-                this.nextScreen = ScreenName.EDITOR;
+                if(this.level){ this.nextScreen = ScreenName.EDITOR; }
+                else { this.nextScreen = ScreenName.GAME; }
             } else if (name.contains("save")) {
-                this.nextScreen = ScreenName.SAVE_LOAD_LEVEL;
+                if(this.level){ this.nextScreen = ScreenName.SAVE_LOAD_LEVEL; }
+                else { this.nextScreen = ScreenName.SAVE_LOAD_GAME; }
             } else if (name.contains("menu")) {
                 this.nextScreen = ScreenName.MENU;
             } else if (name.contains("quit")) {
