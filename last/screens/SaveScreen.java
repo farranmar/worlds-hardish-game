@@ -121,7 +121,7 @@ public class SaveScreen extends Screen {
             } else if(type.isLoading() && name.contains("deadbeef") && !name.contains("empty")){
                 int index = Integer.parseInt(name.charAt(name.length()-1)+"");
                 this.saveFile = this.filePrefix + index + ".xml";
-                if(this.name == ScreenName.SAVE_LOAD_GAME){ this.nextScreen = ScreenName.GAME; }
+                if(this.name == ScreenName.SAVE_LOAD_GAME || type == SaveType.LOAD_GAME){ this.nextScreen = ScreenName.GAME; }
                 else { this.nextScreen = ScreenName.EDITOR; }
             }
         }

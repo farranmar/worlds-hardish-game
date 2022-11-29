@@ -19,6 +19,7 @@ public class MenuScreen extends Screen {
     private ArrayList<UIElement> basicEles = new ArrayList<>();
     private ArrayList<UIElement> gameEles = new ArrayList<>();
     private ArrayList<UIElement> levelEles = new ArrayList<>();
+    public static boolean loadingGame = false;
 
     public MenuScreen(){
         super(ScreenName.MENU);
@@ -152,10 +153,12 @@ public class MenuScreen extends Screen {
             } else if(name.contains("load saved game")){
                 this.nextScreen = ScreenName.SAVE_LOAD_GAME;
             } else if(name.contains("play custom level")){
+                loadingGame = true;
                 this.nextScreen = ScreenName.SAVE_LOAD_LEVEL;
             } else if(name.contains("new level")){
                 this.nextScreen = ScreenName.EDITOR;
             } else if(name.contains("edit level")){
+                loadingGame = false;
                 this.nextScreen = ScreenName.SAVE_LOAD_LEVEL;
             } else if(name.contains("quit")){
                 this.nextScreen = ScreenName.QUIT;

@@ -10,6 +10,7 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import last.game.EditorWorld;
 import last.game.LastWorld;
 
 public class LastScreen extends Screen {
@@ -27,14 +28,39 @@ public class LastScreen extends Screen {
         this.add(backButton);
         PauseButton pauseButton = new PauseButton(this.primaryColor, new Vec2d(910, 30), new Vec2d(25, 35));
         this.add(pauseButton);
+
+        LastWorld lastWorld = new LastWorld();
+        lastWorld.setViewport(this.viewport);
+        this.world = lastWorld;
+        viewport.setWorld(lastWorld);
     }
 
-    public void activate(){
-        super.activate();
-        LastWorld ninWorld = new LastWorld();
-        ninWorld.setViewport(this.viewport);
-        this.world = ninWorld;
-        viewport.setWorld(ninWorld);
+    @Override
+    public void reset() {
+        super.reset();
+        LastWorld lastWorld = new LastWorld();
+        lastWorld.setViewport(this.viewport);
+        this.world = lastWorld;
+        viewport.setWorld(lastWorld);
+    }
+
+    public void loadFromLevel(String fileName){
+        EditorWorld editorWorld = new EditorWorld(fileName, EditorScreen.getClassMap());
+        LastWorld loadedWorld = new LastWorld(editorWorld);
+        loadedWorld.setViewport(this.viewport);
+        this.world = loadedWorld;
+        this.viewport.setWorld(loadedWorld);
+    }
+
+    public void loadFromGame(String fileName){
+        LastWorld loadedWorld = new LastWorld(fileName, EditorScreen.getClassMap());
+        loadedWorld.setViewport(this.viewport);
+        this.world = loadedWorld;
+        this.viewport.setWorld(loadedWorld);
+    }
+
+    public void saveTo(String fileName){
+        this.viewport.getWorld().saveTo(fileName);
     }
 
     public void onTick(long nanosSinceLastTick){

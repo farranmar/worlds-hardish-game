@@ -13,14 +13,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import last.game.EditorWorld;
+import last.game.objects.Platform;
 import last.game.objects.Unit;
 import last.game.objects.UnitMenu;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class EditorScreen extends Screen {
 
-    private EditorWorld editorWorld;
     public static HashMap<String, Class<? extends GameObject>> classMap = initializeClassMap();
     private Color primaryColor;
 
@@ -37,7 +38,6 @@ public class EditorScreen extends Screen {
 
         EditorWorld world = new EditorWorld();
         world.setViewport(this.viewport);
-        this.editorWorld = world;
         viewport.setWorld(world);
     }
 
@@ -45,7 +45,12 @@ public class EditorScreen extends Screen {
         HashMap<String, Class<? extends GameObject>> cM = new HashMap<>();
         cM.put("Unit", Unit.class);
         cM.put("UnitMenu", UnitMenu.class);
+        cM.put("Platform", Platform.class);
         return cM;
+    }
+
+    public static Map<String, Class<? extends GameObject>> getClassMap(){
+        return classMap;
     }
 
     @Override
@@ -53,7 +58,6 @@ public class EditorScreen extends Screen {
         super.reset();
         EditorWorld world = new EditorWorld();
         world.setViewport(this.viewport);
-        this.editorWorld = world;
         viewport.setWorld(world);
     }
 
@@ -64,7 +68,6 @@ public class EditorScreen extends Screen {
     public void loadFrom(String fileName){
         EditorWorld loadedWorld = new EditorWorld(fileName, classMap);
         loadedWorld.setViewport(this.viewport);
-        this.editorWorld = loadedWorld;
         this.viewport.setWorld(loadedWorld);
     }
 

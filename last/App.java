@@ -56,6 +56,10 @@ public class App extends Application {
         if(activeScreen.getName() == ScreenName.PAUSE && (this.curActiveScreen.getName() == ScreenName.GAME || this.curActiveScreen.getName() == ScreenName.SAVE_LOAD_GAME)){
             visible.add(ScreenName.GAME);
         }
+        // if saving game, make game visible
+        if(this.curActiveScreen.getName() == ScreenName.PAUSE && activeScreen.getName() == ScreenName.SAVE_LOAD_GAME){
+            visible.add(ScreenName.GAME);
+        }
         // if paused in editor, make EDITOR visible
         if(activeScreen.getName() == ScreenName.PAUSE && (this.curActiveScreen.getName() == ScreenName.EDITOR || this.curActiveScreen.getName() == ScreenName.SAVE_LOAD_LEVEL)){
             visible.add(ScreenName.EDITOR);
@@ -67,16 +71,32 @@ public class App extends Application {
 
         boolean choosingGame = this.curActiveScreen.getName() == ScreenName.MENU && activeScreen.getName() == ScreenName.SAVE_LOAD_GAME;
         boolean choosingLevel = this.curActiveScreen.getName() == ScreenName.MENU && activeScreen.getName() == ScreenName.SAVE_LOAD_LEVEL;
-        boolean loadingGame = this.curActiveScreen.getName() == ScreenName.SAVE_LOAD_GAME && activeScreen.getName() == ScreenName.GAME;
+        boolean loadingGame = (this.curActiveScreen.getName() == ScreenName.SAVE_LOAD_GAME || this.curActiveScreen.getName() == ScreenName.SAVE_LOAD_LEVEL)
+                && activeScreen.getName() == ScreenName.GAME;
         boolean loadingLevel = this.curActiveScreen.getName() == ScreenName.SAVE_LOAD_LEVEL && activeScreen.getName() == ScreenName.EDITOR;
-
-        // @TODO: if(loadingGame) { }
 
         if(loadingLevel){
             for(Screen screen : screens){
                 if(screen.getName() == activeScreen.getName()){
                     String fileName = ((SaveScreen)curActiveScreen).getSaveFile();
                     ((EditorScreen)screen).loadFrom(fileName);
+                    screen.activate();
+                    screen.makeVisible();
+                } else if(visible.contains(screen.getName())){
+                    screen.inactivate();
+                    screen.makeVisible();
+                } else {
+                    screen.reset();
+                    screen.inactivate();
+                    screen.makeInvisible();
+                }
+            }
+        } else if(loadingGame) {
+            for(Screen screen : screens){
+                if(screen.getName() == activeScreen.getName()){
+                    String fileName = ((SaveScreen)curActiveScreen).getSaveFile();
+                    if(curActiveScreen.getName() == ScreenName.SAVE_LOAD_GAME){ ((LastScreen)screen).loadFromGame(fileName); }
+                    else { ((LastScreen)screen).loadFromLevel(fileName); }
                     screen.activate();
                     screen.makeVisible();
                 } else if(visible.contains(screen.getName())){
@@ -95,7 +115,8 @@ public class App extends Application {
                         if(choosingGame){ ((SaveScreen)screen).activate(SaveScreen.SaveType.LOAD_GAME); }
                         else { ((SaveScreen)screen).activate(SaveScreen.SaveType.SAVE_GAME); }
                     } else if(screen.getName() == ScreenName.SAVE_LOAD_LEVEL){
-                        if(choosingLevel){ ((SaveScreen)screen).activate(SaveScreen.SaveType.LOAD_LEVEL); }
+                        if(choosingLevel && !MenuScreen.loadingGame){ ((SaveScreen)screen).activate(SaveScreen.SaveType.LOAD_LEVEL); }
+                        else if(choosingLevel) { ((SaveScreen)screen).activate(SaveScreen.SaveType.LOAD_GAME); }
                         else { ((SaveScreen)screen).activate(SaveScreen.SaveType.SAVE_LEVEL); }
                     } else if(screen.getName() == ScreenName.PAUSE){
                         if(this.curActiveScreen.getName() == ScreenName.GAME || curActiveScreen.getName() == ScreenName.SAVE_LOAD_GAME){
@@ -129,6 +150,14 @@ public class App extends Application {
         }
     }
 
+    private void saveGameTo(String fileName){
+        for(Screen screen : screens){
+            if(screen.getName() == ScreenName.GAME){
+                ((LastScreen)screen).saveTo(fileName);
+            }
+        }
+    }
+
     private void loadLevelFrom(String fileName){
         for(Screen screen : screens){
             if(screen.getName() == ScreenName.EDITOR){
@@ -148,6 +177,16 @@ public class App extends Application {
                 }
             }
             if(levelSaveFile != null){ this.saveLevelTo(levelSaveFile); }
+        } else if(this.prevActiveScreen != null && this.curActiveScreen != null && this.prevActiveScreen.getName() == ScreenName.PAUSE && this.curActiveScreen.getName() == ScreenName.SAVE_LOAD_GAME){
+            String gameSaveFile = null;
+            for(Screen screen : screens){
+                if(screen.getName() == ScreenName.SAVE_LOAD_GAME){
+                    gameSaveFile = ((SaveScreen)screen).getSaveFile();
+                }
+            }
+            if(gameSaveFile != null){
+                this.saveGameTo(gameSaveFile);
+            }
         }
     }
 }

@@ -30,6 +30,14 @@ public class Platform extends GameObject {
         this.addComponents();
     }
 
+    public Platform clone(){
+        return new Platform(this.gameWorld, this.getSize(), this.getPosition(), this.color);
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     private void addComponents(){
         CollideComponent collide = new CollideComponent(new AAB(this.getSize(), this.getPosition()), true, 1);
         this.add(collide);

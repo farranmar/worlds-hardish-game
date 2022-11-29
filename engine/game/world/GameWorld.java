@@ -460,12 +460,6 @@ public class GameWorld {
                     obj = constructor.newInstance(objEle, this);
                 } catch (Exception e){
                     System.out.println("***Error constructing instance of GameObject subclass2***");
-                    try{
-                        obj = constructor.newInstance(objEle, this);
-                    } catch (Exception ex){
-                        System.out.println("error2");
-                    }
-
                 }
                 if(obj != null){ this.add(obj); }
             }

@@ -30,6 +30,17 @@ public class LastWorld extends GameWorld {
         }
     }
 
+    public LastWorld(EditorWorld editorWorld){
+        super("Last");
+        this.size = new Vec2d(1920, 1080);
+        this.addSystems();
+        for(GameObject obj : editorWorld.getGameObjects()){
+            if(obj instanceof UnitMenu){ continue; }
+            GameObject clone = obj.clone();
+            this.add(clone);
+        }
+    }
+
     private void addSystems(){
         this.addSystem(new CollisionSystem());
         this.addSystem(new GraphicsSystem());
@@ -55,4 +66,14 @@ public class LastWorld extends GameWorld {
         return classMap;
     }
 
+    @Override
+    public void onMousePressed(double x, double y) {
+        super.onMousePressed(x, y);
+        Platform newPlatform = new Platform(this, new Vec2d(20), new Vec2d(x,y), Color.CORAL);
+        this.add(newPlatform);
+    }
+
+    public LastWorld(String fileName, Map<String, Class<? extends GameObject>> classMap){
+        super(fileName, classMap);
+    }
 }
