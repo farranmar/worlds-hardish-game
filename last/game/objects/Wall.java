@@ -9,29 +9,30 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import last.game.LastWorld;
+import last.screens.EditorScreen;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import static engine.game.world.GameWorld.getTopElementsByTagName;
 
-public class Platform extends GameObject {
+public class Wall extends GameObject {
 
     private Color color;
 
-    public Platform(GameWorld world, Vec2d size, Vec2d position){
+    public Wall(GameWorld world, Vec2d size, Vec2d position){
         super(world, size, position);
-        this.color = Color.BLACK;
+        this.color = Color.rgb(126, 162, 170);
         this.addComponents();
     }
 
-    public Platform(GameWorld world, Vec2d size, Vec2d position, Color color){
+    public Wall(GameWorld world, Vec2d size, Vec2d position, Color color){
         super(world, size, position);
         this.color = color;
         this.addComponents();
     }
 
-    public Platform clone(){
-        return new Platform(this.gameWorld, this.getSize(), this.getPosition(), this.color);
+    public Wall clone(){
+        return new Wall(this.gameWorld, this.getSize(), this.getPosition(), this.color);
     }
 
     public void setColor(Color color) {
@@ -45,6 +46,11 @@ public class Platform extends GameObject {
         this.add(draw);
     }
 
+    @Override
+    public void onCollide(GameObject obj, Vec2d mtv) {
+        super.onCollide(obj, mtv);
+    }
+
     public void onDraw(GraphicsContext g){
         g.setFill(this.color);
         Vec2d size = this.getSize();
@@ -55,15 +61,13 @@ public class Platform extends GameObject {
     @Override
     public Element toXml(Document doc) {
         Element ele = super.toXml(doc);
-        ele.setAttribute("class", "Platform");
+        ele.setAttribute("class", "Wall");
         Element color = colorToXml(doc, this.color);
         ele.appendChild(color);
         return ele;
     }
 
-    public Platform(Element ele, GameWorld world){
-        if(!ele.getTagName().equals("GameObject")){ return; }
-        if(!ele.getAttribute("class").equals("Platform")){ return; }
+    public Wall(Element ele, GameWorld world){
         this.gameWorld = world;
         this.setConstantsXml(ele);
         this.color = colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
@@ -72,7 +76,7 @@ public class Platform extends GameObject {
         this.addComponentsXml(componentsEle);
 
         Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
-        this.setChildrenXml(childrenEle, LastWorld.getClassMap());
+        this.setChildrenXml(childrenEle, EditorScreen.getClassMap());
     }
 
 }

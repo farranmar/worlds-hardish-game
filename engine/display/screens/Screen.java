@@ -95,12 +95,14 @@ public class Screen {
     }
 
     public void onTick(long nanosSincePreviousTick){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onTick(nanosSincePreviousTick);
         }
     }
 
     public void onLateTick(){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onLateTick();
         }
@@ -134,6 +136,7 @@ public class Screen {
     }
 
     public void onKeyPressed(KeyEvent e){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onKeyPressed(e);
         }
@@ -146,18 +149,21 @@ public class Screen {
     }
 
     public void onMouseClicked(MouseEvent e){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onMouseClicked(e);
         }
     }
 
     public void onMouseMoved(MouseEvent e){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onMouseMoved(e);
         }
     }
 
     public void onMousePressed(MouseEvent e){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onMousePressed(e);
         }
@@ -170,12 +176,14 @@ public class Screen {
     }
 
     public void onMouseDragged(MouseEvent e){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onMouseDragged(e);
         }
     }
 
     public void onMouseWheelMoved(ScrollEvent e){
+        if(!active){ return; }
         for(UIElement ele : uiElements){
             ele.onMouseWheelMoved(e);
         }

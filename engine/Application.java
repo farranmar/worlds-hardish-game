@@ -129,9 +129,7 @@ public class Application extends FXFrontEnd {
   @Override
   protected void onKeyReleased(KeyEvent e) {
     for(Screen screen : screens){
-      if(screen.isActive()){
         screen.onKeyReleased(e);
-      }
     }
   }
 
@@ -168,9 +166,7 @@ public class Application extends FXFrontEnd {
   @Override
   protected void onMouseReleased(MouseEvent e) {
     for(Screen screen : screens){
-      if(screen.isActive()){
         screen.onMouseReleased(e);
-      }
     }
   }
 

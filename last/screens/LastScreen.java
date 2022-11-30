@@ -21,7 +21,7 @@ public class LastScreen extends Screen {
     public LastScreen(Color color){
         super(ScreenName.GAME);
         this.primaryColor = color;
-        Viewport viewport = new Viewport(new Vec2d(960,540), new Vec2d(480, 270), new Vec2d(960,540), new Vec2d(0,0));
+        Viewport viewport = new Viewport(new Vec2d(1920,1080), new Vec2d(0), new Vec2d(960,540), new Vec2d(0));
         this.viewport = viewport;
         this.add(viewport);
         BackButton backButton = new BackButton(this.primaryColor, new Vec2d(30), new Vec2d(50,30));

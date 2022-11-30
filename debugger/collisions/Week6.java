@@ -256,9 +256,6 @@ public class Week6 extends Week6Reqs {
             }
         }
         if(minDist == Double.MAX_VALUE){ minDist = -1; }
-        if(minDist != -1){
-            System.out.println("colliding");
-        }
         return (float)minDist;
     }
 

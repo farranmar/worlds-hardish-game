@@ -5,16 +5,13 @@ import engine.game.systems.*;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.paint.Color;
-import last.game.objects.Platform;
-import last.game.objects.Unit;
-import last.game.objects.UnitMenu;
+import last.game.objects.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LastWorld extends GameWorld {
 
-    private static final Map<String, Class<? extends GameObject>> classMap = initializeClassMap();
     private static final Color platformColor = Color.rgb(99, 176, 205);
 
     public LastWorld(){
@@ -48,29 +45,43 @@ public class LastWorld extends GameWorld {
         this.addSystem(new TickingSystem());
     }
 
-    private static Map<String, Class<? extends GameObject>> initializeClassMap(){
-        Map<String, Class<? extends GameObject>> ret = new HashMap<>();
-        ret.put("Unit", Unit.class);
-        ret.put("UnitMenu", UnitMenu.class);
-        return ret;
-    }
-
     private void createObjects(){
-        Platform upper = new Platform(this, new Vec2d(420, 30), new Vec2d(520), platformColor);
+        Wall upper = new Wall(this, new Vec2d(1320, 30), new Vec2d(300, 200));
         this.add(upper);
-        Platform lower = new Platform(this, new Vec2d(420, 30), new Vec2d(980, 560), platformColor);
+        Wall lower = new Wall(this, new Vec2d(1320, 30), new Vec2d(300, 880));
         this.add(lower);
-    }
+        Wall left = new Wall(this, new Vec2d(30, 710), new Vec2d(300, 200));
+        this.add(left);
+        Wall right = new Wall(this, new Vec2d(30, 710), new Vec2d(1620, 200));
+        this.add(right);
+        for (DeathBall deathball : DeathBall.deathBallWall(this, new Vec2d(720, 240), new Vec2d(0, 40), 10)) {
+            this.add(deathball);
+        }
+        for (DeathBall deathball : DeathBall.deathBallWall(this, new Vec2d(720, 680), new Vec2d(0, 40), 5)) {
+            this.add(deathball);
+        }
+        for (DeathBall deathball : DeathBall.deathBallWall(this, new Vec2d(1180, 250), new Vec2d(0, 40), 5)) {
+            this.add(deathball);
+        }
+        for (DeathBall deathball : DeathBall.deathBallWall(this, new Vec2d(1180, 475), new Vec2d(0, 40), 10)) {
+            this.add(deathball);
+        }
+        Checkpoint checkpoint = new Checkpoint(this, new Vec2d(100), new Vec2d(910, 490), new Vec2d(945, 525));
+        this.add(checkpoint);
+        Checkpoint start = new Checkpoint(this, new Vec2d(100), new Vec2d(465, 490), new Vec2d(500, 525));
+        this.add(start);
+        EndPoint endPoint = new EndPoint(this, new Vec2d(100, 650), new Vec2d(1520, 230));
+        this.add(endPoint);
 
-    public static Map<String, Class<? extends GameObject>> getClassMap(){
-        return classMap;
+        Player player = new Player(this, new Vec2d(30), new Vec2d(500, 420), Color.rgb(156, 122, 151));
+        this.add(player);
     }
 
     @Override
     public void onMousePressed(double x, double y) {
         super.onMousePressed(x, y);
-        Platform newPlatform = new Platform(this, new Vec2d(20), new Vec2d(x,y), Color.CORAL);
-        this.add(newPlatform);
+        Wall newWall = new Wall(this, new Vec2d(20), new Vec2d(x,y), Color.CORAL);
+        this.add(newWall);
     }
 
     public LastWorld(String fileName, Map<String, Class<? extends GameObject>> classMap){

@@ -11,7 +11,7 @@ public class BackgroundScreen extends Screen {
 
     public BackgroundScreen() {
         super(ScreenName.BACKGROUND);
-        this.screenColor = Color.rgb(69,69,69);
+        this.screenColor = Color.rgb(48, 54, 51);
         this.edgeColor = Color.rgb(0,0,0);
         this.createScreen();
     }

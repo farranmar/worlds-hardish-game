@@ -26,7 +26,7 @@ public class PauseScreen extends Screen {
     }
 
     private void addElements(){
-        Background background = new Background(Color.rgb(69,69,69, 0.7));
+        Background background = new Background(Color.rgb(48, 54, 51, 0.85));
         this.add(background);
 
         double centerY = this.screenSize.y/2;

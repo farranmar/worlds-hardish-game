@@ -23,19 +23,10 @@ public class Viewport extends UIElement {
     private Vec2d displaySize; // size (in GameWorld coordinates) of what's being displayed
     private Vec2d displayPosition; // position (in GameWorld coordinates) of what's being displayed
     private final Affine affine = new Affine();
-    private Direction panning = Direction.NONE;
     private static final int panningSpeed = 5;
     private static final int zoomSpeed = 1; // percent that you zoom
     private static final ArrayList<Background> clippingBackgrounds = new ArrayList<>(4);
     private static final Vec2d minDisplaySize = new Vec2d(120,67.5);
-
-    public enum Direction {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        NONE
-    }
 
     public Viewport(){
         super("Viewport");
@@ -96,15 +87,6 @@ public class Viewport extends UIElement {
     }
 
     public void onTick(long nanosSinceLastTick){
-        if(panning == Direction.UP && this.displayPosition.y > 0){
-            this.displayPosition = this.displayPosition.plus(new Vec2d(0,-1 * panningSpeed));
-        } else if(panning == Direction.DOWN && (this.displayPosition.y+this.displaySize.y) < this.gameWorld.getSize().y){
-            this.displayPosition = this.displayPosition.plus(new Vec2d(0,panningSpeed));
-        } else if(panning == Direction.RIGHT && (this.displayPosition.x+this.displaySize.x) < this.gameWorld.getSize().x){
-            this.displayPosition = this.displayPosition.plus(new Vec2d(panningSpeed,0));
-        } else if(panning == Direction.LEFT && this.displayPosition.x > 0){
-            this.displayPosition = this.displayPosition.plus(new Vec2d(-1 * panningSpeed, 0));
-        }
         if(gameWorld != null){ gameWorld.onTick(nanosSinceLastTick); }
     }
 
@@ -147,28 +129,10 @@ public class Viewport extends UIElement {
     }
 
     public void onKeyPressed(KeyEvent e){
-        if(e.getCode() == KeyCode.UP){
-            this.panning = Direction.UP;
-        } else if(e.getCode() == KeyCode.DOWN){
-            this.panning = Direction.DOWN;
-        } else if(e.getCode() == KeyCode.LEFT){
-            this.panning = Direction.LEFT;
-        } else if(e.getCode() == KeyCode.RIGHT){
-            this.panning = Direction.RIGHT;
-        }
         gameWorld.onKeyPressed(e);
     }
 
     public void onKeyReleased(KeyEvent e){
-        if((e.getCode() == KeyCode.UP || e.getCode() == KeyCode.W) && panning == Direction.UP){
-            panning = Direction.NONE;
-        } else if((e.getCode() == KeyCode.DOWN || e.getCode() == KeyCode.S) && panning == Direction.DOWN){
-            panning = Direction.NONE;
-        } else if((e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.A) && panning == Direction.LEFT){
-            panning = Direction.NONE;
-        } else if((e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.D) && panning == Direction.RIGHT){
-            panning = Direction.NONE;
-        }
         gameWorld.onKeyReleased(e);
     }
 
@@ -196,21 +160,4 @@ public class Viewport extends UIElement {
         }
     }
 
-    public void onMouseWheelMoved(ScrollEvent e){
-        double zoomPercent = 1 - (e.getDeltaY() * zoomSpeed / 100);
-        double x = (e.getX() - this.position.x) * (this.displaySize.x / this.size.x) + this.displayPosition.x;
-        double y = (e.getY() - this.position.y) * (this.displaySize.y / this.size.y) + this.displayPosition.y;
-        double topDist = (y - this.displayPosition.y) * zoomPercent;
-        double botDist = ((this.displayPosition.y + this.displaySize.y) - y) * zoomPercent;
-        double leftDist = (x - this.displayPosition.x) * zoomPercent;
-        double rightDist = ((this.displayPosition.x + this.displaySize.x) - x) * zoomPercent;
-        double newDisplaySizeX = Math.min(leftDist + rightDist, this.gameWorld.getSize().x);
-        newDisplaySizeX = Math.max(newDisplaySizeX, this.minDisplaySize.x);
-        double newDisplaySizeY = Math.min(topDist + botDist, this.gameWorld.getSize().y);
-        newDisplaySizeY = Math.max(newDisplaySizeY, this.minDisplaySize.y);
-        double newDisplayPosX = x - ((e.getX() - this.position.x) / this.size.x * newDisplaySizeX);
-        double newDisplayPosY = y - ((e.getY() - this.position.y) / this.size.y * newDisplaySizeY);
-        this.displayPosition = new Vec2d(newDisplayPosX, newDisplayPosY);
-        this.displaySize = new Vec2d(newDisplaySizeX, newDisplaySizeY);
-    }
 }

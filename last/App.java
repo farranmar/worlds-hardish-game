@@ -6,6 +6,7 @@ import engine.display.screens.Screen;
 import engine.display.screens.ScreenName;
 import engine.support.Vec2d;
 import javafx.scene.paint.Color;
+import last.game.objects.EndPoint;
 import last.screens.*;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class App extends Application {
     }
 
     public void createScreens() {
-        BackgroundScreen backgroundScreen = new BackgroundScreen(Color.rgb(69,69,69), Color.BLACK);
+        BackgroundScreen backgroundScreen = new BackgroundScreen(Color.rgb(48, 54, 51), Color.BLACK);
         backgroundScreen.makeVisible();
         this.add(backgroundScreen);
         MenuScreen menuScreen = new MenuScreen(primaryColor);
@@ -46,6 +47,8 @@ public class App extends Application {
         this.add(levelSaveScreen);
         SaveScreen gameSaveScreen = new SaveScreen(ScreenName.SAVE_LOAD_GAME, primaryColor, "game");
         this.add(gameSaveScreen);
+        VictoryScreen victoryScreen = new VictoryScreen(primaryColor);
+        this.add(victoryScreen);
     }
 
     @Override
@@ -67,6 +70,9 @@ public class App extends Application {
         // if saving level, make editor visible
         if(this.curActiveScreen.getName() == ScreenName.PAUSE && activeScreen.getName() == ScreenName.SAVE_LOAD_LEVEL){
             visible.add(ScreenName.EDITOR);
+        }
+        if(activeScreen.getName() == ScreenName.GAME_OVER){
+            visible.add(ScreenName.GAME);
         }
 
         boolean choosingGame = this.curActiveScreen.getName() == ScreenName.MENU && activeScreen.getName() == ScreenName.SAVE_LOAD_GAME;

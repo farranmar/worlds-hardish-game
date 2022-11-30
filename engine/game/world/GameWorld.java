@@ -278,9 +278,6 @@ public class GameWorld {
     }
 
     public void onKeyPressed(KeyEvent e){
-        if(e.getCode() == KeyCode.P){
-            this.saveTo("save-file.xml");
-        }
         for(GameSystem sys : systems){
             if(sys.takesInput()){
                 sys.onKeyPressed(e);
@@ -453,6 +450,11 @@ public class GameWorld {
                     constructor = classMap.get(classStr).getConstructor(parameterTypes);
                 } catch (Exception e){
                     System.out.println("***Error getting constuctor of GameObject subclass2***");
+                    try {
+                        constructor = classMap.get(classStr).getConstructor(parameterTypes);
+                    } catch (Exception ex){
+
+                    }
                     continue;
                 }
                 try {

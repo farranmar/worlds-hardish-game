@@ -8,14 +8,10 @@ import engine.display.uiElements.PauseButton;
 import engine.display.uiElements.UIElement;
 import engine.game.objects.GameObject;
 import engine.support.Vec2d;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import last.game.EditorWorld;
-import last.game.objects.Platform;
-import last.game.objects.Unit;
-import last.game.objects.UnitMenu;
+import last.game.objects.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +41,10 @@ public class EditorScreen extends Screen {
         HashMap<String, Class<? extends GameObject>> cM = new HashMap<>();
         cM.put("Unit", Unit.class);
         cM.put("UnitMenu", UnitMenu.class);
-        cM.put("Platform", Platform.class);
+        cM.put("Player", Player.class);
+        cM.put("Checkpoint", Checkpoint.class);
+        cM.put("Wall", Wall.class);
+        cM.put("DeathBall", DeathBall.class);
         return cM;
     }
 
