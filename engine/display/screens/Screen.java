@@ -189,4 +189,6 @@ public class Screen {
         }
     }
 
+    public void onShutdown(){}
+
 }

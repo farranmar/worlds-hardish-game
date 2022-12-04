@@ -43,9 +43,9 @@ public class App extends Application {
         this.add(lastScreen);
         PauseScreen pauseScreen = new PauseScreen(primaryColor);
         this.add(pauseScreen);
-        SaveScreen levelSaveScreen = new SaveScreen(ScreenName.SAVE_LOAD_LEVEL, primaryColor, "level");
+        SaveScreen levelSaveScreen = new SaveScreen(ScreenName.SAVE_LOAD_LEVEL, primaryColor, "last/save-files/level");
         this.add(levelSaveScreen);
-        SaveScreen gameSaveScreen = new SaveScreen(ScreenName.SAVE_LOAD_GAME, primaryColor, "game");
+        SaveScreen gameSaveScreen = new SaveScreen(ScreenName.SAVE_LOAD_GAME, primaryColor, "last/save-files/game");
         this.add(gameSaveScreen);
         VictoryScreen victoryScreen = new VictoryScreen(primaryColor);
         this.add(victoryScreen);

@@ -234,7 +234,9 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onShutdown() {
-
+    for(Screen screen : screens){
+      screen.onShutdown();
+    }
   }
 
   /**

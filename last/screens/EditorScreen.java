@@ -45,6 +45,7 @@ public class EditorScreen extends Screen {
         cM.put("Checkpoint", Checkpoint.class);
         cM.put("Wall", Wall.class);
         cM.put("DeathBall", DeathBall.class);
+        cM.put("EndPoint", EndPoint.class);
         return cM;
     }
 

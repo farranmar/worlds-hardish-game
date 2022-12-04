@@ -9,6 +9,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -39,6 +42,7 @@ public class SaveScreen extends Screen {
         Arrays.fill(saveSlotButtons, null);
         this.filePrefix = prefix;
         this.addElements();
+        this.loadSaveFiles();
     }
 
     public SaveScreen(ScreenName name, Color color, String prefix){
@@ -48,6 +52,26 @@ public class SaveScreen extends Screen {
         this.filePrefix = prefix;
         Arrays.fill(saveSlotButtons, null);
         this.addElements();
+        this.loadSaveFiles();
+    }
+
+    private void loadSaveFiles(){
+        try {
+            BufferedReader fileReader = new BufferedReader(new FileReader(this.filePrefix+"_fileNames.txt"));
+            String line = fileReader.readLine();
+            while(line != null){
+                int colonIndex = line.indexOf(":");
+                int slotNum = Integer.parseInt(line.charAt(colonIndex-1)+"");
+                String dateTime = line.substring(colonIndex+1);
+                Button button = this.saveSlotButtons[slotNum];
+                button.setText(dateTime, "Courier");
+                button.setName(button.getName()+" deadbeef"+slotNum);
+                line = fileReader.readLine();
+            }
+        } catch (Exception e){
+            System.out.println("***Error reading fileNames file");
+            return;
+        }
     }
 
     private void addElements(){
@@ -68,7 +92,8 @@ public class SaveScreen extends Screen {
         double padding = (height / (numSaveSlots+1)) * 0.15;
         Font font = new Font("Courier", sectionHeight - 2*padding);
         FontMetrics metrics = new FontMetrics("empty", font);
-        Text selectSaveSlot = new Text("select "+this.filePrefix+" slot:", primaryColor, position.y+metrics.height+padding/2, font);
+        String slotType = this.filePrefix.contains("level") ? "level" : (this.filePrefix.contains("game") ? "game" : this.filePrefix);
+        Text selectSaveSlot = new Text("select "+slotType+" slot:", primaryColor, position.y+metrics.height+padding/2, font);
         this.add(selectSaveSlot);
 
         for(int i = 0; i < numSaveSlots; i++){
@@ -124,6 +149,20 @@ public class SaveScreen extends Screen {
                 if(this.name == ScreenName.SAVE_LOAD_GAME || type == SaveType.LOAD_GAME){ this.nextScreen = ScreenName.GAME; }
                 else { this.nextScreen = ScreenName.EDITOR; }
             }
+        }
+    }
+
+    public void onShutdown(){
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter(this.filePrefix+"_fileNames.txt");
+            for(int i = 0; i < numSaveSlots; i++){
+                String content = this.filePrefix+i+":"+this.saveSlotButtons[i].getTextString()+"\n";
+                fileWriter.write(content);
+            }
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("***Error writing to filenames file***");
         }
     }
 
