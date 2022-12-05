@@ -68,12 +68,12 @@ public class LastWorld extends GameWorld {
         }
         Checkpoint checkpoint = new Checkpoint(this, new Vec2d(100), new Vec2d(910, 490), new Vec2d(945, 525));
         this.add(checkpoint);
-        Checkpoint start = new Checkpoint(this, new Vec2d(100), new Vec2d(465, 490), new Vec2d(500, 525));
+        Checkpoint start = new Checkpoint(this, new Vec2d(100, 650), new Vec2d(330, 230), new Vec2d(365, 540));
         this.add(start);
         EndPoint endPoint = new EndPoint(this, new Vec2d(100, 650), new Vec2d(1520, 230));
         this.add(endPoint);
 
-        Player player = new Player(this, new Vec2d(30), new Vec2d(500, 420), Color.rgb(156, 122, 151));
+        Player player = new Player(this, new Vec2d(30), new Vec2d(365, 540), Color.rgb(156, 122, 151));
         this.add(player);
     }
 

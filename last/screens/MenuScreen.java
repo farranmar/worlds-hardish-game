@@ -6,6 +6,7 @@ import engine.display.uiElements.BackButton;
 import engine.display.uiElements.Button;
 import engine.display.uiElements.Text;
 import engine.display.uiElements.UIElement;
+import engine.game.objects.GameObject;
 import engine.support.Vec2d;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -135,6 +136,32 @@ public class MenuScreen extends Screen {
     public void reset() {
         super.reset();
         this.uiElements = this.basicEles;
+    }
+
+    @Override
+    public void onResize(Vec2d newSize) {
+        this.windowSize = newSize;
+        if(newSize.x/newSize.y == 16.0/9.0){
+            this.screenSize = newSize;
+        } else if(newSize.x/newSize.y < 16.0/9.0){
+            double x = newSize.x;
+            double y = newSize.x * (9.0/16.0);
+            this.screenSize = new Vec2d(x,y);
+        } else {
+            double x = newSize.y * (16.0/9.0);
+            double y = newSize.y;
+            this.screenSize = new Vec2d(x,y);
+        }
+
+        for(UIElement ele : this.basicEles){
+            ele.onResize(this.windowSize, this.screenSize);
+        }
+        for(UIElement ele : this.gameEles){
+            ele.onResize(this.windowSize, this.screenSize);
+        }
+        for(UIElement ele : this.levelEles){
+            ele.onResize(this.windowSize, this.screenSize);
+        }
     }
 
     public void onMouseClicked(MouseEvent e){

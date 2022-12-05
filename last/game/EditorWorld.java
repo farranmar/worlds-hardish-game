@@ -26,7 +26,7 @@ public class EditorWorld extends GameWorld {
     }
 
     private void createObjects() {
-        UnitMenu unitMenu = new UnitMenu(this, Color.rgb(47,47,47), new Vec2d(54,384), new Vec2d(1328, 318));
+        UnitMenu unitMenu = new UnitMenu(this, Color.rgb(47,47,47), new Vec2d(108,768), new Vec2d(1712, 150));
         unitMenu.setDrawPriority(1);
         this.add(unitMenu);
         Unit pink = new Unit(this, Color.rgb(255,184,209));

@@ -6,6 +6,7 @@ import engine.display.screens.ScreenName;
 import engine.display.uiElements.BackButton;
 import engine.display.uiElements.PauseButton;
 import engine.display.uiElements.UIElement;
+import engine.game.objects.GameObject;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.input.MouseEvent;

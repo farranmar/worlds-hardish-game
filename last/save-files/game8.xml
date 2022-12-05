@@ -8,7 +8,7 @@
         <System collidable="false" drawable="false" takesInput="false" tickable="true"/>
     </Systems>
     <GameObjects>
-        <GameObject centerObj="false" class="Wall" drawPriority="221" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="16" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="300.0" y="200.0"/>
@@ -27,7 +27,7 @@
             <Children/>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="222" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="17" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="300.0" y="880.0"/>
@@ -46,7 +46,7 @@
             <Children/>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="223" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="18" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="300.0" y="200.0"/>
@@ -65,7 +65,7 @@
             <Children/>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="224" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="19" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1620.0" y="200.0"/>
@@ -84,7 +84,7 @@
             <Children/>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="225" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="20" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="240.0"/>
@@ -104,7 +104,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="226" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="21" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="280.0"/>
@@ -124,7 +124,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="227" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="22" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="320.0"/>
@@ -144,7 +144,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="228" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="23" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="360.0"/>
@@ -164,7 +164,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="229" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="24" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="400.0"/>
@@ -184,7 +184,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="230" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="25" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="440.0"/>
@@ -204,7 +204,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="231" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="26" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="480.0"/>
@@ -224,7 +224,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="232" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="27" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="520.0"/>
@@ -244,7 +244,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="233" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="28" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="560.0"/>
@@ -264,7 +264,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="234" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="29" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="600.0"/>
@@ -284,7 +284,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="235" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="30" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="680.0"/>
@@ -304,7 +304,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="236" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="31" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="720.0"/>
@@ -324,7 +324,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="237" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="32" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="760.0"/>
@@ -344,7 +344,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="238" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="33" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="800.0"/>
@@ -364,7 +364,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="239" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="34" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="840.0"/>
@@ -384,7 +384,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="240" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="35" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="250.0"/>
@@ -404,7 +404,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="241" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="36" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="290.0"/>
@@ -424,7 +424,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="242" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="37" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="330.0"/>
@@ -444,7 +444,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="243" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="38" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="370.0"/>
@@ -464,7 +464,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="244" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="39" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="410.0"/>
@@ -484,7 +484,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="245" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="40" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="475.0"/>
@@ -504,7 +504,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="246" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="41" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="515.0"/>
@@ -524,7 +524,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="247" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="42" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="555.0"/>
@@ -544,7 +544,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="248" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="43" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="595.0"/>
@@ -564,7 +564,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="249" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="44" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="635.0"/>
@@ -584,7 +584,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="250" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="45" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="675.0"/>
@@ -604,7 +604,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="251" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="46" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="715.0"/>
@@ -624,7 +624,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="252" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="47" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="755.0"/>
@@ -644,7 +644,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="253" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="48" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="795.0"/>
@@ -664,7 +664,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPriority="254" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPriority="49" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="835.0"/>
@@ -684,7 +684,7 @@
             <Children/>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="Checkpoint" drawPriority="255" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Checkpoint" drawPriority="50" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="910.0" y="490.0"/>
@@ -704,16 +704,16 @@
             <Color blue="203.00000309944153" green="232.00000137090683" red="139.0000069141388"/>
             <SaveSpot x="945.0" y="525.0"/>
         </GameObject>
-        <GameObject centerObj="false" class="Checkpoint" drawPriority="256" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Checkpoint" drawPriority="51" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="465.0" y="490.0"/>
-                    <Size x="100.0" y="100.0"/>
+                    <Position x="330.0" y="230.0"/>
+                    <Size x="100.0" y="650.0"/>
                 </Component>
                 <Component collidable="true" drawable="false" isStatic="true" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
                     <Shape class="AAB">
-                        <Size x="100.0" y="100.0"/>
-                        <Position x="465.0" y="490.0"/>
+                        <Size x="100.0" y="650.0"/>
+                        <Position x="330.0" y="230.0"/>
                     </Shape>
                 </Component>
                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
@@ -722,9 +722,9 @@
             </Components>
             <Children/>
             <Color blue="203.00000309944153" green="232.00000137090683" red="139.0000069141388"/>
-            <SaveSpot x="500.0" y="525.0"/>
+            <SaveSpot x="365.0" y="540.0"/>
         </GameObject>
-        <GameObject centerObj="false" class="EndPoint" drawPriority="257" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="EndPoint" drawPriority="52" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1520.0" y="230.0"/>
@@ -743,16 +743,16 @@
             <Children/>
             <Color blue="203.00000309944153" green="232.00000137090683" red="139.0000069141388"/>
         </GameObject>
-        <GameObject centerObj="false" class="Player" drawPriority="258" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Player" drawPriority="53" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="1295.9549540450275" y="444.0495505504696"/>
+                    <Position x="449.0" y="645.0"/>
                     <Size x="30.0" y="30.0"/>
                 </Component>
                 <Component collidable="true" drawable="false" isStatic="false" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
                     <Shape class="AAB">
                         <Size x="30.0" y="30.0"/>
-                        <Position x="1295.9549540450275" y="444.0495505504696"/>
+                        <Position x="449.0" y="645.0"/>
                     </Shape>
                 </Component>
                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
@@ -763,37 +763,18 @@
             </Components>
             <Children/>
             <Color blue="151.00000619888306" green="122.00000032782555" red="156.00000590085983"/>
-            <RespawnPoint x="945.0" y="525.0"/>
+            <RespawnPoint x="365.0" y="540.0"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="264" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="59" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="1842.0" y="104.0"/>
+                    <Position x="1848.0" y="84.0"/>
                     <Size x="20.0" y="20.0"/>
                 </Component>
                 <Component collidable="true" drawable="false" isStatic="true" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
                     <Shape class="AAB">
                         <Size x="20.0" y="20.0"/>
-                        <Position x="1842.0" y="104.0"/>
-                    </Shape>
-                </Component>
-                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                    <Color blue="0.0" green="0.0" red="0.0"/>
-                </Component>
-            </Components>
-            <Children/>
-            <Color blue="80.00000283122063" green="127.00000002980232" red="255.0"/>
-        </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="805" floating="false" worldDraw="true">
-            <Components>
-                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="1830.0" y="78.0"/>
-                    <Size x="20.0" y="20.0"/>
-                </Component>
-                <Component collidable="true" drawable="false" isStatic="true" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
-                    <Shape class="AAB">
-                        <Size x="20.0" y="20.0"/>
-                        <Position x="1830.0" y="78.0"/>
+                        <Position x="1848.0" y="84.0"/>
                     </Shape>
                 </Component>
                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
