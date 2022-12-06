@@ -7,6 +7,7 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import last.game.objects.Path;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -149,7 +150,11 @@ public class GameObject {
     }
 
     public void translate(double dx, double dy){
-        this.setPosition(new Vec2d(this.getPosition().x + dx, this.getPosition().y + dy));
+        this.translate(new Vec2d(dx, dy));
+    }
+
+    public void translate(Vec2d d){
+        this.setPosition(this.getPosition().plus(d));
     }
 
     public GameObject getParent(){
@@ -162,7 +167,6 @@ public class GameObject {
 
     public void addChild(GameObject child){
         this.children.add(child);
-        this.gameWorld.addToSystems(child);
         child.setParent(this);
     }
 

@@ -1,11 +1,14 @@
 package last.game.objects;
 
+import engine.display.uiElements.Text;
 import engine.game.components.*;
 import engine.game.objects.GameObject;
 import engine.game.world.GameWorld;
+import engine.support.FontMetrics;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -17,7 +20,8 @@ import static last.screens.EditorScreen.classMap;
 public class UnitMenu extends GameObject {
 
     private Vec2d unitSize;
-    private double padding = 12;
+    private double padding = 32;
+    private ArrayList<Text> labels = new ArrayList<>();
 
     public UnitMenu(GameWorld gameWorld, Color color, Vec2d size, Vec2d position){
         super(gameWorld);
@@ -29,11 +33,16 @@ public class UnitMenu extends GameObject {
         this.unitSize = new Vec2d(size.x - padding*2);
     }
 
-    public void add(GameObject block){
+    public void add(GameObject block, String name){
         block.setSize(unitSize);
-        block.setPosition(this.getNextUnitPosition());
+        Vec2d pos = this.getNextUnitPosition();
+        block.setPosition(pos);
         block.setParent(this);
         this.addChild(block);
+        Font font = new Font("Courier", 14);
+        FontMetrics metrics = new FontMetrics(name, font);
+        Text label = new Text(name, Color.WHITE, pos.plus(new Vec2d(unitSize.x/2 - metrics.width/2, unitSize.y+5+metrics.height)), font);
+        this.labels.add(label);
         this.gameWorld.addToSystems(block);
     }
 
@@ -65,6 +74,11 @@ public class UnitMenu extends GameObject {
         g.setStroke(Color.rgb(255,255,255));
         g.setLineWidth(4);
         g.strokeRect(this.transformComponent.getPosition().x, this.transformComponent.getPosition().y, this.transformComponent.getSize().x, this.transformComponent.getSize().y);
+
+        for(Text label : this.labels){
+            label.onDraw(g);
+        }
+
         super.onDraw(g);
     }
 

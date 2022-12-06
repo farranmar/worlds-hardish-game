@@ -7,7 +7,6 @@ import engine.support.Vec2d;
 import javafx.scene.paint.Color;
 import last.game.objects.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class LastWorld extends GameWorld {
@@ -34,6 +33,10 @@ public class LastWorld extends GameWorld {
         for(GameObject obj : editorWorld.getGameObjects()){
             if(obj instanceof UnitMenu){ continue; }
             GameObject clone = obj.clone();
+            if(obj instanceof DeathBall){
+                ((DeathBall)clone).setDrawPath(false);
+                ((DeathBall)clone).setMoving(true);
+            }
             this.add(clone);
         }
     }

@@ -19,18 +19,29 @@ import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class DeathBall extends GameObject {
 
-    private static final double speed = 5;
+    public static final double speed = 5;
+    private static final Vec2d size = new Vec2d(30);
     private Color color;
+    private boolean drawPath = false;
+    private boolean moving = true;
 
     public DeathBall(GameWorld gameWorld, Vec2d position) {
-        super(gameWorld, new Vec2d(30), position);
+        super(gameWorld, size, position);
         this.color = Color.rgb(136, 141, 167);
+        Vec2d p1 = position.plus(size.sdiv(2)).plus(new Vec2d(-50, 0));
+        Vec2d p2 = position.plus(size.sdiv(2)).plus(new Vec2d(50, 0));
+        Path path = new Path(gameWorld, this, p1, p2);
+        this.addChild(path);
         this.addComponents();
     }
 
     public DeathBall(GameWorld gameWorld, Vec2d position, Color color) {
         super(gameWorld, new Vec2d(30), position);
         this.color = color;
+        Vec2d p1 = position.plus(size.sdiv(2)).plus(new Vec2d(-50, 0));
+        Vec2d p2 = position.plus(size.sdiv(2)).plus(new Vec2d(50, 0));
+        Path path = new Path(gameWorld, this, p1, p2);
+        this.addChild(path);
         this.addComponents();
     }
 
@@ -38,6 +49,51 @@ public class DeathBall extends GameObject {
         this.add(new CollideComponent(new Circle(this.getSize().x/2, this.getPosition().plus(this.getSize().sdiv(2)))));
         this.add(new DrawComponent());
         this.add(new TickComponent());
+    }
+
+    public void setDrawPath(boolean drawPath) {
+        this.drawPath = drawPath;
+        assert(this.children.get(0) instanceof Path);
+        ((Path)this.children.get(0)).setVisible(drawPath);
+    }
+
+    public void setMoving(boolean moving){
+        this.moving = moving;
+        assert(this.children.get(0) instanceof Path);
+        ((Path)this.children.get(0)).setActive(moving);
+    }
+
+    public void setPath(Path path){
+        this.children.set(0, path);
+        path.setParent(this);
+    }
+
+    @Override
+    public void setPosition(Vec2d newPosition) {
+        assert(this.children.get(0) instanceof Path);
+        Path path = (Path)this.children.get(0);
+        Vec2d d1 = path.getPointOne().minus(this.getPosition());
+        Vec2d d2 = path.getPointTwo().minus(this.getPosition());
+        path.setPointOne(newPosition.plus(d1));
+        path.setPointTwo(newPosition.plus(d2));
+        super.setPosition(newPosition);
+    }
+
+    public void setPosition(Vec2d newPosition, boolean onlyBall) {
+        super.setPosition(newPosition);
+    }
+
+    public void translate(Vec2d d, boolean onlyBall) {
+        this.setPosition(this.getPosition().plus(d), onlyBall);
+    }
+
+    public DeathBall clone(){
+        DeathBall clone = new DeathBall(this.gameWorld, this.getPosition(), this.color);
+        assert(this.children.get(0) instanceof Path);
+        clone.setPath(((Path)this.children.get(0)).clone());
+        clone.setDrawPath(true);
+        clone.setMoving(false);
+        return clone;
     }
 
     public static ArrayList<DeathBall> deathBallWall(GameWorld gameWorld, Vec2d position, Vec2d separation, int number) {
@@ -66,6 +122,7 @@ public class DeathBall extends GameObject {
         ele.setAttribute("class", "DeathBall");
         Element color = colorToXml(doc, this.color);
         ele.appendChild(color);
+        ele.setAttribute("drawPath", this.drawPath+"");
         return ele;
     }
 

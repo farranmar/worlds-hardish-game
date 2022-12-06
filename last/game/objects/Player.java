@@ -139,9 +139,6 @@ public class Player extends GameObject {
 
         Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);
-
-        Element childrenEle = getTopElementsByTagName(ele, "Children").get(0);
-        assert(this.children.size() == 2);
     }
 
 }

@@ -8,8 +8,10 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import last.game.objects.DeathBall;
 import last.game.objects.Unit;
 import last.game.objects.UnitMenu;
+import last.game.objects.Wall;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,16 +29,11 @@ public class EditorWorld extends GameWorld {
 
     private void createObjects() {
         UnitMenu unitMenu = new UnitMenu(this, Color.rgb(47,47,47), new Vec2d(108,768), new Vec2d(1712, 150));
-        unitMenu.setDrawPriority(1);
         this.add(unitMenu);
-        Unit pink = new Unit(this, Color.rgb(255,184,209));
-        unitMenu.add(pink);
-        Unit yellow = new Unit(this, Color.rgb(226,235,152));
-        unitMenu.add(yellow);
-        Unit green = new Unit(this, Color.rgb(186,217,162));
-        unitMenu.add(green);
-        Unit blue = new Unit(this, Color.rgb(152,193,217));
-        unitMenu.add(blue);
+        Wall wall = new Wall(this, new Vec2d(100), new Vec2d(100));
+        unitMenu.add(wall, "wall");
+        DeathBall deathBall = new DeathBall(this, new Vec2d(100));
+        unitMenu.add(deathBall, "deathball");
     }
 
     private void addSystems() {

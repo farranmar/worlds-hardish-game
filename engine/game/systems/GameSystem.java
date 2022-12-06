@@ -5,6 +5,7 @@ import engine.game.objects.GameObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.transform.Affine;
+import last.game.objects.Path;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -23,12 +24,11 @@ public class GameSystem {
 
     // adds if the obj is relevant to the system; returns whether obj was added or not
     public boolean attemptAdd(GameObject obj){
-        // checks collidable before tickable (bc collidable components are also tickable)
         if(this.collidable && obj.get(ComponentTag.COLLIDE) != null){
             gameObjects.add(obj);
             return true;
         }
-        if(this.tickable && obj.get(ComponentTag.TICK) != null){
+        if(this.tickable && !this.collidable && obj.get(ComponentTag.TICK) != null){
             gameObjects.add(obj);
             return true;
         }
