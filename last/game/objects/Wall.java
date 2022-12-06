@@ -17,7 +17,7 @@ import static engine.game.world.GameWorld.getTopElementsByTagName;
 
 public class Wall extends GameObject {
 
-    private Color color;
+    protected Color color;
 
     public Wall(GameWorld world, Vec2d size, Vec2d position){
         super(world, size, position);

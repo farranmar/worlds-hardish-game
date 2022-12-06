@@ -8,10 +8,7 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import last.game.objects.DeathBall;
-import last.game.objects.Unit;
-import last.game.objects.UnitMenu;
-import last.game.objects.Wall;
+import last.game.objects.*;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -30,10 +27,15 @@ public class EditorWorld extends GameWorld {
     private void createObjects() {
         UnitMenu unitMenu = new UnitMenu(this, Color.rgb(47,47,47), new Vec2d(108,768), new Vec2d(1712, 150));
         this.add(unitMenu);
+        Player player = new Player(this, new Vec2d(30), new Vec2d(100));
+        player.setActive(false);
+        unitMenu.add(player, "player spawn");
         Wall wall = new Wall(this, new Vec2d(100), new Vec2d(100));
         unitMenu.add(wall, "wall");
         DeathBall deathBall = new DeathBall(this, new Vec2d(100));
         unitMenu.add(deathBall, "deathball");
+        Checkpoint checkpoint = new Checkpoint(this, new Vec2d(50), new Vec2d(100), new Vec2d(110));
+        unitMenu.add(checkpoint, "checkpoint");
     }
 
     private void addSystems() {

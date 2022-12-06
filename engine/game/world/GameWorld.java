@@ -109,6 +109,14 @@ public class GameWorld {
         this.systemsQueue.add(obj);
     }
 
+    public void removeObjsOfType(Class<? extends GameObject> type){
+        for(GameObject obj : this.gameObjects){
+            if(type.isInstance(obj)){
+                this.addToRemovalQueue(obj);
+            }
+        }
+    }
+
     protected void addQueue(){
         for(GameObject obj : this.additionQueue){
             this.add(obj);

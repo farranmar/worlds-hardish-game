@@ -37,6 +37,13 @@ public class LastWorld extends GameWorld {
                 ((DeathBall)clone).setDrawPath(false);
                 ((DeathBall)clone).setMoving(true);
             }
+            if(obj instanceof Player){
+                ((Player)clone).setActive(true);
+                ((Player)clone).setCheckpoint(clone.getPosition());
+            }
+            if(obj instanceof Checkpoint){
+                ((Checkpoint)clone).centerSaveSpot(new Vec2d(30));
+            }
             this.add(clone);
         }
     }
@@ -76,7 +83,7 @@ public class LastWorld extends GameWorld {
         EndPoint endPoint = new EndPoint(this, new Vec2d(100, 650), new Vec2d(1520, 230));
         this.add(endPoint);
 
-        Player player = new Player(this, new Vec2d(30), new Vec2d(365, 540), Color.rgb(156, 122, 151));
+        Player player = new Player(this, new Vec2d(30), new Vec2d(365, 540));
         this.add(player);
     }
 

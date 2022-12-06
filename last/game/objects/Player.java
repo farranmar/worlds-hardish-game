@@ -23,14 +23,18 @@ public class Player extends GameObject {
     protected Color color;
     private Map<KeyCode, Boolean> directionMap = initializeDirectionMap();
     private static final double speed = 3;
+    private static int numPlayers = 0;
     private double boosted = 1;
     private Vec2d respawnPoint;
+    private boolean active = true;
 
     public Player(GameWorld world, Vec2d size, Vec2d position){
         super(world, size, position);
         this.addComponents();
-        this.color = Color.BLACK;
+        this.color = Color.rgb(156, 122, 151);
         this.respawnPoint = position;
+        this.drawPriority = 10000+numPlayers;
+        numPlayers++;
     }
 
     public Player(GameWorld world, Vec2d size, Vec2d position, Color color){
@@ -38,6 +42,8 @@ public class Player extends GameObject {
         this.addComponents();
         this.color = color;
         this.respawnPoint = position;
+        this.drawPriority = 10000+numPlayers;
+        numPlayers++;
     }
 
     private Map<KeyCode, Boolean> initializeDirectionMap(){
@@ -73,6 +79,13 @@ public class Player extends GameObject {
         this.respawnPoint = newCheckpoint;
     }
 
+    public void setActive(boolean a){
+        this.active = a;
+        if(!active){
+            this.directionMap = initializeDirectionMap();
+        }
+    }
+
     public void onCollide(GameObject obj, Vec2d mtv){
         if(obj instanceof DeathBall){
             this.die();
@@ -94,6 +107,7 @@ public class Player extends GameObject {
     }
 
     public void onKeyPressed(KeyEvent e){
+        if(!active){ return; }
         if(e.getCode() != KeyCode.A && e.getCode() != KeyCode.W && e.getCode() != KeyCode.S && e.getCode() != KeyCode.D){ return; }
         directionMap.put(e.getCode(), true);
     }
@@ -122,9 +136,20 @@ public class Player extends GameObject {
         super.onTick(nanosSinceLastTick);
     }
 
+    public Player clone(){
+        Player clone = new Player(this.gameWorld, this.getSize(), this.getPosition(), this.color);
+        clone.directionMap = initializeDirectionMap();
+        clone.boosted = this.boosted;
+        clone.respawnPoint = this.respawnPoint;
+        clone.active = this.active;
+        return clone;
+    }
+
     public Element toXml(Document doc) {
         Element ele = super.toXml(doc);
         ele.setAttribute("class", "Player");
+        ele.setAttribute("active", this.active+"");
+        ele.setAttribute("boosted", this.boosted+"");
         ele.appendChild(colorToXml(doc, color));
         ele.appendChild(this.respawnPoint.toXml(doc, "RespawnPoint"));
         return ele;
@@ -136,9 +161,13 @@ public class Player extends GameObject {
         Color color = colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
         this.setColor(color);
         this.respawnPoint = Vec2d.fromXml(getTopElementsByTagName(ele, "RespawnPoint").get(0));
+        this.active = Boolean.parseBoolean(ele.getAttribute("active"));
+        this.boosted = Double.parseDouble(ele.getAttribute("boosted"));
 
         Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);
+        this.drawPriority = 10000+numPlayers;
+        numPlayers++;
     }
 
 }

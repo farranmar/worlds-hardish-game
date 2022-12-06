@@ -85,9 +85,13 @@ public class UnitMenu extends GameObject {
     @Override
     public void onMousePressed(double x, double y) {
         super.onMousePressed(x, y);
+        ArrayList<GameObject> removalQueue = new ArrayList<>();
         for(GameObject child : children){
             if(child.inRange(x, y)){
                 GameObject clone = child.clone();
+                if(child instanceof Player){
+                    this.gameWorld.removeObjsOfType(Player.class);
+                }
                 DragComponent dragComponent = new DragComponent(clone);
                 clone.add(dragComponent);
                 dragComponent.onMousePressed(x, y);
