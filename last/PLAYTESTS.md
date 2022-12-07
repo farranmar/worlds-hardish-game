@@ -1,3 +1,17 @@
+# Final III Playtests
+
+### Playtest 1: Interviewed by Josh
+--- When working with the level editor, this player was unable to intuit how each of the controls worked. She was especially confused by the controls to set up the death balls.  
+
+### Playtest 2: Interviewed by Josh
+--- This player enjoyed the level editor, though they wished they had more options to use. They were also frustrated when they made several balls in a line, but small differences led to them getting out of sync when the level was played. 
+
+--- They also were annoyed by the inability to remove items from the level.
+
+### Playtest 3: Interviewed by Josh
+--- This player didn't want to play with the level editor much, so there was not a ton of content for them (as we only have one fully-implemented level). However, they said they liked the feel of the controls and the inspiration, as they had played the flash game it was based on.
+
+
 # Final II Playtests
 
 ### Playtest 1: Interviewed by Josh
