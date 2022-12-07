@@ -14,6 +14,8 @@ import org.w3c.dom.Element;
 
 public class Resizer extends GameObject {
 
+    private boolean visible = false;
+
     public Resizer(GameWorld world, GameObject sqObj, Vec2d p1){
         super(world, new Vec2d(0), p1);
         this.parent = sqObj;
@@ -29,7 +31,13 @@ public class Resizer extends GameObject {
     }
 
     public Resizer clone(){
-        return new Resizer(this.gameWorld, this.parent, children.get(0).getPosition());
+        Resizer clone = new Resizer(this.gameWorld, this.parent, children.get(0).getPosition());
+        clone.setVisible(this.visible);
+        return clone;
+    }
+
+    public void setVisible(boolean v){
+        this.visible = v;
     }
 
     public void updateSize(){
@@ -45,12 +53,11 @@ public class Resizer extends GameObject {
         this.children.get(0).setPosition(pos.plus(newSize));
     }
 
-    public Vec2d getPointOne(){
-        return this.children.get(0).getPosition();
-    }
-
-    public void setPointOne(Vec2d newPos){
-        this.children.get(0).setPosition(newPos);
+    @Override
+    public void setPosition(Vec2d newPosition) {
+        super.setPosition(newPosition);
+        assert(this.children.get(0) instanceof PathPoint);
+        this.children.get(0).setPosition(newPosition);
     }
 
     @Override
@@ -60,14 +67,22 @@ public class Resizer extends GameObject {
     }
 
     @Override
+    public void onDraw(GraphicsContext g) {
+        if(!visible){ return; }
+        super.onDraw(g);
+    }
+
+    @Override
     public Element toXml(Document doc) {
         Element ele = super.toXml(doc);
         ele.setAttribute("class", "Resizer");
+        ele.setAttribute("visible", this.visible+"");
         return ele;
     }
 
     public Resizer(Element ele, GameWorld world){
         super(ele, world, EditorScreen.classMap);
+        this.visible = Boolean.parseBoolean(ele.getAttribute("visible"));
     }
 
 }

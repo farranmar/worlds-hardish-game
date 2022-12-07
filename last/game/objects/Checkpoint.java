@@ -30,7 +30,9 @@ public class Checkpoint extends Wall {
     }
 
     public Checkpoint clone(){
-        return new Checkpoint(this.gameWorld, this.getSize(), this.getPosition(), this.color, this.savePos);
+        Checkpoint clone = new Checkpoint(this.gameWorld, this.getSize(), this.getPosition(), this.color, this.savePos);
+        clone.setShowResizer(true);
+        return clone;
     }
 
     public Vec2d getSaveSpot() {

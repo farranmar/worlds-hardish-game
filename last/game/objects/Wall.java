@@ -8,7 +8,6 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import last.game.LastWorld;
 import last.screens.EditorScreen;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,28 +17,45 @@ import static engine.game.world.GameWorld.getTopElementsByTagName;
 public class Wall extends GameObject {
 
     protected Color color;
-    protected Resizer resizer;
+    protected boolean showResizer = false;
 
     public Wall(GameWorld world, Vec2d size, Vec2d position){
         super(world, size, position);
         this.color = Color.rgb(126, 162, 170);
-        this.resizer = new Resizer(world, this, this.getPosition().plus(this.getSize()));
+        Resizer resizer = new Resizer(world, this, this.getPosition().plus(this.getSize()));
+        this.children.add(resizer);
         this.addComponents();
     }
 
     public Wall(GameWorld world, Vec2d size, Vec2d position, Color color){
         super(world, size, position);
         this.color = color;
-        this.resizer = new Resizer(world, this, this.getPosition().plus(this.getSize()));
+        Resizer resizer = new Resizer(world, this, this.getPosition().plus(this.getSize()));
+        this.children.add(resizer);
         this.addComponents();
     }
 
     public Wall clone(){
-        return new Wall(this.gameWorld, this.getSize(), this.getPosition(), this.color);
+        Wall clone = new Wall(this.gameWorld, this.getSize(), this.getPosition(), this.color);
+        clone.setShowResizer(true);
+        return clone;
     }
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void setShowResizer(boolean show){
+        this.showResizer = show;
+        assert(this.children.get(0) instanceof Resizer);
+        ((Resizer)this.children.get(0)).setVisible(show);
+    }
+
+    @Override
+    public void setPosition(Vec2d newPosition) {
+        super.setPosition(newPosition);
+        assert(this.children.get(0) instanceof Resizer);
+        this.children.get(0).setPosition(newPosition.plus(this.getSize()));
     }
 
     private void addComponents(){
@@ -59,6 +75,7 @@ public class Wall extends GameObject {
         Vec2d size = this.getSize();
         Vec2d pos = this.getPosition();
         g.fillRect(pos.x, pos.y, size.x, size.y);
+        super.onDraw(g);
     }
 
     @Override
@@ -67,6 +84,7 @@ public class Wall extends GameObject {
         ele.setAttribute("class", "Wall");
         Element color = colorToXml(doc, this.color);
         ele.appendChild(color);
+        ele.setAttribute("showResizer", this.showResizer+"");
         return ele;
     }
 
@@ -74,6 +92,7 @@ public class Wall extends GameObject {
         this.gameWorld = world;
         this.setConstantsXml(ele);
         this.color = colorFromXml(getTopElementsByTagName(ele, "Color").get(0));
+        this.showResizer = Boolean.parseBoolean(ele.getAttribute("showResizer"));
 
         Element componentsEle = getTopElementsByTagName(ele, "Components").get(0);
         this.addComponentsXml(componentsEle);

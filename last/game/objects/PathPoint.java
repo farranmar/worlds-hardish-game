@@ -12,6 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class PathPoint extends GameObject {
+
     private Color color;
 
     public PathPoint(GameWorld world, Path path, Vec2d pos){

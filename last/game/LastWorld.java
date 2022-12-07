@@ -41,6 +41,9 @@ public class LastWorld extends GameWorld {
                 ((Player)clone).setActive(true);
                 ((Player)clone).setCheckpoint(clone.getPosition());
             }
+            if(obj instanceof Wall){
+                ((Wall)clone).setShowResizer(false);
+            }
             if(obj instanceof Checkpoint){
                 ((Checkpoint)clone).centerSaveSpot(new Vec2d(30));
             }

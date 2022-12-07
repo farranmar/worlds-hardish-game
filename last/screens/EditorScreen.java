@@ -48,6 +48,7 @@ public class EditorScreen extends Screen {
         cM.put("EndPoint", EndPoint.class);
         cM.put("Path", Path.class);
         cM.put("PathPoint", PathPoint.class);
+        cM.put("Resizer", Resizer.class);
         return cM;
     }
 

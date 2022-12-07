@@ -17,6 +17,12 @@ public class EndPoint extends Wall {
         super(world, size, position, color);
     }
 
+    public EndPoint clone(){
+        EndPoint clone = new EndPoint(this.gameWorld, this.getSize(), this.getPosition(), this.color);
+        clone.setShowResizer(true);
+        return clone;
+    }
+
     @Override
     public void onCollide(GameObject obj, Vec2d mtv) {
         this.gameWorld.setResult(GameWorld.Result.VICTORY);
