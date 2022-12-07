@@ -1,6 +1,7 @@
 package last.game.objects;
 
 import engine.game.components.CollideComponent;
+import engine.game.components.ComponentTag;
 import engine.game.components.DrawComponent;
 import engine.game.components.TickComponent;
 import engine.game.objects.GameObject;
@@ -9,6 +10,7 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import last.game.components.SlideComponent;
 import last.screens.EditorScreen;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -57,6 +59,22 @@ public class DeathBall extends GameObject {
         ((Path)this.children.get(0)).setVisible(drawPath);
     }
 
+    public void addSlideComponent(){
+        this.remove(ComponentTag.DRAG);
+        if(this.get(ComponentTag.SLIDE) == null){
+            assert(this.children.get(0).getChildren().get(0) instanceof PathPoint);
+            assert(this.children.get(0).getChildren().get(1) instanceof PathPoint);
+            Vec2d p1 = this.children.get(0).getChildren().get(0).getPosition();
+            Vec2d p2 = this.children.get(0).getChildren().get(1).getPosition();
+            this.add(new SlideComponent(this, p1, p2, ((Path)this.children.get(0)).getStartRatio()));
+        }
+    }
+
+    public void updateSlidePositions() {
+        SlideComponent slideComponent = (SlideComponent) this.get(ComponentTag.SLIDE);
+        slideComponent.updateEndpoint(this.children.get(0).getChildren().get(0).getPosition(), this.children.get(0).getChildren().get(1).getPosition());
+    }
+
     public void setMoving(boolean moving){
         this.moving = moving;
         assert(this.children.get(0) instanceof Path);
@@ -81,6 +99,10 @@ public class DeathBall extends GameObject {
 
     public void setPosition(Vec2d newPosition, boolean onlyBall) {
         super.setPosition(newPosition);
+    }
+
+    public void setStartRatio(double newRatio){
+        ((Path)this.children.get(0)).setStartRatio(newRatio);
     }
 
     public void translate(Vec2d d, boolean onlyBall) {

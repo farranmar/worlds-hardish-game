@@ -7,6 +7,7 @@ public enum ComponentTag {
     DRAW("DRAW"),
     KEY("KEY"),
     PHYSICS("PHYSICS"),
+    SLIDE("SLIDE"),
     SPRITE("SPRITE"),
     TICK("TICK"),
     TRANSFORM("TRANSFORM");

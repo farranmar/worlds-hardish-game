@@ -15,7 +15,7 @@ public class PathPoint extends GameObject {
     private Color color;
 
     public PathPoint(GameWorld world, Path path, Vec2d pos){
-        super(world, new Vec2d(10), pos);
+        super(world, new Vec2d(20), pos);
         this.add(new DragComponent(this));
         this.add(new DrawComponent());
         this.color = Color.rgb(0, 255, 0);
@@ -23,23 +23,39 @@ public class PathPoint extends GameObject {
     }
 
     public PathPoint(GameWorld world, Path path, Vec2d pos, Color color){
-        super(world, new Vec2d(10), pos);
+        super(world, new Vec2d(20), pos);
         this.add(new DragComponent(this));
         this.add(new DrawComponent());
         this.color = color;
         this.parent = path;
     }
 
+    public PathPoint(GameWorld world, Resizer resizer, Vec2d pos, Color color){
+        super(world, new Vec2d(20), pos);
+        this.add(new DragComponent(this));
+        this.add(new DrawComponent());
+        this.color = color;
+        this.parent = resizer;
+    }
+
     public PathPoint clone(){
-        assert(this.parent instanceof Path);
-        return new PathPoint(this.gameWorld, (Path)this.parent, this.getPosition());
+        if(this.parent instanceof Path){
+            return new PathPoint(this.gameWorld, (Path)this.parent, this.getPosition(), this.color);
+        } else if(this.parent instanceof Resizer){
+            return new PathPoint(this.gameWorld, (Resizer)this.parent, this.getPosition(), this.color);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void translate(Vec2d d) {
         super.translate(d);
-        assert(this.parent instanceof Path);
-        ((Path)this.parent).updateBallPosition();
+        if(this.parent instanceof Path){
+            ((Path)this.parent).updateBallPosition();
+        } else if(this.parent instanceof Resizer){
+            ((Resizer)this.parent).updateSize();
+        }
     }
 
     @Override

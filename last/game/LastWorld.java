@@ -87,13 +87,6 @@ public class LastWorld extends GameWorld {
         this.add(player);
     }
 
-    @Override
-    public void onMousePressed(double x, double y) {
-        super.onMousePressed(x, y);
-        Wall newWall = new Wall(this, new Vec2d(20), new Vec2d(x,y), Color.CORAL);
-        this.add(newWall);
-    }
-
     public LastWorld(String fileName, Map<String, Class<? extends GameObject>> classMap){
         super(fileName, classMap);
     }

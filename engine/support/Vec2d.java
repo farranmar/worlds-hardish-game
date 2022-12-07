@@ -101,6 +101,12 @@ public final class Vec2d implements Serializable {
 		return v.plus(slope.smult(dist));
 	}
 
+	public Vec2d getCenter(Vec2d v, double ratio){
+		Vec2d slope = v.minus(this).normalize();
+		double dist = v.dist(this) * ratio;
+		return this.plus(slope.smult(dist));
+	}
+
 	/**
 	 * Factory method that creates a Vec2f from the given polar coordinates.
 	 * 

@@ -16,6 +16,7 @@ public class Path extends GameObject {
     private boolean visible = false;
     private boolean active = false;
     private boolean forward = true;
+    private double startRatio = 0.5;
 
     public Path(GameWorld world, DeathBall deathBall, Vec2d p1, Vec2d p2){
         super(world, p2.minus(p1), p1.getCenter(p2));
@@ -42,6 +43,15 @@ public class Path extends GameObject {
         this.active = a;
     }
 
+    public double getStartRatio(){
+        return this.startRatio;
+    }
+
+    public void setStartRatio(double newRatio){
+        this.startRatio = newRatio;
+        this.updateBallPosition();
+    }
+
     public Path clone(){
         assert(this.parent instanceof DeathBall);
         Path newPath = new Path(this.gameWorld, (DeathBall)this.parent, children.get(0).getPosition(), children.get(1).getPosition());
@@ -51,8 +61,9 @@ public class Path extends GameObject {
     }
 
     public void updateBallPosition(){
-        Vec2d center = children.get(0).getPosition().getCenter(children.get(1).getPosition());
+        Vec2d center = children.get(0).getPosition().getCenter(children.get(1).getPosition(), this.startRatio);
         assert(this.parent instanceof DeathBall);
+        ((DeathBall)this.parent).updateSlidePositions();
         Vec2d newPos = center.minus(this.parent.getSize().sdiv(2));
         ((DeathBall)this.parent).setPosition(newPos, true);
     }
@@ -122,6 +133,7 @@ public class Path extends GameObject {
         ele.setAttribute("visible", this.visible+"");
         ele.setAttribute("active", this.active+"");
         ele.setAttribute("forward", this.forward+"");
+        ele.setAttribute("startRatio", this.startRatio+"");
         return ele;
     }
 
@@ -131,5 +143,6 @@ public class Path extends GameObject {
         this.active = Boolean.parseBoolean(ele.getAttribute("active"));
         this.forward = Boolean.parseBoolean(ele.getAttribute("forward"));
         this.color = colorFromXml(GameWorld.getTopElementsByTagName(ele, "Color").get(0));
+        this.startRatio = Double.parseDouble(ele.getAttribute("startRatio"));
     }
 }

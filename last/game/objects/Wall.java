@@ -18,16 +18,19 @@ import static engine.game.world.GameWorld.getTopElementsByTagName;
 public class Wall extends GameObject {
 
     protected Color color;
+    protected Resizer resizer;
 
     public Wall(GameWorld world, Vec2d size, Vec2d position){
         super(world, size, position);
         this.color = Color.rgb(126, 162, 170);
+        this.resizer = new Resizer(world, this, this.getPosition().plus(this.getSize()));
         this.addComponents();
     }
 
     public Wall(GameWorld world, Vec2d size, Vec2d position, Color color){
         super(world, size, position);
         this.color = color;
+        this.resizer = new Resizer(world, this, this.getPosition().plus(this.getSize()));
         this.addComponents();
     }
 

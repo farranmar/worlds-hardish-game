@@ -9,6 +9,7 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import last.game.components.TempDragComponent;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -92,9 +93,15 @@ public class UnitMenu extends GameObject {
                 if(child instanceof Player){
                     this.gameWorld.removeObjsOfType(Player.class);
                 }
-                DragComponent dragComponent = new DragComponent(clone);
-                clone.add(dragComponent);
-                dragComponent.onMousePressed(x, y);
+                if(child instanceof DeathBall){
+                    TempDragComponent tempDragComponent = new TempDragComponent(clone);
+                    clone.add(tempDragComponent);
+                    tempDragComponent.onMousePressed(x, y);
+                } else {
+                    DragComponent dragComponent = new DragComponent(clone);
+                    clone.add(dragComponent);
+                    dragComponent.onMousePressed(x, y);
+                }
                 this.gameWorld.addToAdditionQueue(clone);
             }
         }

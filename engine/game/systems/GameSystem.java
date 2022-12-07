@@ -36,7 +36,7 @@ public class GameSystem {
             gameObjects.add(obj);
             return true;
         }
-        if(this.takesInput && (obj.get(ComponentTag.DRAG) != null || obj.get(ComponentTag.CLICK) != null || obj.get(ComponentTag.KEY) != null)){
+        if(this.takesInput && (obj.get(ComponentTag.DRAG) != null || obj.get(ComponentTag.SLIDE) != null || obj.get(ComponentTag.CLICK) != null || obj.get(ComponentTag.KEY) != null)){
             gameObjects.add(obj);
             return true;
         }

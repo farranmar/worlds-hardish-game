@@ -7,6 +7,7 @@ import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import last.game.components.SlideComponent;
 import last.game.objects.Path;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -593,6 +594,9 @@ public class GameObject {
             } else if(compTag.equals("TRANSFORM")){
                 TransformComponent transComp = TransformComponent.fromXml(compEle);
                 this.setTransformComponent(transComp);
+            } else if(compTag.equals("SLIDE")){
+                SlideComponent slideComp = SlideComponent.fromXml(compEle, this);
+                this.add(slideComp);
             }
         }
     }

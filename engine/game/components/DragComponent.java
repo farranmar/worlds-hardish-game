@@ -6,10 +6,10 @@ import org.w3c.dom.Element;
 
 public class DragComponent extends GameComponent {
 
-    private boolean dragging = false; // whether object is currently being dragged
-    private double preX;
-    private double preY;
-    private GameObject obj;
+    protected boolean dragging = false; // whether object is currently being dragged
+    protected double preX;
+    protected double preY;
+    protected GameObject obj;
 
     public DragComponent(GameObject obj){
         super(ComponentTag.DRAG);

@@ -40,7 +40,7 @@ public class EditorWorld extends GameWorld {
 
     private void addSystems() {
         CollisionSystem collisionSystem = new CollisionSystem();
-        this.addSystem(collisionSystem);
+//        this.addSystem(collisionSystem);
         GraphicsSystem graphicsSystem = new GraphicsSystem();
         this.addSystem(graphicsSystem);
         InputSystem inputSystem = new InputSystem();
