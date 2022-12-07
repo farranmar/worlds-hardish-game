@@ -72,6 +72,7 @@ public class DeathBall extends GameObject {
 
     public void updateSlidePositions() {
         SlideComponent slideComponent = (SlideComponent) this.get(ComponentTag.SLIDE);
+        if(slideComponent == null){ return; }
         slideComponent.updateEndpoint(((PathPoint)this.children.get(0).getChildren().get(0)).getCenter(),
                 ((PathPoint)this.children.get(0).getChildren().get(1)).getCenter());
     }
