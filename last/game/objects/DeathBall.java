@@ -30,8 +30,8 @@ public class DeathBall extends GameObject {
     public DeathBall(GameWorld gameWorld, Vec2d position) {
         super(gameWorld, size, position);
         this.color = Color.rgb(136, 141, 167);
-        Vec2d p1 = position.plus(size.sdiv(2)).plus(new Vec2d(-50, 0));
-        Vec2d p2 = position.plus(size.sdiv(2)).plus(new Vec2d(50, 0));
+        Vec2d p1 = this.getCenter().plus(new Vec2d(-50, 0));
+        Vec2d p2 = this.getCenter().plus(new Vec2d(50, 0));
         Path path = new Path(gameWorld, this, p1, p2);
         this.addChild(path);
         this.addComponents();
@@ -72,7 +72,8 @@ public class DeathBall extends GameObject {
 
     public void updateSlidePositions() {
         SlideComponent slideComponent = (SlideComponent) this.get(ComponentTag.SLIDE);
-        slideComponent.updateEndpoint(this.children.get(0).getChildren().get(0).getPosition(), this.children.get(0).getChildren().get(1).getPosition());
+        slideComponent.updateEndpoint(((PathPoint)this.children.get(0).getChildren().get(0)).getCenter(),
+                ((PathPoint)this.children.get(0).getChildren().get(1)).getCenter());
     }
 
     public void setMoving(boolean moving){
@@ -99,6 +100,18 @@ public class DeathBall extends GameObject {
 
     public void setPosition(Vec2d newPosition, boolean onlyBall) {
         super.setPosition(newPosition);
+    }
+
+    public Vec2d getCenter(){
+        return this.getPosition().plus(this.getSize().sdiv(2));
+    }
+
+    public void setCenter(Vec2d newCenter){
+        this.setPosition(newCenter.minus(this.getSize().sdiv(2)));
+    }
+
+    public void setCenter(Vec2d newCenter, boolean onlyBall){
+        this.setPosition(newCenter.minus(this.getSize().sdiv(2)), onlyBall);
     }
 
     public void setStartRatio(double newRatio){

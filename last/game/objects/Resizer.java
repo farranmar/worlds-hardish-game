@@ -31,7 +31,7 @@ public class Resizer extends GameObject {
     }
 
     public Resizer clone(){
-        Resizer clone = new Resizer(this.gameWorld, this.parent, children.get(0).getPosition());
+        Resizer clone = new Resizer(this.gameWorld, this.parent, ((PathPoint)children.get(0)).getCenter());
         clone.setVisible(this.visible);
         return clone;
     }
@@ -42,7 +42,7 @@ public class Resizer extends GameObject {
 
     public void updateSize(){
         Vec2d pos = this.parent.getPosition();
-        Vec2d newSize = this.children.get(0).getPosition().minus(pos);
+        Vec2d newSize = ((PathPoint)children.get(0)).getCenter().minus(pos);
         if (newSize.x < 30) {
             newSize = new Vec2d(30, newSize.y);
         }
@@ -50,14 +50,14 @@ public class Resizer extends GameObject {
             newSize = new Vec2d(newSize.x, 30);
         }
         this.parent.setSize(newSize);
-        this.children.get(0).setPosition(pos.plus(newSize));
+        ((PathPoint)this.children.get(0)).setCenter(pos.plus(newSize));
     }
 
     @Override
     public void setPosition(Vec2d newPosition) {
         super.setPosition(newPosition);
         assert(this.children.get(0) instanceof PathPoint);
-        this.children.get(0).setPosition(newPosition);
+        ((PathPoint)this.children.get(0)).setCenter(newPosition);
     }
 
     @Override

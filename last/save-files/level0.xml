@@ -73,7 +73,7 @@
                                 <GameObject class="PathPoint" drawPriority="15" floating="false" worldDraw="true">
                                     <Components>
                                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                            <Position x="1788.0" y="302.0"/>
+                                            <Position x="1778.0" y="292.0"/>
                                             <Size x="20.0" y="20.0"/>
                                         </Component>
                                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
@@ -123,7 +123,7 @@
                                 <GameObject class="PathPoint" drawPriority="18" floating="false" worldDraw="true">
                                     <Components>
                                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                            <Position x="1709.0" y="349.0"/>
+                                            <Position x="1699.0" y="339.0"/>
                                             <Size x="20.0" y="20.0"/>
                                         </Component>
                                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
@@ -137,7 +137,7 @@
                                 <GameObject class="PathPoint" drawPriority="19" floating="false" worldDraw="true">
                                     <Components>
                                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                            <Position x="1809.0" y="349.0"/>
+                                            <Position x="1799.0" y="339.0"/>
                                             <Size x="20.0" y="20.0"/>
                                         </Component>
                                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
@@ -187,7 +187,7 @@
                                 <GameObject class="PathPoint" drawPriority="22" floating="false" worldDraw="true">
                                     <Components>
                                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                            <Position x="1788.0" y="454.0"/>
+                                            <Position x="1778.0" y="444.0"/>
                                             <Size x="20.0" y="20.0"/>
                                         </Component>
                                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
@@ -207,28 +207,97 @@
             </Children>
             <UnitSize x="44.0" y="44.0"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="307" floating="false" showResizer="true" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="true" drawPriority="307" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="338.0" y="610.0"/>
-                    <Size x="1220.0" y="96.0"/>
+                    <Position x="701.0" y="594.0"/>
+                    <Size x="30.0" y="30.0"/>
                 </Component>
-                <Component collidable="true" drawable="false" isStatic="true" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
-                    <Shape class="AAB">
-                        <Size x="1220.0" y="96.0"/>
-                        <Position x="338.0" y="610.0"/>
+                <Component collidable="true" drawable="false" isStatic="false" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
+                    <Shape class="Circle">
+                        <Radius x="15.0" y="15.0"/>
+                        <Position x="701.0" y="594.0"/>
                     </Shape>
                 </Component>
                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
                     <Color blue="0.0" green="0.0" red="0.0"/>
                 </Component>
-                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="348.0" preY="634.0" tag="DRAG" tickable="false"/>
+                <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
+                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" slideRatio="0.5" tag="SLIDE" tickable="false">
+                    <axisStart x="997.0" y="699.0"/>
+                    <axisEnd x="435.0" y="519.0"/>
+                </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="308" floating="false" visible="true" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="311" floating="false" forward="true" startRatio="0.5" visible="true" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                            <Position x="382.0" y="654.0"/>
+                            <Position x="1759.0" y="349.0"/>
+                            <Size x="100.0" y="0.0"/>
+                        </Component>
+                        <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
+                        <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
+                            <Color blue="0.0" green="0.0" red="0.0"/>
+                        </Component>
+                        <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
+                    </Components>
+                    <Children>
+                        <GameObject class="PathPoint" drawPriority="312" floating="false" worldDraw="true">
+                            <Components>
+                                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
+                                    <Position x="987.0" y="689.0"/>
+                                    <Size x="20.0" y="20.0"/>
+                                </Component>
+                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1004.0" preY="702.0" tag="DRAG" tickable="false"/>
+                                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
+                                    <Color blue="0.0" green="0.0" red="0.0"/>
+                                </Component>
+                            </Components>
+                            <Children/>
+                            <Color blue="0.0" green="255.0" red="0.0"/>
+                        </GameObject>
+                        <GameObject class="PathPoint" drawPriority="313" floating="false" worldDraw="true">
+                            <Components>
+                                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
+                                    <Position x="425.0" y="509.0"/>
+                                    <Size x="20.0" y="20.0"/>
+                                </Component>
+                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="438.0" preY="526.0" tag="DRAG" tickable="false"/>
+                                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
+                                    <Color blue="0.0" green="0.0" red="0.0"/>
+                                </Component>
+                            </Components>
+                            <Children/>
+                            <Color blue="0.0" green="0.0" red="255.0"/>
+                        </GameObject>
+                    </Children>
+                    <Color blue="203.00000309944153" green="224.000001847744" red="238.00000101327896"/>
+                </GameObject>
+            </Children>
+            <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
+        </GameObject>
+        <GameObject centerObj="false" class="Wall" drawPriority="314" floating="false" showResizer="true" worldDraw="true">
+            <Components>
+                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
+                    <Position x="996.0" y="74.0"/>
+                    <Size x="678.0" y="96.0"/>
+                </Component>
+                <Component collidable="true" drawable="false" isStatic="true" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
+                    <Shape class="AAB">
+                        <Size x="678.0" y="96.0"/>
+                        <Position x="996.0" y="74.0"/>
+                    </Shape>
+                </Component>
+                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
+                    <Color blue="0.0" green="0.0" red="0.0"/>
+                </Component>
+                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1024.0" preY="94.0" tag="DRAG" tickable="false"/>
+            </Components>
+            <Children>
+                <GameObject class="Resizer" drawPriority="315" floating="false" visible="true" worldDraw="true">
+                    <Components>
+                        <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
+                            <Position x="1040.0" y="118.0"/>
                             <Size x="0.0" y="0.0"/>
                         </Component>
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
@@ -238,13 +307,13 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="309" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="316" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                    <Position x="1558.0" y="706.0"/>
+                                    <Position x="1664.0" y="160.0"/>
                                     <Size x="20.0" y="20.0"/>
                                 </Component>
-                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1566.0" preY="710.0" tag="DRAG" tickable="false"/>
+                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1226.0" preY="70.0" tag="DRAG" tickable="false"/>
                                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
                                     <Color blue="0.0" green="0.0" red="0.0"/>
                                 </Component>
@@ -257,44 +326,44 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Checkpoint" drawPriority="310" floating="false" showResizer="true" worldDraw="true">
+        <GameObject centerObj="false" class="Checkpoint" drawPriority="317" floating="false" showResizer="true" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="512.0" y="232.0"/>
-                    <Size x="200.0" y="346.0"/>
+                    <Position x="1274.0" y="306.0"/>
+                    <Size x="366.0" y="114.0"/>
                 </Component>
                 <Component collidable="true" drawable="false" isStatic="true" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
                     <Shape class="AAB">
-                        <Size x="200.0" y="346.0"/>
-                        <Position x="512.0" y="232.0"/>
+                        <Size x="366.0" y="114.0"/>
+                        <Position x="1274.0" y="306.0"/>
                     </Shape>
                 </Component>
                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
                     <Color blue="0.0" green="0.0" red="0.0"/>
                 </Component>
-                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="542.0" preY="268.0" tag="DRAG" tickable="false"/>
+                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1318.0" preY="350.0" tag="DRAG" tickable="false"/>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="311" floating="false" visible="true" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="318" floating="false" visible="true" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                            <Position x="556.0" y="276.0"/>
+                            <Position x="1304.0" y="336.0"/>
                             <Size x="0.0" y="0.0"/>
                         </Component>
-                        <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
+                        <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1318.0" preY="350.0" tag="DRAG" tickable="false"/>
                         <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
                             <Color blue="0.0" green="0.0" red="0.0"/>
                         </Component>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="312" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="319" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                    <Position x="712.0" y="578.0"/>
+                                    <Position x="1630.0" y="410.0"/>
                                     <Size x="20.0" y="20.0"/>
                                 </Component>
-                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="718.0" preY="580.0" tag="DRAG" tickable="false"/>
+                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1410.0" preY="344.0" tag="DRAG" tickable="false"/>
                                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
                                     <Color blue="0.0" green="0.0" red="0.0"/>
                                 </Component>
@@ -308,154 +377,16 @@
             <Color blue="203.00000309944153" green="232.00000137090683" red="139.0000069141388"/>
             <SaveSpot x="110.0" y="110.0"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="true" drawPriority="313" floating="false" worldDraw="true">
-            <Components>
-                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="1351.165426956263" y="395.1157393632847"/>
-                    <Size x="30.0" y="30.0"/>
-                </Component>
-                <Component collidable="true" drawable="false" isStatic="false" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
-                    <Shape class="Circle">
-                        <Radius x="15.0" y="15.0"/>
-                        <Position x="1351.165426956263" y="395.1157393632847"/>
-                    </Shape>
-                </Component>
-                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                    <Color blue="0.0" green="0.0" red="0.0"/>
-                </Component>
-                <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
-                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1366.0" preY="420.0" slideRatio="0.889467420410592" tag="SLIDE" tickable="false">
-                    <axisStart x="941.0" y="403.0"/>
-                    <axisEnd x="1419.0" y="411.0"/>
-                </Component>
-            </Components>
-            <Children>
-                <GameObject active="false" class="Path" drawPriority="317" floating="false" forward="true" startRatio="0.889467420410592" visible="true" worldDraw="true">
-                    <Components>
-                        <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                            <Position x="1759.0" y="349.0"/>
-                            <Size x="100.0" y="0.0"/>
-                        </Component>
-                        <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
-                        <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                            <Color blue="0.0" green="0.0" red="0.0"/>
-                        </Component>
-                        <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
-                    </Components>
-                    <Children>
-                        <GameObject class="PathPoint" drawPriority="318" floating="false" worldDraw="true">
-                            <Components>
-                                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                    <Position x="941.0" y="403.0"/>
-                                    <Size x="20.0" y="20.0"/>
-                                </Component>
-                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
-                                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                                    <Color blue="0.0" green="0.0" red="0.0"/>
-                                </Component>
-                            </Components>
-                            <Children/>
-                            <Color blue="0.0" green="255.0" red="0.0"/>
-                        </GameObject>
-                        <GameObject class="PathPoint" drawPriority="319" floating="false" worldDraw="true">
-                            <Components>
-                                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                    <Position x="1419.0" y="411.0"/>
-                                    <Size x="20.0" y="20.0"/>
-                                </Component>
-                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1426.0" preY="416.0" tag="DRAG" tickable="false"/>
-                                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                                    <Color blue="0.0" green="0.0" red="0.0"/>
-                                </Component>
-                            </Components>
-                            <Children/>
-                            <Color blue="0.0" green="0.0" red="255.0"/>
-                        </GameObject>
-                    </Children>
-                    <Color blue="203.00000309944153" green="224.000001847744" red="238.00000101327896"/>
-                </GameObject>
-            </Children>
-            <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
-        </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="true" drawPriority="320" floating="false" worldDraw="true">
-            <Components>
-                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="993.0" y="394.0"/>
-                    <Size x="30.0" y="30.0"/>
-                </Component>
-                <Component collidable="true" drawable="false" isStatic="false" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
-                    <Shape class="Circle">
-                        <Radius x="15.0" y="15.0"/>
-                        <Position x="993.0" y="394.0"/>
-                    </Shape>
-                </Component>
-                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                    <Color blue="0.0" green="0.0" red="0.0"/>
-                </Component>
-                <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
-                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" slideRatio="0.5" tag="SLIDE" tickable="false">
-                    <axisStart x="1013.0" y="335.0"/>
-                    <axisEnd x="1003.0" y="483.0"/>
-                </Component>
-            </Components>
-            <Children>
-                <GameObject active="false" class="Path" drawPriority="324" floating="false" forward="true" startRatio="0.5" visible="true" worldDraw="true">
-                    <Components>
-                        <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                            <Position x="1759.0" y="349.0"/>
-                            <Size x="100.0" y="0.0"/>
-                        </Component>
-                        <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
-                        <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                            <Color blue="0.0" green="0.0" red="0.0"/>
-                        </Component>
-                        <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
-                    </Components>
-                    <Children>
-                        <GameObject class="PathPoint" drawPriority="325" floating="false" worldDraw="true">
-                            <Components>
-                                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                    <Position x="1013.0" y="335.0"/>
-                                    <Size x="20.0" y="20.0"/>
-                                </Component>
-                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
-                                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                                    <Color blue="0.0" green="0.0" red="0.0"/>
-                                </Component>
-                            </Components>
-                            <Children/>
-                            <Color blue="0.0" green="255.0" red="0.0"/>
-                        </GameObject>
-                        <GameObject class="PathPoint" drawPriority="326" floating="false" worldDraw="true">
-                            <Components>
-                                <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                                    <Position x="1003.0" y="483.0"/>
-                                    <Size x="20.0" y="20.0"/>
-                                </Component>
-                                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1006.0" preY="490.0" tag="DRAG" tickable="false"/>
-                                <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
-                                    <Color blue="0.0" green="0.0" red="0.0"/>
-                                </Component>
-                            </Components>
-                            <Children/>
-                            <Color blue="0.0" green="0.0" red="255.0"/>
-                        </GameObject>
-                    </Children>
-                    <Color blue="203.00000309944153" green="224.000001847744" red="238.00000101327896"/>
-                </GameObject>
-            </Children>
-            <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
-        </GameObject>
         <GameObject active="false" boosted="1.0" centerObj="false" class="Player" drawPriority="10003" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="802.0" y="482.0"/>
+                    <Position x="1088.0" y="272.0"/>
                     <Size x="44.0" y="44.0"/>
                 </Component>
                 <Component collidable="true" drawable="false" isStatic="false" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
                     <Shape class="AAB">
                         <Size x="44.0" y="44.0"/>
-                        <Position x="802.0" y="482.0"/>
+                        <Position x="1088.0" y="272.0"/>
                     </Shape>
                 </Component>
                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
@@ -463,7 +394,7 @@
                 </Component>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                 <Component drawable="false" keyInput="true" mouseInput="false" tag="KEY" tickable="false"/>
-                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="820.0" preY="512.0" tag="DRAG" tickable="false"/>
+                <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="1106.0" preY="306.0" tag="DRAG" tickable="false"/>
             </Components>
             <Children/>
             <Color blue="151.00000619888306" green="122.00000032782555" red="156.00000590085983"/>

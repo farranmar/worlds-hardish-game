@@ -14,9 +14,10 @@ import org.w3c.dom.Element;
 public class PathPoint extends GameObject {
 
     private Color color;
+    public static final Vec2d size = new Vec2d(20);
 
     public PathPoint(GameWorld world, Path path, Vec2d pos){
-        super(world, new Vec2d(20), pos);
+        super(world, size, pos.minus(size.sdiv(2)));
         this.add(new DragComponent(this));
         this.add(new DrawComponent());
         this.color = Color.rgb(0, 255, 0);
@@ -24,7 +25,7 @@ public class PathPoint extends GameObject {
     }
 
     public PathPoint(GameWorld world, Path path, Vec2d pos, Color color){
-        super(world, new Vec2d(20), pos);
+        super(world, size, pos.minus(size.sdiv(2)));
         this.add(new DragComponent(this));
         this.add(new DrawComponent());
         this.color = color;
@@ -32,7 +33,7 @@ public class PathPoint extends GameObject {
     }
 
     public PathPoint(GameWorld world, Resizer resizer, Vec2d pos, Color color){
-        super(world, new Vec2d(20), pos);
+        super(world, size, pos.minus(size.sdiv(2)));
         this.add(new DragComponent(this));
         this.add(new DrawComponent());
         this.color = color;
@@ -47,6 +48,14 @@ public class PathPoint extends GameObject {
         } else {
             return null;
         }
+    }
+
+    public Vec2d getCenter(){
+        return this.getPosition().plus(this.getSize().sdiv(2));
+    }
+
+    public void setCenter(Vec2d newCenter){
+        this.setPosition(newCenter.minus(this.getSize().sdiv(2)));
     }
 
     @Override
@@ -65,7 +74,7 @@ public class PathPoint extends GameObject {
         g.setFill(this.color);
         Vec2d size = this.getSize();
         Vec2d pos = this.getPosition();
-        g.fillOval(pos.minus(size.sdiv(2)).x, pos.minus(size.sdiv(2)).y, size.x, size.y);
+        g.fillOval(pos.x, pos.y, size.x, size.y);
     }
 
     @Override

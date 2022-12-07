@@ -54,34 +54,33 @@ public class Path extends GameObject {
 
     public Path clone(){
         assert(this.parent instanceof DeathBall);
-        Path newPath = new Path(this.gameWorld, (DeathBall)this.parent, children.get(0).getPosition(), children.get(1).getPosition());
+        Path newPath = new Path(this.gameWorld, (DeathBall)this.parent, ((PathPoint)children.get(0)).getCenter(), ((PathPoint)children.get(1)).getCenter());
         newPath.setVisible(this.visible);
         newPath.setActive(this.active);
         return newPath;
     }
 
     public void updateBallPosition(){
-        Vec2d center = children.get(0).getPosition().getCenter(children.get(1).getPosition(), this.startRatio);
+        Vec2d center = ((PathPoint)children.get(0)).getCenter().getCenter(((PathPoint)children.get(1)).getCenter(), this.startRatio);
         assert(this.parent instanceof DeathBall);
         ((DeathBall)this.parent).updateSlidePositions();
-        Vec2d newPos = center.minus(this.parent.getSize().sdiv(2));
-        ((DeathBall)this.parent).setPosition(newPos, true);
+        ((DeathBall)this.parent).setCenter(center, true);
     }
 
     public Vec2d getPointOne(){
-        return this.children.get(0).getPosition();
+        return ((PathPoint)children.get(0)).getCenter();
     }
 
     public void setPointOne(Vec2d newPos){
-        this.children.get(0).setPosition(newPos);
+        ((PathPoint)this.children.get(0)).setCenter(newPos);
     }
 
     public Vec2d getPointTwo(){
-        return this.children.get(1).getPosition();
+        return ((PathPoint)children.get(1)).getCenter();
     }
 
     public void setPointTwo(Vec2d newPos){
-        this.children.get(1).setPosition(newPos);
+        ((PathPoint)this.children.get(1)).setCenter(newPos);
     }
 
     @Override
@@ -95,7 +94,8 @@ public class Path extends GameObject {
         if(!this.visible){ return; }
         g.setStroke(this.color);
         g.setLineWidth(5);
-        g.strokeLine(children.get(0).getPosition().x, children.get(0).getPosition().y, children.get(1).getPosition().x, children.get(1).getPosition().y);
+        g.strokeLine(((PathPoint)children.get(0)).getCenter().x, ((PathPoint)children.get(0)).getCenter().y,
+                ((PathPoint)children.get(1)).getCenter().x, ((PathPoint)children.get(1)).getCenter().y);
         super.onDraw(g);
     }
 
@@ -106,18 +106,18 @@ public class Path extends GameObject {
             assert(this.parent instanceof DeathBall);
             assert(this.children.get(1) instanceof PathPoint);
             assert(this.children.get(0) instanceof PathPoint);
-            Vec2d dbCenter = this.parent.getPosition().plus(this.parent.getSize().sdiv(2));
+            Vec2d dbCenter = ((DeathBall)this.parent).getCenter();
             Vec2d toPos, fromPos;
             if(forward){
-                toPos = this.children.get(1).getPosition();
-                fromPos = this.children.get(0).getPosition();
+                toPos = ((PathPoint)children.get(1)).getCenter();
+                fromPos = ((PathPoint)children.get(0)).getCenter();
             } else {
-                toPos = this.children.get(0).getPosition();
-                fromPos = this.children.get(1).getPosition();
+                toPos = ((PathPoint)children.get(0)).getCenter();
+                fromPos = ((PathPoint)children.get(1)).getCenter();
             }
             Vec2d direction = toPos.minus(dbCenter).normalize();
             ((DeathBall)this.parent).translate(direction.smult(DeathBall.speed), true);
-            Vec2d newDbCenter = this.parent.getPosition().plus(this.parent.getSize().sdiv(2));
+            Vec2d newDbCenter = ((DeathBall)this.parent).getCenter();
             if(toPos.x > fromPos.x && newDbCenter.x >= toPos.x){ forward = !forward; }
             else if(toPos.x < fromPos.x && newDbCenter.x <= toPos.x){ forward = !forward; }
             else if(toPos.y > fromPos.y && newDbCenter.y >= toPos.y){ forward = !forward; }
