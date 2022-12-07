@@ -53,6 +53,13 @@ public class DeathBall extends GameObject {
         this.add(new TickComponent());
     }
 
+    public void delete(){
+        this.gameWorld.addToRemovalQueue(this);
+        for(GameObject child : children){
+            child.delete();
+        }
+    }
+
     public void setDrawPath(boolean drawPath) {
         this.drawPath = drawPath;
         assert(this.children.get(0) instanceof Path);

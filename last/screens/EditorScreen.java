@@ -39,7 +39,7 @@ public class EditorScreen extends Screen {
 
     private static HashMap<String, Class<? extends GameObject>> initializeClassMap(){
         HashMap<String, Class<? extends GameObject>> cM = new HashMap<>();
-        cM.put("Unit", Unit.class);
+        cM.put("Unit", Trash.class);
         cM.put("UnitMenu", UnitMenu.class);
         cM.put("Player", Player.class);
         cM.put("Checkpoint", Checkpoint.class);
@@ -49,6 +49,7 @@ public class EditorScreen extends Screen {
         cM.put("Path", Path.class);
         cM.put("PathPoint", PathPoint.class);
         cM.put("Resizer", Resizer.class);
+        cM.put("Trash", Trash.class);
         return cM;
     }
 

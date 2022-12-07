@@ -60,6 +60,13 @@ public class Path extends GameObject {
         return newPath;
     }
 
+    public void delete(){
+        this.gameWorld.addToRemovalQueue(this);
+        for(GameObject child : children){
+            child.delete();
+        }
+    }
+
     public void updateBallPosition(){
         Vec2d center = ((PathPoint)children.get(0)).getCenter().getCenter(((PathPoint)children.get(1)).getCenter(), this.startRatio);
         assert(this.parent instanceof DeathBall);

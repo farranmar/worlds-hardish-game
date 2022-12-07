@@ -36,6 +36,13 @@ public class Resizer extends GameObject {
         return clone;
     }
 
+    public void delete(){
+        this.gameWorld.addToRemovalQueue(this);
+        for(GameObject child : children){
+            child.delete();
+        }
+    }
+
     public void setVisible(boolean v){
         this.visible = v;
     }

@@ -60,6 +60,10 @@ public class GameObject {
         components.removeIf(component -> component.getTag() == (tagToRemove));
     }
 
+    public void delete(){
+        this.gameWorld.addToRemovalQueue(this);
+    }
+
     public GameComponent get(ComponentTag tagToGet){
         for(GameComponent component : components){
             if(component.getTag() == tagToGet){

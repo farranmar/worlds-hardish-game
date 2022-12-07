@@ -31,7 +31,7 @@ public class LastWorld extends GameWorld {
         this.size = new Vec2d(1920, 1080);
         this.addSystems();
         for(GameObject obj : editorWorld.getGameObjects()){
-            if(obj instanceof UnitMenu){ continue; }
+            if(obj instanceof UnitMenu || obj instanceof Trash){ continue; }
             GameObject clone = obj.clone();
             if(obj instanceof DeathBall){
                 ((DeathBall)clone).setDrawPath(false);

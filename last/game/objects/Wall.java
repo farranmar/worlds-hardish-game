@@ -65,6 +65,13 @@ public class Wall extends GameObject {
         this.add(draw);
     }
 
+    public void delete(){
+        this.gameWorld.addToRemovalQueue(this);
+        for(GameObject child : children){
+            child.delete();
+        }
+    }
+
     @Override
     public void onCollide(GameObject obj, Vec2d mtv) {
         super.onCollide(obj, mtv);
