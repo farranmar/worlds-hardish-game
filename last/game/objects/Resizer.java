@@ -36,6 +36,20 @@ public class Resizer extends GameObject {
         return clone;
     }
 
+    public void delete(){
+        super.delete();
+        assert(this.parent instanceof Wall);
+        ((Wall)this.parent).delete(true);
+        for(GameObject child : children){
+            assert(child instanceof PathPoint);
+            ((PathPoint)child).delete(true);
+        }
+    }
+
+    public void delete(boolean justThis){
+        super.delete();
+    }
+
     public void setVisible(boolean v){
         this.visible = v;
     }
@@ -70,6 +84,12 @@ public class Resizer extends GameObject {
     public void onDraw(GraphicsContext g) {
         if(!visible){ return; }
         super.onDraw(g);
+    }
+
+    @Override
+    public void onMousePressed(double x, double y) {
+        if(!visible){ return; }
+        super.onMousePressed(x, y);
     }
 
     @Override

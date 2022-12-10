@@ -17,7 +17,7 @@ public class CollisionSystem extends GameSystem {
         for(GameObject obj1 : gameObjects){
             if(obj1.isStatic() || !obj1.isCollidable()){ continue; }
             for(GameObject obj2 : gameObjects){
-                if(obj1 == obj2 || !obj2.isCollidable()){ continue; }
+                if(obj1 == obj2){ continue; }
                 Vec2d mtv = obj1.collidesWith(obj2);
                 if(mtv != null){
                     if(collisions.get(obj1) == obj2 || collisions.get(obj2) == obj1){

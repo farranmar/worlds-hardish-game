@@ -32,6 +32,25 @@ public class UnitMenu extends GameObject {
         this.transformComponent = new TransformComponent(size, position);
         this.drawPriority = 1;
         this.unitSize = new Vec2d(size.x - padding*2);
+        this.addUnits();
+    }
+
+    private void addUnits(){
+        Player player = new Player(this.gameWorld, new Vec2d(30), new Vec2d(100));
+        player.setCollidable(false);
+        player.setActive(false);
+        this.add(player, "player spawn");
+        Wall wall = new Wall(this.gameWorld, new Vec2d(100), new Vec2d(100));
+        wall.setCollidable(false);
+        this.add(wall, "wall");
+        DeathBall deathBall = new DeathBall(this.gameWorld, new Vec2d(100));
+        deathBall.setCollidable(false);
+        this.add(deathBall, "deathball");
+        Checkpoint checkpoint = new Checkpoint(this.gameWorld, new Vec2d(50), new Vec2d(100), new Vec2d(110));
+        checkpoint.setCollidable(false);
+        this.add(checkpoint, "checkpoint");
+        EndPoint endPoint = new EndPoint(this.gameWorld, new Vec2d(50), new Vec2d(100));
+        this.add(endPoint, "endpoint");
     }
 
     public void add(GameObject block, String name){
@@ -114,6 +133,14 @@ public class UnitMenu extends GameObject {
         ele.setAttribute("padding", this.padding+"");
         Element unitSize = this.unitSize.toXml(doc, "UnitSize");
         ele.appendChild(unitSize);
+
+        // remove children bc they're automatically added
+        Element badChildren = GameWorld.getTopElementsByTagName(ele, "Children").get(0);
+        badChildren.getParentNode().removeChild(badChildren);
+
+        Element children = doc.createElement("Children");
+        ele.appendChild(children);
+
         return ele;
     }
 
@@ -123,5 +150,6 @@ public class UnitMenu extends GameObject {
         if(!ele.getAttribute("class").equals("UnitMenu")){ return; }
         this.unitSize = Vec2d.fromXml(getTopElementsByTagName(ele, "UnitSize").get(0));
         this.padding = Double.parseDouble(ele.getAttribute("padding"));
+        this.addUnits();
     }
 }

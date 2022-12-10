@@ -136,6 +136,9 @@ public class GameWorld {
     }
 
     public void remove(GameObject obj){
+        if(obj.getParent() != null){
+            obj.getParent().removeChild(obj);
+        }
         this.gameObjects.remove(obj);
         this.drawOrder.remove(obj);
         for(GameSystem system : systems){
@@ -459,11 +462,6 @@ public class GameWorld {
                     constructor = classMap.get(classStr).getConstructor(parameterTypes);
                 } catch (Exception e){
                     System.out.println("***Error getting constuctor of GameObject subclass2***");
-                    try {
-                        constructor = classMap.get(classStr).getConstructor(parameterTypes);
-                    } catch (Exception ex){
-
-                    }
                     continue;
                 }
                 try {

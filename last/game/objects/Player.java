@@ -33,7 +33,7 @@ public class Player extends GameObject {
         this.addComponents();
         this.color = Color.rgb(156, 122, 151);
         this.respawnPoint = position;
-        this.drawPriority = 10000+numPlayers;
+        this.drawPriority = 1000000+numPlayers;
         numPlayers++;
     }
 
@@ -142,6 +142,7 @@ public class Player extends GameObject {
         clone.boosted = this.boosted;
         clone.respawnPoint = this.respawnPoint;
         clone.active = this.active;
+        clone.setCollidable(this.isCollidable());
         return clone;
     }
 

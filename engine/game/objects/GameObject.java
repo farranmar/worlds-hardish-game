@@ -60,6 +60,20 @@ public class GameObject {
         components.removeIf(component -> component.getTag() == (tagToRemove));
     }
 
+    public void removeChild(GameObject child){
+        this.children.remove(child);
+    }
+
+    public void delete(){
+        this.gameWorld.addToRemovalQueue(this);
+    }
+
+    public void deleteChildren(){
+        for(GameObject child : children){
+            child.delete();
+        }
+    }
+
     public GameComponent get(ComponentTag tagToGet){
         for(GameComponent component : components){
             if(component.getTag() == tagToGet){
@@ -67,6 +81,10 @@ public class GameObject {
             }
         }
         return null;
+    }
+
+    public void setGameWorld(GameWorld world){
+        this.gameWorld = world;
     }
 
     public void reset(){
@@ -464,16 +482,19 @@ public class GameObject {
         }
     }
 
-    public static Element colorToXml(Document doc, Color color){
-        Element ele = doc.createElement("Color");
+    public static Element colorToXml(Document doc, Color color, String name){
+        Element ele = doc.createElement(name);
         ele.setAttribute("red", (color.getRed()*255)+"");
         ele.setAttribute("green", (color.getGreen()*255)+"");
         ele.setAttribute("blue", (color.getBlue()*255)+"");
         return ele;
     }
 
+    public static Element colorToXml(Document doc, Color color){
+        return colorToXml(doc, color, "Color");
+    }
+
     public static Color colorFromXml(Element ele){
-        if(!ele.getTagName().equals("Color")){ return null; }
         int red = (int) Math.floor(Double.parseDouble(ele.getAttribute("red")));
         int green = (int) Math.floor(Double.parseDouble(ele.getAttribute("green")));
         int blue = (int) Math.floor(Double.parseDouble(ele.getAttribute("blue")));

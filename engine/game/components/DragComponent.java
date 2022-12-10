@@ -27,7 +27,6 @@ public class DragComponent extends GameComponent {
 
     public void onMouseReleased(double x, double y){
         this.dragging = false;
-        this.obj.setCollidable(true);
     }
 
     public void onMouseDragged(double x, double y, GameObject obj){
