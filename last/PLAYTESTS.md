@@ -1,3 +1,32 @@
+# Final III Playtests
+
+### Playtest 1: Interviewed by Josh
+--- When working with the level editor, this player was unable to intuit how each of the controls worked. She was especially confused by the controls to set up the death balls.  
+
+### Playtest 2: Interviewed by Josh
+--- This player enjoyed the level editor, though they wished they had more options to use. They were also frustrated when they made several balls in a line, but small differences led to them getting out of sync when the level was played. 
+
+--- They also were annoyed by the inability to remove items from the level.
+
+### Playtest 3: Interviewed by Josh
+--- This player didn't want to play with the level editor much, so there was not a ton of content for them (as we only have one fully-implemented level). However, they said they liked the feel of the controls and the inspiration, as they had played the flash game it was based on.
+
+### Playtest 4: Interviewed by Mary
+--- This player initially didn't realize what the checkpoint was, but figured it out after running into it for the first time then dying.
+
+--- This player wasn't sure what the red dots (for resizing) were in the level editor, but figured it out as well after clicking them. They also didn't realize what the deathball paths were and that the deathballs could move.
+
+### Playtest 5: Interviewed by Mary
+--- The player also didn't know what the checkpoint was, and actually thought the first level was impossible to complete because they though the second opening was too small to pass through, so they became discouraged as they didn't know how to progress.
+
+--- This player also initially wasn't sure what to do in the level editor, but was able to understand it after clicking around a bit. They expressed they wished there was a way to delete objects in the editor, and to test their game in the editor.
+
+### Playtest 6: Interviewed by Mary
+--- This player wasn't sure how to play the level they made in the editor through saving it, and tried to move the player in the editor itself through WASD.
+
+--- This player also uncovered a couple bug in the editor, where clicking on the resize dot where it overlaps an object causes the object to both resize and move simultaneously. Additionally, when dragging objects from the menu, if you click where the (invisible) red dot is, it will resize the object in the menu, and all subsequent copies will also be that size.
+
+
 # Final II Playtests
 
 ### Playtest 1: Interviewed by Josh
