@@ -39,7 +39,7 @@ public class Trash extends GameObject {
 
     private void addComponents(){
         this.components.add(new DrawComponent());
-        this.components.add(new CollideComponent(new AAB(this.getSize(), this.getPosition())));
+        this.components.add(new CollideComponent(new AAB(this.getSize().minus(new Vec2d(40)), this.getPosition().plus(new Vec2d(20)))));
     }
 
     private void constructLabel(){

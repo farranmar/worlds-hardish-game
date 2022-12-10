@@ -38,6 +38,7 @@ public class Wall extends GameObject {
     public Wall clone(){
         Wall clone = new Wall(this.gameWorld, this.getSize(), this.getPosition(), this.color);
         clone.setShowResizer(true);
+        clone.setCollidable(this.isCollidable());
         return clone;
     }
 
@@ -68,8 +69,17 @@ public class Wall extends GameObject {
     public void delete(){
         this.gameWorld.addToRemovalQueue(this);
         for(GameObject child : children){
-            child.delete();
+            assert(child instanceof Resizer);
+            ((Resizer)child).delete(true);
+            for(GameObject ppChild : child.getChildren()){
+                assert(ppChild instanceof PathPoint);
+                ((PathPoint)ppChild).delete(true);
+            }
         }
+    }
+
+    public void delete(boolean justThis){
+        super.delete();
     }
 
     @Override
@@ -77,11 +87,34 @@ public class Wall extends GameObject {
         super.onCollide(obj, mtv);
     }
 
+    @Override
+    public void onMousePressed(double x, double y) {
+        boolean resizing = false;
+        for(GameObject child : children){
+            assert(child instanceof Resizer);
+            for(GameObject ppChild : child.getChildren()){
+                assert(ppChild instanceof PathPoint);
+                if(ppChild.inRange(x, y)){
+                    resizing = true;
+                }
+            }
+        }
+        if(resizing){
+            for(GameObject child : children){
+                child.onMousePressed(x, y);
+            }
+        } else {
+            super.onMousePressed(x, y);
+        }
+    }
+
     public void onDraw(GraphicsContext g){
-        g.setFill(this.color);
-        Vec2d size = this.getSize();
-        Vec2d pos = this.getPosition();
-        g.fillRect(pos.x, pos.y, size.x, size.y);
+        if(!(this instanceof EndPoint)){
+            g.setFill(this.color);
+            Vec2d size = this.getSize();
+            Vec2d pos = this.getPosition();
+            g.fillRect(pos.x, pos.y, size.x, size.y);
+        }
         super.onDraw(g);
     }
 

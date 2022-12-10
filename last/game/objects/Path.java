@@ -30,7 +30,6 @@ public class Path extends GameObject {
     }
 
     private void addComponents(){
-        this.add(new DragComponent(this));
         this.add(new DrawComponent());
         this.add(new TickComponent());
     }
@@ -61,10 +60,17 @@ public class Path extends GameObject {
     }
 
     public void delete(){
-        this.gameWorld.addToRemovalQueue(this);
+        super.delete();
+        assert(this.parent instanceof DeathBall);
+        ((DeathBall)this.parent).delete(true);
         for(GameObject child : children){
-            child.delete();
+            assert(child instanceof PathPoint);
+            ((PathPoint)child).delete(true);
         }
+    }
+
+    public void delete(boolean justThis){
+        super.delete();
     }
 
     public void updateBallPosition(){
@@ -104,6 +110,12 @@ public class Path extends GameObject {
         g.strokeLine(((PathPoint)children.get(0)).getCenter().x, ((PathPoint)children.get(0)).getCenter().y,
                 ((PathPoint)children.get(1)).getCenter().x, ((PathPoint)children.get(1)).getCenter().y);
         super.onDraw(g);
+    }
+
+    @Override
+    public void onMousePressed(double x, double y) {
+        if(!visible){ return; }
+        super.onMousePressed(x, y);
     }
 
     @Override

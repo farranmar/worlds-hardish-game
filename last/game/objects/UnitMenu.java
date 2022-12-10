@@ -37,14 +37,20 @@ public class UnitMenu extends GameObject {
 
     private void addUnits(){
         Player player = new Player(this.gameWorld, new Vec2d(30), new Vec2d(100));
+        player.setCollidable(false);
         player.setActive(false);
         this.add(player, "player spawn");
         Wall wall = new Wall(this.gameWorld, new Vec2d(100), new Vec2d(100));
+        wall.setCollidable(false);
         this.add(wall, "wall");
         DeathBall deathBall = new DeathBall(this.gameWorld, new Vec2d(100));
+        deathBall.setCollidable(false);
         this.add(deathBall, "deathball");
         Checkpoint checkpoint = new Checkpoint(this.gameWorld, new Vec2d(50), new Vec2d(100), new Vec2d(110));
+        checkpoint.setCollidable(false);
         this.add(checkpoint, "checkpoint");
+        EndPoint endPoint = new EndPoint(this.gameWorld, new Vec2d(50), new Vec2d(100));
+        this.add(endPoint, "endpoint");
     }
 
     public void add(GameObject block, String name){

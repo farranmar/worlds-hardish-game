@@ -20,6 +20,7 @@ public class LastWorld extends GameWorld {
     public LastWorld(boolean empty){
         super("Last");
         this.size = new Vec2d(1920, 1080);
+        this.addBorders();
         if(!empty){
             this.addSystems();
             this.createObjects();
@@ -30,9 +31,12 @@ public class LastWorld extends GameWorld {
         super("Last");
         this.size = new Vec2d(1920, 1080);
         this.addSystems();
+        this.addBorders();
         for(GameObject obj : editorWorld.getGameObjects()){
             if(obj instanceof UnitMenu || obj instanceof Trash){ continue; }
             GameObject clone = obj.clone();
+            clone.setCollidable(true);
+            clone.setGameWorld(this);
             if(obj instanceof DeathBall){
                 ((DeathBall)clone).setDrawPath(false);
                 ((DeathBall)clone).setMoving(true);
@@ -88,6 +92,17 @@ public class LastWorld extends GameWorld {
 
         Player player = new Player(this, new Vec2d(30), new Vec2d(365, 540));
         this.add(player);
+    }
+
+    private void addBorders(){
+        Wall top = new Wall(this, new Vec2d(this.size.x, 30), new Vec2d(0, -30));
+        this.add(top);
+        Wall bottom = new Wall(this, new Vec2d(this.size.x, 30), new Vec2d(0, this.size.y));
+        this.add(bottom);
+        Wall left = new Wall(this, new Vec2d(30, this.size.y), new Vec2d(-30, 0));
+        this.add(left);
+        Wall right = new Wall(this, new Vec2d(30, this.size.y), new Vec2d(this.size.x, 0));
+        this.add(right);
     }
 
     public LastWorld(String fileName, Map<String, Class<? extends GameObject>> classMap){

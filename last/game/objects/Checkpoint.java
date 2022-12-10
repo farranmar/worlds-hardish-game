@@ -32,6 +32,7 @@ public class Checkpoint extends Wall {
     public Checkpoint clone(){
         Checkpoint clone = new Checkpoint(this.gameWorld, this.getSize(), this.getPosition(), this.color, this.savePos);
         clone.setShowResizer(true);
+        clone.setCollidable(this.isCollidable());
         return clone;
     }
 

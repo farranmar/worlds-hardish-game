@@ -1,8 +1,10 @@
 package last.game.objects;
 
+import engine.game.components.CollideComponent;
 import engine.game.components.DragComponent;
 import engine.game.components.DrawComponent;
 import engine.game.objects.GameObject;
+import engine.game.objects.shapes.Circle;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,33 +20,44 @@ public class PathPoint extends GameObject {
 
     public PathPoint(GameWorld world, Path path, Vec2d pos){
         super(world, size, pos.minus(size.sdiv(2)));
-        this.add(new DragComponent(this));
-        this.add(new DrawComponent());
+        this.addComponents();
         this.color = Color.rgb(0, 255, 0);
         this.parent = path;
+        world.addToSystems(this);
     }
 
     public PathPoint(GameWorld world, Path path, Vec2d pos, Color color){
         super(world, size, pos.minus(size.sdiv(2)));
-        this.add(new DragComponent(this));
-        this.add(new DrawComponent());
+        this.addComponents();
         this.color = color;
         this.parent = path;
+        world.addToSystems(this);
     }
 
     public PathPoint(GameWorld world, Resizer resizer, Vec2d pos, Color color){
         super(world, size, pos.minus(size.sdiv(2)));
-        this.add(new DragComponent(this));
-        this.add(new DrawComponent());
+        this.addComponents();
         this.color = color;
         this.parent = resizer;
+        world.addToSystems(this);
+    }
+
+    private void addComponents(){
+        this.add(new DragComponent(this));
+        this.add(new DrawComponent());
+        this.add(new CollideComponent(new Circle(size.x/2, this.getPosition().plus(size.sdiv(2)))));
+        this.setCollidable(false);
     }
 
     public PathPoint clone(){
         if(this.parent instanceof Path){
-            return new PathPoint(this.gameWorld, (Path)this.parent, this.getPosition(), this.color);
+            PathPoint clone = new PathPoint(this.gameWorld, (Path)this.parent, this.getPosition(), this.color);
+            clone.setCollidable(this.isCollidable());
+            return clone;
         } else if(this.parent instanceof Resizer){
-            return new PathPoint(this.gameWorld, (Resizer)this.parent, this.getPosition(), this.color);
+            PathPoint clone = new PathPoint(this.gameWorld, (Resizer)this.parent, this.getPosition(), this.color);
+            clone.setCollidable(this.isCollidable());
+            return clone;
         } else {
             return null;
         }
@@ -56,6 +69,23 @@ public class PathPoint extends GameObject {
 
     public void setCenter(Vec2d newCenter){
         this.setPosition(newCenter.minus(this.getSize().sdiv(2)));
+    }
+
+    public void delete(){
+        super.delete();
+        if(this.parent instanceof Path){
+            ((Path)this.parent).delete(true);
+            assert(this.parent.getParent() instanceof DeathBall);
+            ((DeathBall)this.parent.getParent()).delete(true);
+        } else if(this.parent instanceof Resizer){
+            ((Resizer)this.parent).delete(true);
+            assert(this.parent.getParent() instanceof Wall);
+            ((Wall)this.parent.getParent()).delete(true);
+        }
+    }
+
+    public void delete(boolean justThis){
+        super.delete();
     }
 
     @Override
@@ -88,5 +118,6 @@ public class PathPoint extends GameObject {
     public PathPoint(Element ele, GameWorld world){
         super(ele, world, EditorScreen.classMap);
         this.color = colorFromXml(GameWorld.getTopElementsByTagName(ele, "Color").get(0));
+        world.addToSystems(this);
     }
 }

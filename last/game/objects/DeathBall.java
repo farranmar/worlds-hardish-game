@@ -23,6 +23,7 @@ public class DeathBall extends GameObject {
 
     public static final double speed = 5;
     private static final Vec2d size = new Vec2d(30);
+    private static int numDeathBalls = 0;
     private Color color;
     private boolean drawPath = false;
     private boolean moving = true;
@@ -35,6 +36,8 @@ public class DeathBall extends GameObject {
         Path path = new Path(gameWorld, this, p1, p2);
         this.addChild(path);
         this.addComponents();
+        this.drawPriority = 100000+numDeathBalls;
+        numDeathBalls++;
     }
 
     public DeathBall(GameWorld gameWorld, Vec2d position, Color color) {
@@ -45,6 +48,8 @@ public class DeathBall extends GameObject {
         Path path = new Path(gameWorld, this, p1, p2);
         this.addChild(path);
         this.addComponents();
+        this.drawPriority = 100000+numDeathBalls;
+        numDeathBalls++;
     }
 
     private void addComponents(){
@@ -56,8 +61,17 @@ public class DeathBall extends GameObject {
     public void delete(){
         this.gameWorld.addToRemovalQueue(this);
         for(GameObject child : children){
-            child.delete();
+            assert(child instanceof Path);
+            ((Path)child).delete(true);
+            for(GameObject ppChild : child.getChildren()){
+                assert(ppChild instanceof PathPoint);
+                ((PathPoint)ppChild).delete(true);
+            }
         }
+    }
+
+    public void delete(boolean justThis){
+        super.delete();
     }
 
     public void setDrawPath(boolean drawPath) {
@@ -135,6 +149,7 @@ public class DeathBall extends GameObject {
         clone.setPath(((Path)this.children.get(0)).clone());
         clone.setDrawPath(true);
         clone.setMoving(false);
+        clone.setCollidable(this.isCollidable());
         return clone;
     }
 
