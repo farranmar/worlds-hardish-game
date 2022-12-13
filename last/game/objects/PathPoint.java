@@ -108,6 +108,9 @@ public class PathPoint extends GameObject {
     }
 
     @Override
+    public void onCollide(GameObject obj, Vec2d mtv) { }
+
+    @Override
     public Element toXml(Document doc) {
         Element ele = super.toXml(doc);
         ele.setAttribute("class", "PathPoint");
