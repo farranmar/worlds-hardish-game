@@ -92,7 +92,7 @@ public class Player extends GameObject {
         } else if (obj instanceof Checkpoint) {
             this.setCheckpoint(((Checkpoint)obj).getSaveSpot());
             return;
-        } else if(obj instanceof EndPoint){
+        } else if(obj instanceof EndPoint || obj instanceof PathPoint){
             return;
         }
         super.onCollide(obj, mtv);
