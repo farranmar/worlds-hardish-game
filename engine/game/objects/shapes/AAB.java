@@ -93,14 +93,17 @@ public class AAB implements Shape {
 
     // mtv irrelevant
     public Vec2d collidesWithRay(Ray ray){
-        Vec2d end = ray.getPosition().plus(ray.getSize());
-        boolean containsStart = ray.getPosition().x >= this.position.x && ray.getPosition().x <= this.position.x+this.getSize().x && ray.getPosition().y >= this.position.y && ray.getPosition().y <= this.position.y+this.getSize().y;
-        boolean containsEnd = end.x >= this.position.x && end.x <= this.position.x+this.getSize().x && end.y >= this.position.y && end.y <= this.position.y+this.getSize().y;
-        if(containsStart || containsEnd){
-            return new Vec2d(0);
-        } else {
-            return null;
-        }
+        Vec2d topLeft = this.getPosition();
+        Vec2d botLeft = this.getPosition().plus(new Vec2d(0, this.getSize().y));
+        Vec2d botRight = this.getPosition().plus(this.getSize());
+        Vec2d topRight = this.getPosition().plus(new Vec2d(this.getSize().x, 0));
+        Polygon polyAab = new Polygon(topLeft, botLeft, botRight, topRight);
+        return ray.collidesWithPolygon(polyAab);
+    }
+
+    @Override
+    public Vec2d collidesWithPolygon(Polygon polygon) {
+        return null;
     }
 
     private Vec2d clamp(Vec2d value, Vec2d mins, Vec2d maxes){

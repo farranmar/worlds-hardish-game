@@ -110,6 +110,9 @@ public class Viewport extends UIElement {
         this.affine.setToIdentity();
         this.affine.append(ogTransform);
         g.setTransform(this.affine);
+        for(Background background : clippingBackgrounds){
+            background.onDraw(g);
+        }
         super.onDraw(g);
     }
 

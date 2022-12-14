@@ -16,6 +16,8 @@ public interface Shape {
 
     Vec2d collidesWithRay(Ray ray);
 
+    Vec2d collidesWithPolygon(Polygon polygon);
+
     Vec2d getSize();
 
     void setSize(Vec2d newSize);
@@ -35,6 +37,8 @@ public interface Shape {
             shape = AAB.fromXml(ele);
         } else if(ele.getAttribute("class").equals("Ray")){
             shape = Ray.fromXml(ele);
+        } else if(ele.getAttribute("class").equals("Polygon")){
+            shape = Polygon.fromXml(ele);
         }
         return shape;
     }
