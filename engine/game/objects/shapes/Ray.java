@@ -38,7 +38,25 @@ public class Ray implements Shape {
 
     @Override
     public Vec2d collidesWithCircle(Circle circle) {
-        return null;
+        Vec2d proj = circle.getPosition().projectOntoLine(this.position, this.position.plus(this.direction));
+        if(this.position.dist(circle.getPosition()) <= circle.getSize().x){
+            double x = proj.dist(circle.getPosition());
+            double r = circle.getSize().x;
+            double L = proj.dist(this.position);
+            if((proj.x-this.position.x)*this.direction.x < 0 || (proj.y-this.position.y)*this.direction.y < 0){ L = -1*L; }
+            Vec2d intersection = this.position.plus(this.direction.smult(Math.sqrt(r*r - x*x) + L));
+            return new Vec2d(this.position.dist(intersection));
+        } else {
+            // if projection negative, no collision
+            if((proj.x-this.position.x)*this.direction.x < 0 || (proj.y-this.position.y)*this.direction.y < 0){ return null; }
+            // if projection outside of circle, no collision
+            if(proj.dist(circle.getPosition()) > circle.getSize().x){ return null; }
+            double x = proj.dist(circle.getPosition());
+            double r = circle.getSize().x;
+            double L = proj.dist(this.position);
+            Vec2d intersection = this.position.plus(this.direction.smult(L - Math.sqrt(r*r - x*x)));
+            return new Vec2d(this.position.dist(intersection));
+        }
     }
 
     @Override
@@ -120,7 +138,7 @@ public class Ray implements Shape {
         this.position = newPosition;
     }
 
-    private boolean straddles(Vec2d a, Vec2d b){
+    public boolean straddles(Vec2d a, Vec2d b){
         Vec2d p = this.position;
         Vec2d d = this.direction;
         double leftCross = a.minus(p).cross(d);

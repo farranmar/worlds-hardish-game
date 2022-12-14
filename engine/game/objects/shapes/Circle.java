@@ -79,13 +79,24 @@ public class Circle implements Shape {
     }
 
     public Vec2d collidesWithRay(Ray ray){
-        Vec2d end = ray.getPosition().plus(ray.getSize());
-        boolean containsStart = ray.getPosition().dist(this.position) <= this.radius;
-        boolean containsEnd = end.dist(this.position) <= this.radius;
-        if(containsStart || containsEnd){
-            return new Vec2d(0);
+        Vec2d proj = this.getPosition().projectOntoLine(ray.getPosition(), ray.getPosition().plus(ray.getDirection()));
+        if(ray.getPosition().dist(this.getPosition()) <= this.getSize().x){
+            double x = proj.dist(this.getPosition());
+            double r = this.getSize().x;
+            double L = proj.dist(ray.getPosition());
+            if((proj.x-ray.getPosition().x)*ray.getDirection().x < 0 || (proj.y-ray.getPosition().y)*ray.getDirection().y < 0){ L = -1*L; }
+            Vec2d intersection = ray.getPosition().plus(ray.getDirection().smult(Math.sqrt(r*r - x*x) + L));
+            return new Vec2d(ray.getPosition().dist(intersection));
         } else {
-            return null;
+            // if projection negative, no collision
+            if((proj.x-ray.getPosition().x)*ray.getDirection().x < 0 || (proj.y-ray.getPosition().y)*ray.getDirection().y < 0){ return null; }
+            // if projection outside of this, no collision
+            if(proj.dist(this.getPosition()) > this.getSize().x){ return null; }
+            double x = proj.dist(this.getPosition());
+            double r = this.getSize().x;
+            double L = proj.dist(ray.getPosition());
+            Vec2d intersection = ray.getPosition().plus(ray.getDirection().smult(L - Math.sqrt(r*r - x*x)));
+            return new Vec2d(ray.getPosition().dist(intersection));
         }
     }
 
