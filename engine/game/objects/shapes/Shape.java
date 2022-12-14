@@ -37,6 +37,8 @@ public interface Shape {
             shape = AAB.fromXml(ele);
         } else if(ele.getAttribute("class").equals("Ray")){
             shape = Ray.fromXml(ele);
+        } else if(ele.getAttribute("class").equals("Polygon")){
+            shape = Polygon.fromXml(ele);
         }
         return shape;
     }
