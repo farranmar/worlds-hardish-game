@@ -9,11 +9,15 @@ import static engine.game.world.GameWorld.getTopElementsByTagName;
 public class Ray implements Shape {
 
     private Vec2d position;
-    private Vec2d size;
+    private Vec2d direction;
 
-    // note: rays are only for collision checking, so mtvs are irrelevant - only important thing is whether they are null or not
-    public Ray(Vec2d size, Vec2d position){
-        this.size = size;
+     /*
+        Vec2d's returned by collision functions contains distance to collision in both x and y coord
+        (null if no collision)
+     */
+
+    public Ray(Vec2d direction, Vec2d position){
+        this.direction = direction;
         this.position = position;
     }
 
@@ -24,66 +28,86 @@ public class Ray implements Shape {
 
     @Override
     public Vec2d collidesWithAAB(AAB aab) {
-        Vec2d end = this.position.plus(this.size);
-        boolean containsStart = this.position.x >= aab.getPosition().x && this.position.x <= aab.getPosition().x+this.getSize().x && this.position.y >= aab.getPosition().y && this.position.y <= aab.getPosition().y+this.getSize().y;
-        boolean containsEnd = end.x >= aab.getPosition().x && end.x <= aab.getPosition().x+this.getSize().x && end.y >= aab.getPosition().y && end.y <= aab.getPosition().y+this.getSize().y;
-        if(containsStart || containsEnd){
-            return new Vec2d(0);
-        } else {
-            return null;
-        }
+        Vec2d topLeft = aab.getPosition();
+        Vec2d botLeft = aab.getPosition().plus(new Vec2d(0, aab.getSize().y));
+        Vec2d botRight = aab.getPosition().plus(aab.getSize());
+        Vec2d topRight = aab.getPosition().plus(new Vec2d(aab.getSize().x, 0));
+        Polygon polyAab = new Polygon(topLeft, botLeft, botRight, topRight);
+        return this.collidesWithPolygon(polyAab);
     }
 
     @Override
     public Vec2d collidesWithCircle(Circle circle) {
-        Vec2d end = this.position.plus(this.size);
-        boolean containsStart = this.position.dist(circle.getPosition()) <= circle.getSize().x;
-        boolean containsEnd = end.dist(circle.getPosition()) <= circle.getSize().x;
-        if(containsStart || containsEnd){
-            return new Vec2d(0);
-        } else {
-            return null;
-        }
+        return null;
     }
 
     @Override
     public Vec2d collidesWithPoint(Vec2d point) {
-        boolean xInRange = (point.x >= position.x && point.x <= position.x + size.x) || (point.x <= position.x && point.x >= position.x + size.x);
-        boolean yInRange = (point.y >= position.y && point.y <= position.y + size.y) || (point.y <= position.y && point.y >= position.y + size.y);
-        if(!xInRange || !yInRange){ return null; }
-        double rayRatio = this.size.x / this.size.y;
-        double pointRatio = (point.x - this.position.x) / (point.y - this.position.y);
-        if(rayRatio == pointRatio){
-            return new Vec2d(0);
-        } else {
-            return null;
+        double slope1 = direction.y / direction.x;
+        double intercept1 = -1*slope1*position.x + position.y;
+        if(slope1 * point.x + intercept1 == point.y){
+            double dist = this.position.dist(point);
+            return new Vec2d(dist);
         }
+        return null;
     }
 
     @Override
     public Vec2d collidesWithRay(Ray ray) {
-        double slope1 = size.y / size.x;
+        double slope1 = direction.y / direction.x;
         double intercept1 = -1*slope1*position.x + position.y;
         double slope2 = ray.getSize().y / ray.getSize().x;
         double intercept2 = -1*slope2*ray.getPosition().x + ray.getPosition().y;
         double intersectionX = (intercept2 - intercept1)/(slope1/slope2);
-        boolean xInRange1 = (intersectionX >= position.x && intersectionX <= position.x + size.x) || (intersectionX <= position.x && intersectionX >= position.x + size.x);
-        boolean xInRange2 = (intersectionX >= ray.getPosition().x && intersectionX <= ray.getPosition().x + size.x) || (intersectionX <= ray.getPosition().x && intersectionX >= ray.getPosition().x + size.x);
-        if(xInRange1 && xInRange2){
-            return new Vec2d(0);
-        } else {
-            return null;
+        double intersectionY = slope1*intersectionX+intercept1;
+        Vec2d intersection = new Vec2d(intersectionX, intersectionY);
+        // if intersection in forward direction for each ray
+        if((intersectionX-position.x)*direction.x > 0 && (intersectionX-ray.getPosition().x)*ray.getDirection().x > 0){
+            return new Vec2d(this.position.dist(intersection));
         }
+        return null;
+    }
+
+    @Override
+    public Vec2d collidesWithPolygon(Polygon polygon) {
+        double minDist = Double.MAX_VALUE;
+        Vec2d p = this.position;
+        Vec2d d = this.direction;
+        for(int i = 0; i < polygon.getNumPoints(); i++){
+            Vec2d a = polygon.getPoint(i);
+            Vec2d b = polygon.getPoint((i+1) % polygon.getNumPoints());
+            if(this.straddles(a, b)){
+                Vec2d m = b.minus(a).normalize();
+                Vec2d n = m.perpendicular().normalize();
+                double t = b.minus(p).dot(n) / d.dot(n);
+                if(t < 0){ continue; }
+                Vec2d q = p.plus(d.smult(t));
+                double dist = p.dist(q);
+                if(dist < minDist){
+                    minDist = dist;
+                }
+            }
+        }
+        if(minDist == Double.MAX_VALUE){ minDist = -1; }
+        return new Vec2d(minDist);
     }
 
     @Override
     public Vec2d getSize() {
-        return this.size;
+        return this.direction;
     }
 
     @Override
     public void setSize(Vec2d newSize) {
-        this.size = newSize;
+        this.direction = newSize;
+    }
+
+    public Vec2d getDirection() {
+        return this.direction;
+    }
+
+    public void setDirection(Vec2d newDir) {
+        this.direction = newDir;
     }
 
     @Override
@@ -96,13 +120,24 @@ public class Ray implements Shape {
         this.position = newPosition;
     }
 
+    private boolean straddles(Vec2d a, Vec2d b){
+        Vec2d p = this.position;
+        Vec2d d = this.direction;
+        double leftCross = a.minus(p).cross(d);
+        double rightCross = b.minus(p).cross(d);
+        if(leftCross * rightCross > 0){
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public Element toXml(Document doc) {
         Element ele = doc.createElement("Shape");
         ele.setAttribute("class", "Ray");
-        Element size = this.size.toXml(doc, "Size");
+        Element dir = this.direction.toXml(doc, "Direction");
         Element pos = this.position.toXml(doc, "Position");
-        ele.appendChild(size);
+        ele.appendChild(dir);
         ele.appendChild(pos);
         return ele;
     }
@@ -110,8 +145,8 @@ public class Ray implements Shape {
     public static Ray fromXml(Element ele){
         if(!ele.getTagName().equals("Shape")){ return null; }
         if(!ele.getAttribute("class").equals("Ray")){ return null; }
-        Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
+        Vec2d dir = Vec2d.fromXml(getTopElementsByTagName(ele, "Direction").get(0));
         Vec2d pos = Vec2d.fromXml(getTopElementsByTagName(ele, "Position").get(0));
-        return new Ray(size, pos);
+        return new Ray(dir, pos);
     }
 }

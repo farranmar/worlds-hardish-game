@@ -16,6 +16,8 @@ public interface Shape {
 
     Vec2d collidesWithRay(Ray ray);
 
+    Vec2d collidesWithPolygon(Polygon polygon);
+
     Vec2d getSize();
 
     void setSize(Vec2d newSize);

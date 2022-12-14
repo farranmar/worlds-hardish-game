@@ -103,6 +103,11 @@ public class AAB implements Shape {
         }
     }
 
+    @Override
+    public Vec2d collidesWithPolygon(Polygon polygon) {
+        return null;
+    }
+
     private Vec2d clamp(Vec2d value, Vec2d mins, Vec2d maxes){
         double xClamp = Math.max(mins.x, Math.min(maxes.x, value.x));
         double yClamp = Math.max(mins.y, Math.min(maxes.y, value.y));

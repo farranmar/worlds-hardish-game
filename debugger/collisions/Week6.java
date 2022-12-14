@@ -233,7 +233,25 @@ public class Week6 extends Week6Reqs {
 
     @Override
     public float raycast(CircleShape s1, Ray s2) {
-        return -1;
+        Vec2d proj = s1.getCenter().projectOntoLine(s2.src, s2.src.plus(s2.dir));
+        if(s2.src.dist(s1.getCenter()) <= s1.getRadius()){
+            double x = proj.dist(s1.getCenter());
+            double r = s1.getRadius();
+            double L = proj.dist(s2.src);
+            if((proj.x-s2.src.x)*s2.dir.x < 0 || (proj.y-s2.src.y)*s2.dir.y < 0){ L = -1*L; }
+            Vec2d intersection = s2.src.plus(s2.dir.smult(Math.sqrt(r*r - x*x) + L));
+            return (float)s2.src.dist(intersection);
+        } else {
+            // if projection negative, no collision
+            if((proj.x-s2.src.x)*s2.dir.x < 0 || (proj.y-s2.src.y)*s2.dir.y < 0){ return -1; }
+            // if projection outside of circle, no collision
+            if(proj.dist(s1.getCenter()) > s1.getRadius()){ return -1; }
+            double x = proj.dist(s1.getCenter());
+            double r = s1.getRadius();
+            double L = proj.dist(s2.src);
+            Vec2d intersection = s2.src.plus(s2.dir.smult(L - Math.sqrt(r*r - x*x)));
+            return (float)s2.src.dist(intersection);
+        }
     }
 
     @Override
@@ -248,6 +266,7 @@ public class Week6 extends Week6Reqs {
                 Vec2d m = b.minus(a).normalize();
                 Vec2d n = m.perpendicular().normalize();
                 double t = b.minus(p).dot(n) / d.dot(n);
+                if(t < 0){ continue; }
                 Vec2d q = p.plus(d.smult(t));
                 double dist = p.dist(q);
                 if(dist < minDist){
