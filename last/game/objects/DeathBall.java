@@ -5,6 +5,7 @@ import engine.game.components.ComponentTag;
 import engine.game.components.DrawComponent;
 import engine.game.components.TickComponent;
 import engine.game.objects.GameObject;
+import engine.game.objects.shapes.AAB;
 import engine.game.objects.shapes.Circle;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
@@ -53,7 +54,7 @@ public class DeathBall extends GameObject {
     }
 
     private void addComponents(){
-        this.add(new CollideComponent(new Circle(this.getSize().x/2, this.getPosition().plus(this.getSize().sdiv(2)))));
+        this.add(new CollideComponent(new AAB(this.getSize(), this.getPosition())));
         this.add(new DrawComponent());
         this.add(new TickComponent());
     }

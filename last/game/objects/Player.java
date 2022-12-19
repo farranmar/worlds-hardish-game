@@ -22,7 +22,7 @@ public class Player extends GameObject {
 
     protected Color color;
     private Map<KeyCode, Boolean> directionMap = initializeDirectionMap();
-    private static final double speed = 3;
+    private static final double speed = 4;
     private static int numPlayers = 0;
     private double boosted = 1;
     private Vec2d respawnPoint;

@@ -49,7 +49,7 @@ public class VictoryScreen extends Screen {
         super.onMouseClicked(e);
         for(UIElement ele : uiElements){
             if(ele.inRange(e) && ele.getName().contains("next level")){
-//                this.nextScreen = ScreenName.GAME;
+                this.nextScreen = ScreenName.GAME;
             } else if(ele.inRange(e) && ele.getName().contains("menu")){
                 this.nextScreen = ScreenName.MENU;
             } else if(ele.inRange(e) && ele.getName().contains("quit")){

@@ -18,6 +18,7 @@ public class LastScreen extends Screen {
 
     private LastWorld world;
     private Color primaryColor;
+    private int nextLevel = 0;
 
     public LastScreen(Color color){
         super(ScreenName.GAME);
@@ -69,6 +70,16 @@ public class LastScreen extends Screen {
         if(this.viewport.getResult() != GameWorld.Result.PLAYING){
             this.nextScreen = ScreenName.GAME_OVER;
         }
+    }
+
+    public void nextLevel() {
+        this.nextLevel += 1;
+        if (this.nextLevel > 4) {
+            this.nextScreen = ScreenName.MENU;
+            this.nextLevel = 0;
+            return;
+        }
+        this.loadFromLevel("last/save-files/load" + this.nextLevel + ".xml");
     }
 
     public void onMouseClicked(MouseEvent e){
