@@ -1,12 +1,15 @@
 package last.game;
 
 import engine.game.objects.GameObject;
+import engine.game.objects.Grid;
 import engine.game.systems.CollisionSystem;
 import engine.game.systems.GraphicsSystem;
 import engine.game.systems.InputSystem;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import last.game.objects.*;
 import org.w3c.dom.Document;
@@ -30,6 +33,9 @@ public class EditorWorld extends GameWorld {
 
         Trash trash = new Trash(this, new Vec2d(108), new Vec2d(1712, 942));
         this.add(trash);
+
+        Grid grid = new Grid(this, this.size, new Vec2d(0), 108, 192);
+        this.add(grid);
     }
 
     private void addSystems() {
@@ -39,6 +45,30 @@ public class EditorWorld extends GameWorld {
         this.addSystem(graphicsSystem);
         InputSystem inputSystem = new InputSystem();
         this.addSystem(inputSystem);
+    }
+
+    private void snapToGrid(){
+        for(GameObject obj : this.gameObjects){
+            if(obj instanceof UnitMenu || obj instanceof Trash){ continue; }
+            if(obj instanceof DeathBall){
+                ((DeathBall)obj).snapToGrid();
+                continue;
+            }
+            if(obj instanceof Wall){
+                ((Wall)obj).snapToGrid();
+                continue;
+            }
+            double newX = Math.round(obj.getPosition().x/10) * 10;
+            double newY = Math.round(obj.getPosition().y/10) * 10;
+            obj.setPosition(new Vec2d(newX, newY));
+        }
+    }
+
+    public void onKeyPressed(KeyEvent e){
+        super.onKeyPressed(e);
+        if(e.getCode() == KeyCode.SHIFT){
+            this.snapToGrid();
+        }
     }
 
     @Override

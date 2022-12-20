@@ -80,6 +80,20 @@ public class Path extends GameObject {
         ((DeathBall)this.parent).setCenter(center, true);
     }
 
+    public void snapToGrid(){
+        GameObject pp0 = this.children.get(0);
+        GameObject pp1 = this.children.get(1);
+        assert(pp0 instanceof PathPoint);
+        assert(pp1 instanceof PathPoint);
+        double newX0 = Math.round(pp0.getPosition().x/10) * 10;
+        double newY0 = Math.round(pp0.getPosition().y/10) * 10;
+        pp0.setPosition(new Vec2d(newX0, newY0));
+        double newX1 = Math.round(pp1.getPosition().x/10) * 10;
+        double newY1 = Math.round(pp1.getPosition().y/10) * 10;
+        pp1.setPosition(new Vec2d(newX1, newY1));
+        this.updateBallPosition();
+    }
+
     public Vec2d getPointOne(){
         return ((PathPoint)children.get(0)).getCenter();
     }

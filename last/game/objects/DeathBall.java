@@ -155,6 +155,11 @@ public class DeathBall extends GameObject {
         return clone;
     }
 
+    public void snapToGrid(){
+        assert(this.children.get(0) instanceof Path);
+        ((Path)this.children.get(0)).snapToGrid();
+    }
+
     public static ArrayList<DeathBall> deathBallWall(GameWorld gameWorld, Vec2d position, Vec2d separation, int number) {
         ArrayList<DeathBall> returnList = new ArrayList<>();
         for (int i = 0; i < number; i++) {

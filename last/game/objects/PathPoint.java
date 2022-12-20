@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 public class PathPoint extends GameObject {
 
     private Color color;
-    public static final Vec2d size = new Vec2d(20);
+    public static final Vec2d size = new Vec2d(15);
 
     public PathPoint(GameWorld world, Path path, Vec2d pos){
         super(world, size, pos.minus(size.sdiv(2)));

@@ -59,6 +59,18 @@ public class Wall extends GameObject {
         this.children.get(0).setPosition(newPosition.plus(this.getSize()));
     }
 
+    public void snapToGrid(){
+        Vec2d topLeft = this.getPosition();
+        double xTL = Math.round(topLeft.x/10) * 10;
+        double yTL = Math.round(topLeft.y/10) * 10;
+        Vec2d botRight = topLeft.plus(this.getSize());
+        double xBR = Math.round(botRight.x/10) * 10;
+        double yBR = Math.round(botRight.y/10) * 10;
+        Vec2d newSize = new Vec2d(xBR - xTL, yBR - yTL);
+        this.setSize(newSize);
+        this.setPosition(new Vec2d(xTL, yTL));
+    }
+
     private void addComponents(){
         CollideComponent collide = new CollideComponent(new AAB(this.getSize(), this.getPosition()), true, 1);
         this.add(collide);

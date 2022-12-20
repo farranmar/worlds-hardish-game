@@ -1,6 +1,7 @@
 package last.game;
 
 import engine.game.objects.GameObject;
+import engine.game.objects.Grid;
 import engine.game.systems.*;
 import engine.game.world.GameWorld;
 import engine.support.Vec2d;
@@ -35,7 +36,7 @@ public class LastWorld extends GameWorld {
         this.addSystems();
         this.addBorders();
         for(GameObject obj : editorWorld.getGameObjects()){
-            if(obj instanceof UnitMenu || obj instanceof Trash){ continue; }
+            if(obj instanceof UnitMenu || obj instanceof Trash || obj instanceof Grid){ continue; }
             GameObject clone = obj.clone();
             clone.setCollidable(true);
             clone.setGameWorld(this);

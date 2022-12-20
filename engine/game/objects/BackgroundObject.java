@@ -16,7 +16,7 @@ public class BackgroundObject extends GameObject {
         DrawComponent drawComponent = new DrawComponent(color);
         this.components.add(drawComponent);
         this.transformComponent = new TransformComponent(size, new Vec2d(0,0));
-        this.drawPriority = 0;
+        this.drawPriority = -1000;
     }
 
     public void onDraw(GraphicsContext g){
