@@ -176,6 +176,12 @@ public class UIElement {
         }
     }
 
+    public void onKeyTyped(KeyEvent e){
+        for(UIElement child : children){
+            child.onKeyTyped(e);
+        }
+    }
+
     public void onMouseClicked(MouseEvent e){
         for(UIElement child : children){
             child.onMouseClicked(e);

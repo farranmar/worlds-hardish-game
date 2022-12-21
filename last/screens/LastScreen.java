@@ -71,9 +71,6 @@ public class LastScreen extends Screen {
 
     public void onTick(long nanosSinceLastTick){
         super.onTick(nanosSinceLastTick);
-        if(this.nextScreen != null){
-            System.out.println("lastScreen's next screen is "+this.nextScreen);
-        }
         if(this.viewport.getResult() != GameWorld.Result.PLAYING && this.active && this.nextScreen != ScreenName.MENU){
             this.nextScreen = ScreenName.GAME_OVER;
         }
@@ -83,7 +80,6 @@ public class LastScreen extends Screen {
         this.nextLevel += 1;
         if (this.nextLevel > 4) {
             this.nextScreen = ScreenName.MENU;
-            System.out.println("this.nextLevel = "+this.nextLevel+" > 4, so setting nextscreen to menu");
             this.nextLevel = 0;
             return;
         }

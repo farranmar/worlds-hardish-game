@@ -55,10 +55,6 @@ public class App extends Application {
 
     @Override
     protected void setActiveScreen(Screen activeScreen) {
-        if(this.curActiveScreen.getName() == ScreenName.GAME && activeScreen.getName() == ScreenName.MENU){
-            System.out.println("going form game to menu");
-        }
-
         ArrayList<ScreenName> visible = new ArrayList<>();
         visible.add(ScreenName.BACKGROUND);
         // if paused in game, make GAME visible

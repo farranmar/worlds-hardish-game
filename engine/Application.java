@@ -103,7 +103,11 @@ public class Application extends FXFrontEnd {
    */
   @Override
   protected void onKeyTyped(KeyEvent e) {
-
+    for(Screen screen : screens){
+      if(screen.isActive()){
+        screen.onKeyTyped(e);
+      }
+    }
   }
 
   /**

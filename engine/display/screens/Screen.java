@@ -66,7 +66,6 @@ public class Screen {
     public ScreenName getNextScreen(){
         ScreenName ret = this.nextScreen;
         if(ret != null) {
-            System.out.println("getting next screen, this is "+this.getName()+" and nextscreen is "+this.nextScreen);
             this.nextScreen = null;
         }
         return ret;
@@ -146,6 +145,12 @@ public class Screen {
     public void onKeyReleased(KeyEvent e){
         for(UIElement ele : uiElements){
             ele.onKeyReleased(e);
+        }
+    }
+
+    public void onKeyTyped(KeyEvent e){
+        for(UIElement ele : uiElements){
+            ele.onKeyTyped(e);
         }
     }
 
