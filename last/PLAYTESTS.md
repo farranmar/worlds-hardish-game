@@ -1,11 +1,11 @@
 # Final IV Playtests
 
 ### Playtest 1: Interviewed by Josh
-
+-- This player had played numerous video games before, so he quickly understood the gameplay loop. He had fun beating the base game, and also experimented with and enjoyed the level editor. Overall, this player had a good time with the game.
 ### Playtest 2: Interviewed by Josh
-
+-- This player was also experienced with video games, but was younger. He was able to beat up to the last level, but was frustrated and gave up before the end. He also had little interest in the level editor. To potentially help this player, I would either make the levels more intuitive or add some kind of easier way to play.
 ### Playtest 3: Interviewed by Josh
-
+-- This player was an adult who had not played many video games. They had a lot of difficulty, and ultimately enjoyed the level editor and playing custom levels that were not as difficult. They also suggested adding a death counter, which was a good impulse.
 ### Playtest 4: Interviewed by Mary
 -- This player wished there was some way to move the deathball+path+pathpoints together by grabbing the path, rather than having to move the endpoints only
 
