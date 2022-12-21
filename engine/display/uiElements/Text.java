@@ -84,7 +84,6 @@ public class Text extends UIElement {
     public void onDraw(GraphicsContext g) {
         if(this.highlighted) { g.setFill(Color.rgb(255,255,255)); }
         else { g.setFill(this.color); }
-        System.out.println("drawing text "+this.text+", color ="+this.color);
         g.setFont(this.font);
         g.fillText(this.text, this.position.x, this.position.y);
         super.onDraw(g);

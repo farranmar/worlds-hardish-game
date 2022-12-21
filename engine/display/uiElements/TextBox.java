@@ -52,7 +52,6 @@ public class TextBox extends UIElement {
             this.cursorVisible = true;
             this.nanosTillSwitch = 500000000;
         } else if(e.getCode() == KeyCode.RIGHT){
-            System.out.println("right");
             this.typingIndex = Math.min(this.entry.getText().length(), this.typingIndex+1);
             this.cursorVisible = true;
             this.nanosTillSwitch = 500000000;
@@ -80,7 +79,6 @@ public class TextBox extends UIElement {
 
     public void onDraw(GraphicsContext g) {
         super.onDraw(g);
-        System.out.println("drawing textbox, this.color="+this.color);
         this.prompt.onDraw(g);
         this.entry.onDraw(g);
         if(this.cursorVisible){

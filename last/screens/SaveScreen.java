@@ -55,7 +55,6 @@ public class SaveScreen extends Screen {
     public SaveScreen(ScreenName name, Color color, String prefix){
         super(name);
         assert(name == ScreenName.SAVE_LOAD_LEVEL || name == ScreenName.SAVE_LOAD_GAME);
-        System.out.println("setting primaryColor to "+color);
         this.primaryColor = color;
         this.initializeTypingEles();
         this.filePrefix = prefix;
@@ -140,7 +139,6 @@ public class SaveScreen extends Screen {
         Background background = new Background(Color.rgb(48, 54, 51, 0.85));
         eles.add(background);
         Font font = new Font("Courier", this.screenSize.y * 0.07);
-        System.out.println("creating text box with primaryColor "+primaryColor);
         TextBox textBox = new TextBox("enter file name:", primaryColor, this.screenSize.y/2, font, 30);
         eles.add(textBox);
         this.typingEles = eles;
@@ -168,6 +166,7 @@ public class SaveScreen extends Screen {
                     String fileName = ((TextBox)ele).getValue();
                     this.saveSlotButtons[this.saveIndex].setText(fileName, "Courier");
                     this.saveSlotButtons[this.saveIndex].setName(this.saveSlotButtons[this.saveIndex].getName()+" deadbeef"+this.saveIndex);
+                    this.saveFile = filePrefix + this.saveIndex + ".xml";
                     doneTyping = true;
                 }
             }
