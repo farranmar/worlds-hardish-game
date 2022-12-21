@@ -153,6 +153,7 @@ public class SaveScreen extends Screen {
         this.typingName = false;
         for(UIElement ele : this.typingEles){
             this.uiElements.remove(ele);
+            ele.reset();
         }
     }
 
@@ -164,6 +165,7 @@ public class SaveScreen extends Screen {
             for(UIElement ele : this.uiElements){
                 if(ele instanceof TextBox){
                     String fileName = ((TextBox)ele).getValue();
+                    if(fileName.length() == 0){ return; }
                     this.saveSlotButtons[this.saveIndex].setText(fileName, "Courier");
                     this.saveSlotButtons[this.saveIndex].setName(this.saveSlotButtons[this.saveIndex].getName()+" deadbeef"+this.saveIndex);
                     this.saveFile = filePrefix + this.saveIndex + ".xml";

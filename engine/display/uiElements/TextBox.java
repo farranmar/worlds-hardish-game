@@ -41,6 +41,12 @@ public class TextBox extends UIElement {
         this.maxChars = maxChars;
     }
 
+    public void reset(){
+        super.reset();
+        this.entry.setText("");
+        this.typingIndex = 0;
+    }
+
     public String getValue(){
         return this.entry.getText();
     }
