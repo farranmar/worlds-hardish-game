@@ -8,6 +8,6 @@
 
 Requirements we discussed with Evan:
 
-First level of the game: currently created by instantiating objects, when we finalize it we will switch to loading from xml.
+Game: The game have 5 levels, which increase in difficulty as you progress. The player can save the game at any point during a level, and can also play and save custom-made levels.
 
-Level Editor: The engine features of the editor are complete, but we still need to expand the options and flesh out the customization available to the player.
+Level Editor: The level editor is complete, and allows player to construct fully-formed levels of the game, and save those levels to play.
