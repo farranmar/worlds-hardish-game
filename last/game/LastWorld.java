@@ -7,6 +7,8 @@ import engine.game.world.GameWorld;
 import engine.support.Vec2d;
 import javafx.scene.paint.Color;
 import last.game.objects.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +17,7 @@ import java.util.Map;
 public class LastWorld extends GameWorld {
 
     private static final Color platformColor = Color.rgb(99, 176, 205);
+    private int levelNum = -1;
 
     public LastWorld(){
         this(false);
@@ -27,6 +30,7 @@ public class LastWorld extends GameWorld {
         if(!empty){
             this.addBorders();
             this.createObjects();
+            this.levelNum = 0;
         }
     }
 
@@ -56,6 +60,14 @@ public class LastWorld extends GameWorld {
             }
             this.add(clone);
         }
+    }
+
+    public void setLevelNum(int newLevel){
+        this.levelNum = newLevel;
+    }
+
+    public int getLevelNum(){
+        return this.levelNum;
     }
 
     private void addSystems(){
@@ -108,7 +120,19 @@ public class LastWorld extends GameWorld {
         this.add(right);
     }
 
+    @Override
+    protected Document toXml(String topLevelName) {
+        Document doc = super.toXml(topLevelName);
+        Element ele = doc.getDocumentElement();
+        ele.setAttribute("levelNum", this.levelNum+"");
+        return doc;
+    }
+
     public LastWorld(String fileName, Map<String, Class<? extends GameObject>> classMap){
         super(fileName, classMap);
+        Document doc = this.parseFile(fileName);
+        Element ele = doc.getDocumentElement();
+        this.levelNum = Integer.parseInt(ele.getAttribute("levelNum"));
+
     }
 }

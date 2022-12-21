@@ -416,20 +416,8 @@ public class GameWorld {
     }
 
     public GameWorld(String fileName, Map<String, Class<? extends GameObject>> classMap) {
-        DocumentBuilder builder;
-        try {
-            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        } catch (Exception e){
-            System.out.println("***Error creating document builder***");
-            return;
-        }
-        Document doc;
-        try {
-            doc = builder.parse(new File(fileName));
-        } catch (Exception e){
-            System.out.println("***Error parsing file***");
-            return;
-        }
+        Document doc = this.parseFile(fileName);
+        if(doc == null){ return; }
         Element ele = doc.getDocumentElement();
         this.name = ele.getAttribute("name");
         Vec2d size = Vec2d.fromXml(getTopElementsByTagName(ele, "Size").get(0));
@@ -443,6 +431,24 @@ public class GameWorld {
         // GAME OBJECTS
         Element objsEle = getTopElementsByTagName(ele, "GameObjects").get(0);
         this.addGameObjectsXml(objsEle, classMap);
+    }
+
+    public Document parseFile(String fileName){
+        DocumentBuilder builder;
+        try {
+            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        } catch (Exception e){
+            System.out.println("***Error creating document builder***");
+            return null;
+        }
+        Document doc;
+        try {
+            doc = builder.parse(new File(fileName));
+        } catch (Exception e){
+            System.out.println("***Error parsing file***");
+            return null;
+        }
+        return doc;
     }
 
     public void addSystemsXml(Element systemsEle){

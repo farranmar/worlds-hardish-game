@@ -44,12 +44,14 @@ public class LastScreen extends Screen {
         lastWorld.setViewport(this.viewport);
         this.world = lastWorld;
         viewport.setWorld(lastWorld);
+        this.nextLevel = 0;
     }
 
     public void loadFromLevel(String fileName){
         EditorWorld editorWorld = new EditorWorld(fileName, EditorScreen.getClassMap());
         LastWorld loadedWorld = new LastWorld(editorWorld);
         loadedWorld.setViewport(this.viewport);
+        loadedWorld.setLevelNum(this.nextLevel);
         this.world = loadedWorld;
         this.viewport.setWorld(loadedWorld);
     }
@@ -57,6 +59,7 @@ public class LastScreen extends Screen {
     public void loadFromGame(String fileName){
         LastWorld loadedWorld = new LastWorld(fileName, EditorScreen.getClassMap());
         loadedWorld.setViewport(this.viewport);
+        this.nextLevel = loadedWorld.getLevelNum();
         this.world = loadedWorld;
         this.viewport.setWorld(loadedWorld);
     }
