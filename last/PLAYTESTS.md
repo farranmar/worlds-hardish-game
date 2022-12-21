@@ -1,3 +1,26 @@
+# Final IV Playtests
+
+### Playtest 1: Interviewed by Josh
+
+### Playtest 2: Interviewed by Josh
+
+### Playtest 3: Interviewed by Josh
+
+### Playtest 4: Interviewed by Mary
+-- This player wished there was some way to move the deathball+path+pathpoints together by grabbing the path, rather than having to move the endpoints only
+
+-- This player also felt that the levels progressed in difficulty too quickly, and though that there should be more easy and intermediate levels.
+
+### Playtest 5: Interviewed by Mary
+-- This player was frustrated by the difficulty lining up deathballs pixel-perfect with each other, so that they would be properly synced if they were meant to be moving together. 
+
+-- While more of an aesthetic issue and less of a gameplay issue, this tester also wished the walls were easier to line up each other.
+
+### Playtest 6: Interviewed by Mary
+-- This player wished there was a way to bring elements in the editor forwards or backwards, so they could control what was on top in the event that two elements overlapped.
+
+--- This player said the game was fun, and wished there was more levels to progress through, especially if levels began to introduce more mechanics further along
+
 # Final III Playtests
 
 ### Playtest 1: Interviewed by Josh
