@@ -42,6 +42,7 @@ public class GameWorld {
     protected Vec2d size;
     protected String name;
     protected Result result = Result.PLAYING;
+    protected boolean active = true;
 
     public enum Result {
         VICTORY("VICTORY"),
@@ -72,6 +73,10 @@ public class GameWorld {
 
     public GameWorld(String name){
         this.name = name;
+    }
+
+    public void setActive(boolean a){
+        this.active = a;
     }
 
     public void add(GameObject obj){
@@ -194,6 +199,7 @@ public class GameWorld {
     }
 
     public void onTick(long nanosSinceLastTick){
+        if(!this.active){ return; }
         for(GameSystem sys : systems){
             if(sys.isTickable() || sys.isCollidable()){
                 sys.onTick(nanosSinceLastTick);
@@ -205,6 +211,7 @@ public class GameWorld {
     }
 
     public void onLateTick(){
+        if(!this.active){ return; }
         if(centerObj != null){
             Vec2d centerPos = new Vec2d(this.centerObj.getPosition().x + this.centerObj.getSize().x/2, this.centerObj.getPosition().y + this.centerObj.getSize().y/2);
             Vec2d displaySize = this.viewport.getDisplaySize();
@@ -266,6 +273,7 @@ public class GameWorld {
     }
 
     public void onMousePressed(double x, double y) {
+        if(!this.active){ return; }
         for (GameSystem sys : systems) {
             if (sys.takesInput()) {
                 sys.onMousePressed(x, y);
@@ -282,6 +290,7 @@ public class GameWorld {
     }
 
     public void onMouseDragged(double x, double y){
+        if(!this.active){ return; }
         for(GameSystem sys : systems){
             if(sys.takesInput()){
                 sys.onMouseDragged(x, y);
@@ -290,6 +299,7 @@ public class GameWorld {
     }
 
     public void onKeyPressed(KeyEvent e){
+        if(!this.active){ return; }
         for(GameSystem sys : systems){
             if(sys.takesInput()){
                 sys.onKeyPressed(e);

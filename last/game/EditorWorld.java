@@ -21,10 +21,14 @@ import java.util.Map;
 public class EditorWorld extends GameWorld {
 
     public EditorWorld(){
+        this(false);
+    }
+
+    public EditorWorld(boolean empty){
         super("Last");
         this.size = new Vec2d(1920, 1080);
         this.addSystems();
-        this.createObjects();
+        if(!empty){ this.createObjects(); }
     }
 
     private void createObjects() {
@@ -66,7 +70,7 @@ public class EditorWorld extends GameWorld {
 
     public void onKeyPressed(KeyEvent e){
         super.onKeyPressed(e);
-        if(e.getCode() == KeyCode.SHIFT){
+        if(e.getCode() == KeyCode.TAB){
             this.snapToGrid();
         }
     }

@@ -110,6 +110,16 @@ public class DeathBall extends GameObject {
         path.setParent(this);
     }
 
+    public void setPathPointPosOne(Vec2d newPos){
+        assert(this.children.get(0) instanceof Path);
+        ((Path)this.children.get(0)).setPointOne(newPos);
+    }
+
+    public void setPathPointPosTwo(Vec2d newPos){
+        assert(this.children.get(0) instanceof Path);
+        ((Path)this.children.get(0)).setPointTwo(newPos);
+    }
+
     @Override
     public void setPosition(Vec2d newPosition) {
         assert(this.children.get(0) instanceof Path);

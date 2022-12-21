@@ -64,18 +64,21 @@ public class MenuScreen extends Screen {
         Font titleFont = new Font("Courier", 48);
         double centerishY = this.screenSize.y / 2;
         Text nin = new Text("last", primaryColor, centerishY, titleFont);
-        Vec2d buttonSize = new Vec2d(140,30);
+        Vec2d buttonSize = new Vec2d(160,30);
         double spacing = 60;
         Button playGameButton = new Button(primaryColor, centerishY+spacing, buttonSize);
         playGameButton.setText("play game", "Courier");
         Button makeLevelButton = new Button(primaryColor, centerishY+1.2*spacing+buttonSize.y, buttonSize);
         makeLevelButton.setText("make level", "Courier");
-        Button quitButton = new Button(primaryColor, centerishY+1.4*spacing+2*buttonSize.y, buttonSize);
+        Button instructionsButton = new Button(primaryColor, centerishY+1.4*spacing+2*buttonSize.y, buttonSize);
+        instructionsButton.setText("instructions", "Courier");
+        Button quitButton = new Button(primaryColor, centerishY+1.6*spacing+3*buttonSize.y, buttonSize);
         quitButton.setText("quit", "Courier");
 
         this.basicEles.add(nin);
         this.basicEles.add(playGameButton);
         this.basicEles.add(makeLevelButton);
+        this.basicEles.add(instructionsButton);
         this.basicEles.add(quitButton);
     }
 
@@ -187,6 +190,8 @@ public class MenuScreen extends Screen {
             } else if(name.contains("edit level")){
                 loadingGame = false;
                 this.nextScreen = ScreenName.SAVE_LOAD_LEVEL;
+            } else if(name.contains("instructions")){
+                this.nextScreen = ScreenName.INSTRUCTIONS;
             } else if(name.contains("quit")){
                 this.nextScreen = ScreenName.QUIT;
             }

@@ -32,6 +32,7 @@ public class Path extends GameObject {
     private void addComponents(){
         this.add(new DrawComponent());
         this.add(new TickComponent());
+        this.add(new DragComponent(this));
     }
 
     public void setVisible(boolean v){

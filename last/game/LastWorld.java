@@ -23,9 +23,9 @@ public class LastWorld extends GameWorld {
     public LastWorld(boolean empty){
         super("Last");
         this.size = new Vec2d(1920, 1080);
-        this.addBorders();
+        this.addSystems();
         if(!empty){
-            this.addSystems();
+            this.addBorders();
             this.createObjects();
         }
     }

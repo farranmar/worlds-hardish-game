@@ -106,6 +106,10 @@ public class UIElement {
         return this.name;
     }
 
+    public void appendToName(String toAppend){
+        this.name = this.name + toAppend;
+    }
+
     public void onTick(long nanosSincePreviousTick){
         if(children != null){
             for(UIElement child : children){

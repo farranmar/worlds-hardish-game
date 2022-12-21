@@ -37,6 +37,8 @@ public class App extends Application {
         menuScreen.makeVisible();
         this.curActiveScreen = menuScreen;
         this.add(menuScreen);
+        InstructionScreen instructionScreen = new InstructionScreen(primaryColor);
+        this.add(instructionScreen);
         EditorScreen editorScreen = new EditorScreen(primaryColor);
         this.add(editorScreen);
         LastScreen lastScreen = new LastScreen(primaryColor);
