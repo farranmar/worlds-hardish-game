@@ -51,6 +51,7 @@ public class LastScreen extends Screen {
         EditorWorld editorWorld = new EditorWorld(fileName, EditorScreen.getClassMap());
         LastWorld loadedWorld = new LastWorld(editorWorld);
         loadedWorld.setViewport(this.viewport);
+        if(fileName.contains("level")){ this.nextLevel = 10; }
         loadedWorld.setLevelNum(this.nextLevel);
         this.world = loadedWorld;
         this.viewport.setWorld(loadedWorld);
