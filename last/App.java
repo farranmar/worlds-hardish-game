@@ -76,6 +76,10 @@ public class App extends Application {
         if (activeScreen.getName() == ScreenName.GAME_OVER) {
             visible.add(ScreenName.GAME);
         }
+        // if showing victory screen for final level, show game cleared
+        if(this.curActiveScreen.getName() == ScreenName.GAME && activeScreen.getName() == ScreenName.GAME_OVER){
+            if(((LastScreen)this.curActiveScreen).getClearedGame()) { ((VictoryScreen)activeScreen).setFinalVictory(true); }
+        }
 
         boolean choosingGame = this.curActiveScreen.getName() == ScreenName.MENU && activeScreen.getName() == ScreenName.SAVE_LOAD_GAME;
         boolean choosingLevel = this.curActiveScreen.getName() == ScreenName.MENU && activeScreen.getName() == ScreenName.SAVE_LOAD_LEVEL;

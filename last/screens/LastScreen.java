@@ -19,6 +19,7 @@ public class LastScreen extends Screen {
     private LastWorld world;
     private Color primaryColor;
     private int nextLevel = 0;
+    private boolean clearedGame = false;
 
     public LastScreen(Color color){
         super(ScreenName.GAME);
@@ -45,6 +46,7 @@ public class LastScreen extends Screen {
         this.world = lastWorld;
         viewport.setWorld(lastWorld);
         this.nextLevel = 0;
+        this.clearedGame = false;
     }
 
     public void loadFromLevel(String fileName){
@@ -72,15 +74,21 @@ public class LastScreen extends Screen {
     public void onTick(long nanosSinceLastTick){
         super.onTick(nanosSinceLastTick);
         if(this.viewport.getResult() != GameWorld.Result.PLAYING && this.active && this.nextScreen != ScreenName.MENU){
+            System.out.println("setting next screen to game over; this.nextLevel is " + this.nextLevel);
+            if(this.nextLevel >= 4){ this.clearedGame = true; }
             this.nextScreen = ScreenName.GAME_OVER;
         }
+    }
+
+    public boolean getClearedGame(){
+        return this.clearedGame;
     }
 
     public void nextLevel() {
         this.nextLevel += 1;
         if (this.nextLevel > 4) {
-            this.nextScreen = ScreenName.MENU;
             this.nextLevel = 0;
+            this.clearedGame = true;
             return;
         }
         this.loadFromLevel("last/save-files/load" + this.nextLevel + ".xml");

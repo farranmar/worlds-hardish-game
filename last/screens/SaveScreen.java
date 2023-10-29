@@ -139,7 +139,7 @@ public class SaveScreen extends Screen {
         Background background = new Background(Color.rgb(48, 54, 51, 0.85));
         eles.add(background);
         Font font = new Font("Courier", this.screenSize.y * 0.07);
-        TextBox textBox = new TextBox("enter file name:", primaryColor, this.screenSize.y/2, font, 30);
+        TextField textBox = new TextField("enter file name:", primaryColor, this.screenSize.y/2, font, 30);
         eles.add(textBox);
         this.typingEles = eles;
     }
@@ -163,8 +163,8 @@ public class SaveScreen extends Screen {
         if(this.typingName && e.getCode() == KeyCode.ENTER){
             boolean doneTyping = false;
             for(UIElement ele : this.uiElements){
-                if(ele instanceof TextBox){
-                    String fileName = ((TextBox)ele).getValue();
+                if(ele instanceof TextField){
+                    String fileName = ((TextField)ele).getValue();
                     if(fileName.length() == 0){ return; }
                     this.saveSlotButtons[this.saveIndex].setText(fileName, "Courier");
                     this.saveSlotButtons[this.saveIndex].setName(this.saveSlotButtons[this.saveIndex].getName()+" deadbeef"+this.saveIndex);

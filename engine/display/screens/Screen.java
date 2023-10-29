@@ -84,6 +84,10 @@ public class Screen {
         this.uiElements.remove(uiElement);
     }
 
+    public boolean contains(UIElement uiElement){
+        return this.uiElements.contains(uiElement);
+    }
+
     public void setColor(Color[] palette){
         this.palette = palette;
     }

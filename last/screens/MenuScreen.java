@@ -63,7 +63,7 @@ public class MenuScreen extends Screen {
     private void addBasicEles(){
         Font titleFont = new Font("Courier", 48);
         double centerishY = this.screenSize.y / 2;
-        Text nin = new Text("last", primaryColor, centerishY, titleFont);
+        Text nin = new Text("world's hardish game", primaryColor, centerishY, titleFont);
         Vec2d buttonSize = new Vec2d(160,30);
         double spacing = 60;
         Button playGameButton = new Button(primaryColor, centerishY+spacing, buttonSize);

@@ -1,10 +1,10 @@
-last/save-files/game0:WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-last/save-files/game1:level2
-last/save-files/game2:77()qQQbbed
-last/save-files/game3:fwraedf
-last/save-files/game4:222
-last/save-files/game5:dfewREATBGRFHG
-last/save-files/game6:customt est
-last/save-files/game7:WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-last/save-files/game8:WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-last/save-files/game9:breab g  fabe!
+last/save-files/game0:game0
+last/save-files/game1:game1
+last/save-files/game2:game2
+last/save-files/game3:game3
+last/save-files/game4:game4
+last/save-files/game5:game5
+last/save-files/game6:game6
+last/save-files/game7:game7
+last/save-files/game8:game8
+last/save-files/game9:game9

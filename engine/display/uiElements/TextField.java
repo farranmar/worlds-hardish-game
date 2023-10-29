@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TextBox extends UIElement {
+public class TextField extends UIElement {
 
     private Text prompt;
     private Text entry;
@@ -22,7 +22,7 @@ public class TextBox extends UIElement {
     private ArrayList<String> illegalChars = new ArrayList<>(Arrays.asList("#", "%", "&", "{", "}", "/", "\\", "<", ">",
             "*", "?", "$", "'", "\"", ":", "@", "`", "=", "|", "\u0008", "\n", "\r"));
 
-    public TextBox(String prompt, Color color, Vec2d position, Font font, int maxChars){
+    public TextField(String prompt, Color color, Vec2d position, Font font, int maxChars){
         super(prompt + "TextBox");
         this.color = color;
         this.position = position;
@@ -31,7 +31,7 @@ public class TextBox extends UIElement {
         this.maxChars = maxChars;
     }
 
-    public TextBox(String prompt, Color color, double y, Font font, int maxChars){
+    public TextField(String prompt, Color color, double y, Font font, int maxChars){
         super(prompt + "TextBox");
         this.color = color;
         double width = new FontMetrics(prompt, font).width;

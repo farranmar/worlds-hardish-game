@@ -8,7 +8,7 @@
         <System collidable="false" drawable="false" takesInput="false" tickable="true"/>
     </Systems>
     <GameObjects>
-        <GameObject centerObj="false" class="Wall" drawPriority="58" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="460" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="0.0" y="-30.0"/>
@@ -25,7 +25,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="59" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="461" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1920.0" y="0.0"/>
@@ -38,7 +38,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="60" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="462" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1912.5" y="-7.5"/>
@@ -63,7 +63,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="61" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="463" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="0.0" y="1080.0"/>
@@ -80,7 +80,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="62" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="464" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1920.0" y="1110.0"/>
@@ -93,7 +93,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="63" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="465" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1912.5" y="1102.5"/>
@@ -118,7 +118,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="64" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="466" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="-30.0" y="0.0"/>
@@ -135,7 +135,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="65" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="467" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="0.0" y="1080.0"/>
@@ -148,7 +148,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="66" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="468" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="-7.5" y="1072.5"/>
@@ -173,7 +173,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="67" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="469" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1920.0" y="0.0"/>
@@ -190,7 +190,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="68" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="470" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1950.0" y="1080.0"/>
@@ -203,7 +203,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="69" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="471" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1942.5" y="1072.5"/>
@@ -228,7 +228,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="70" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="472" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="300.0" y="200.0"/>
@@ -245,7 +245,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="71" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="473" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1620.0" y="230.0"/>
@@ -258,7 +258,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="72" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="474" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1612.5" y="222.5"/>
@@ -283,7 +283,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="73" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="475" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="300.0" y="880.0"/>
@@ -300,7 +300,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="74" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="476" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1620.0" y="910.0"/>
@@ -313,7 +313,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="75" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="477" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1612.5" y="902.5"/>
@@ -338,7 +338,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="76" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="478" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="300.0" y="200.0"/>
@@ -355,7 +355,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="77" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="479" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="330.0" y="910.0"/>
@@ -368,7 +368,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="78" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="480" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="322.5" y="902.5"/>
@@ -393,7 +393,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="Wall" drawPriority="79" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Wall" drawPriority="481" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1620.0" y="200.0"/>
@@ -410,7 +410,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="80" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="482" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1650.0" y="910.0"/>
@@ -423,7 +423,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="81" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="483" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1642.5" y="902.5"/>
@@ -448,7 +448,7 @@
             </Children>
             <Color blue="170.0000050663948" green="162.00000554323196" red="126.00000008940697"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100003" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100069" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="240.0"/>
@@ -466,7 +466,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="83" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="485" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="255.0"/>
@@ -479,7 +479,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="84" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="486" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="247.5"/>
@@ -499,7 +499,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="85" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="487" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="247.5"/>
@@ -525,7 +525,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100004" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100070" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="280.0"/>
@@ -543,7 +543,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="87" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="489" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="295.0"/>
@@ -556,7 +556,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="88" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="490" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="287.5"/>
@@ -576,7 +576,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="89" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="491" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="287.5"/>
@@ -602,7 +602,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100005" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100071" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="320.0"/>
@@ -620,7 +620,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="91" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="493" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="335.0"/>
@@ -633,7 +633,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="92" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="494" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="327.5"/>
@@ -653,7 +653,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="93" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="495" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="327.5"/>
@@ -679,7 +679,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100006" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100072" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="360.0"/>
@@ -697,7 +697,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="95" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="497" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="375.0"/>
@@ -710,7 +710,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="96" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="498" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="367.5"/>
@@ -730,7 +730,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="97" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="499" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="367.5"/>
@@ -756,7 +756,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100007" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100073" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="400.0"/>
@@ -774,7 +774,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="99" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="501" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="415.0"/>
@@ -787,7 +787,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="100" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="502" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="407.5"/>
@@ -807,7 +807,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="101" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="503" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="407.5"/>
@@ -833,7 +833,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100008" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100074" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="440.0"/>
@@ -851,7 +851,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="103" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="505" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="455.0"/>
@@ -864,7 +864,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="104" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="506" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="447.5"/>
@@ -884,7 +884,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="105" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="507" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="447.5"/>
@@ -910,7 +910,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100009" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100075" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="480.0"/>
@@ -928,7 +928,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="107" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="509" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="495.0"/>
@@ -941,7 +941,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="108" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="510" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="487.5"/>
@@ -961,7 +961,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="109" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="511" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="487.5"/>
@@ -987,7 +987,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100010" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100076" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="520.0"/>
@@ -1005,7 +1005,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="111" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="513" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="535.0"/>
@@ -1018,7 +1018,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="112" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="514" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="527.5"/>
@@ -1038,7 +1038,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="113" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="515" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="527.5"/>
@@ -1064,7 +1064,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100011" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100077" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="560.0"/>
@@ -1082,7 +1082,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="115" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="517" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="575.0"/>
@@ -1095,7 +1095,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="116" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="518" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="567.5"/>
@@ -1115,7 +1115,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="117" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="519" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="567.5"/>
@@ -1141,7 +1141,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100012" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100078" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="600.0"/>
@@ -1159,7 +1159,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="119" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="521" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="615.0"/>
@@ -1172,7 +1172,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="120" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="522" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="607.5"/>
@@ -1192,7 +1192,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="121" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="523" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="607.5"/>
@@ -1218,7 +1218,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100013" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100079" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="680.0"/>
@@ -1236,7 +1236,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="123" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="525" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="695.0"/>
@@ -1249,7 +1249,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="124" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="526" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="687.5"/>
@@ -1269,7 +1269,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="125" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="527" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="687.5"/>
@@ -1295,7 +1295,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100014" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100080" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="720.0"/>
@@ -1313,7 +1313,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="127" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="529" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="735.0"/>
@@ -1326,7 +1326,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="128" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="530" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="727.5"/>
@@ -1346,7 +1346,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="129" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="531" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="727.5"/>
@@ -1372,7 +1372,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100015" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100081" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="760.0"/>
@@ -1390,7 +1390,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="131" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="533" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="775.0"/>
@@ -1403,7 +1403,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="132" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="534" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="767.5"/>
@@ -1423,7 +1423,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="133" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="535" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="767.5"/>
@@ -1449,7 +1449,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100016" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100082" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="800.0"/>
@@ -1467,7 +1467,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="135" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="537" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="815.0"/>
@@ -1480,7 +1480,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="136" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="538" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="807.5"/>
@@ -1500,7 +1500,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="137" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="539" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="807.5"/>
@@ -1526,7 +1526,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100017" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100083" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="720.0" y="840.0"/>
@@ -1544,7 +1544,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="139" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="541" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="735.0" y="855.0"/>
@@ -1557,7 +1557,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="140" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="542" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="677.5" y="847.5"/>
@@ -1577,7 +1577,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="141" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="543" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="777.5" y="847.5"/>
@@ -1603,7 +1603,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100018" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100084" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="250.0"/>
@@ -1621,7 +1621,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="143" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="545" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="265.0"/>
@@ -1634,7 +1634,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="144" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="546" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="257.5"/>
@@ -1654,7 +1654,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="145" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="547" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="257.5"/>
@@ -1680,7 +1680,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100019" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100085" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="290.0"/>
@@ -1698,7 +1698,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="147" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="549" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="305.0"/>
@@ -1711,7 +1711,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="148" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="550" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="297.5"/>
@@ -1731,7 +1731,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="149" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="551" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="297.5"/>
@@ -1757,7 +1757,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100020" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100086" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="330.0"/>
@@ -1775,7 +1775,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="151" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="553" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="345.0"/>
@@ -1788,7 +1788,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="152" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="554" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="337.5"/>
@@ -1808,7 +1808,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="153" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="555" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="337.5"/>
@@ -1834,7 +1834,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100021" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100087" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="370.0"/>
@@ -1852,7 +1852,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="155" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="557" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="385.0"/>
@@ -1865,7 +1865,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="156" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="558" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="377.5"/>
@@ -1885,7 +1885,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="157" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="559" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="377.5"/>
@@ -1911,7 +1911,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100022" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100088" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="410.0"/>
@@ -1929,7 +1929,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="159" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="561" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="425.0"/>
@@ -1942,7 +1942,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="160" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="562" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="417.5"/>
@@ -1962,7 +1962,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="161" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="563" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="417.5"/>
@@ -1988,7 +1988,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100023" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100089" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="475.0"/>
@@ -2006,7 +2006,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="163" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="565" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="490.0"/>
@@ -2019,7 +2019,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="164" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="566" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="482.5"/>
@@ -2039,7 +2039,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="165" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="567" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="482.5"/>
@@ -2065,7 +2065,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100024" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100090" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="515.0"/>
@@ -2083,7 +2083,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="167" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="569" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="530.0"/>
@@ -2096,7 +2096,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="168" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="570" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="522.5"/>
@@ -2116,7 +2116,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="169" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="571" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="522.5"/>
@@ -2142,7 +2142,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100025" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100091" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="555.0"/>
@@ -2160,7 +2160,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="171" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="573" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="570.0"/>
@@ -2173,7 +2173,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="172" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="574" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="562.5"/>
@@ -2193,7 +2193,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="173" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="575" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="562.5"/>
@@ -2219,7 +2219,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100026" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100092" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="595.0"/>
@@ -2237,7 +2237,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="175" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="577" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="610.0"/>
@@ -2250,7 +2250,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="176" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="578" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="602.5"/>
@@ -2270,7 +2270,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="177" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="579" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="602.5"/>
@@ -2296,7 +2296,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100027" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100093" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="635.0"/>
@@ -2314,7 +2314,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="179" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="581" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="650.0"/>
@@ -2327,7 +2327,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="180" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="582" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="642.5"/>
@@ -2347,7 +2347,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="181" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="583" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="642.5"/>
@@ -2373,7 +2373,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100028" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100094" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="675.0"/>
@@ -2391,7 +2391,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="183" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="585" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="690.0"/>
@@ -2404,7 +2404,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="184" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="586" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="682.5"/>
@@ -2424,7 +2424,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="185" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="587" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="682.5"/>
@@ -2450,7 +2450,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100029" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100095" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="715.0"/>
@@ -2468,7 +2468,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="187" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="589" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="730.0"/>
@@ -2481,7 +2481,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="188" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="590" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="722.5"/>
@@ -2501,7 +2501,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="189" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="591" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="722.5"/>
@@ -2527,7 +2527,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100030" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100096" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="755.0"/>
@@ -2545,7 +2545,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="191" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="593" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="770.0"/>
@@ -2558,7 +2558,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="192" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="594" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="762.5"/>
@@ -2578,7 +2578,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="193" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="595" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="762.5"/>
@@ -2604,7 +2604,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100031" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100097" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="795.0"/>
@@ -2622,7 +2622,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="195" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="597" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="810.0"/>
@@ -2635,7 +2635,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="196" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="598" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="802.5"/>
@@ -2655,7 +2655,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="197" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="599" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="802.5"/>
@@ -2681,7 +2681,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100032" floating="false" worldDraw="true">
+        <GameObject centerObj="false" class="DeathBall" drawPath="false" drawPriority="100098" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1180.0" y="835.0"/>
@@ -2699,7 +2699,7 @@
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
             </Components>
             <Children>
-                <GameObject active="false" class="Path" drawPriority="199" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
+                <GameObject active="false" class="Path" drawPriority="601" floating="false" forward="true" startRatio="0.5" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1195.0" y="850.0"/>
@@ -2712,7 +2712,7 @@
                         <Component dragging="false" drawable="false" keyInput="false" mouseInput="true" preX="0.0" preY="0.0" tag="DRAG" tickable="false"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="200" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="602" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1137.5" y="842.5"/>
@@ -2732,7 +2732,7 @@
                             <Children/>
                             <Color blue="0.0" green="255.0" red="0.0"/>
                         </GameObject>
-                        <GameObject class="PathPoint" drawPriority="201" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="603" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1237.5" y="842.5"/>
@@ -2758,7 +2758,7 @@
             </Children>
             <Color blue="167.00000524520874" green="141.0000067949295" red="136.00000709295273"/>
         </GameObject>
-        <GameObject centerObj="false" class="Checkpoint" drawPriority="202" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Checkpoint" drawPriority="604" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="910.0" y="490.0"/>
@@ -2775,7 +2775,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="203" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="605" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1010.0" y="590.0"/>
@@ -2788,7 +2788,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="204" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="606" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1002.5" y="582.5"/>
@@ -2814,7 +2814,7 @@
             <Color blue="203.00000309944153" green="232.00000137090683" red="139.0000069141388"/>
             <SaveSpot x="945.0" y="525.0"/>
         </GameObject>
-        <GameObject centerObj="false" class="Checkpoint" drawPriority="205" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="Checkpoint" drawPriority="607" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="330.0" y="230.0"/>
@@ -2831,7 +2831,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="206" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="608" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="430.0" y="880.0"/>
@@ -2844,7 +2844,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="207" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="609" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="422.5" y="872.5"/>
@@ -2870,7 +2870,7 @@
             <Color blue="203.00000309944153" green="232.00000137090683" red="139.0000069141388"/>
             <SaveSpot x="365.0" y="540.0"/>
         </GameObject>
-        <GameObject centerObj="false" class="EndPoint" drawPriority="208" floating="false" showResizer="false" worldDraw="true">
+        <GameObject centerObj="false" class="EndPoint" drawPriority="610" floating="false" showResizer="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                     <Position x="1520.0" y="230.0"/>
@@ -2887,7 +2887,7 @@
                 </Component>
             </Components>
             <Children>
-                <GameObject class="Resizer" drawPriority="209" floating="false" visible="false" worldDraw="true">
+                <GameObject class="Resizer" drawPriority="611" floating="false" visible="false" worldDraw="true">
                     <Components>
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                             <Position x="1620.0" y="880.0"/>
@@ -2900,7 +2900,7 @@
                         <Component drawable="false" keyInput="false" mouseInput="false" tag="TICK" tickable="true"/>
                     </Components>
                     <Children>
-                        <GameObject class="PathPoint" drawPriority="210" floating="false" worldDraw="true">
+                        <GameObject class="PathPoint" drawPriority="612" floating="false" worldDraw="true">
                             <Components>
                                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
                                     <Position x="1612.5" y="872.5"/>
@@ -2926,16 +2926,16 @@
             <Color blue="185.00000417232513" green="224.000001847744" red="100.00000163912773"/>
             <SecondaryColor blue="214.00000244379044" green="237.0000010728836" red="164.00000542402267"/>
         </GameObject>
-        <GameObject active="true" boosted="1.0" centerObj="false" class="Player" drawPriority="1000002" floating="false" worldDraw="true">
+        <GameObject active="true" boosted="1.0" centerObj="false" class="Player" drawPriority="1000008" floating="false" worldDraw="true">
             <Components>
                 <Component drawable="false" keyInput="false" mouseInput="false" tag="TRANSFORM" tickable="false">
-                    <Position x="981.0" y="428.0"/>
+                    <Position x="365.0" y="540.0"/>
                     <Size x="30.0" y="30.0"/>
                 </Component>
                 <Component collidable="true" drawable="false" isStatic="false" keyInput="false" mouseInput="false" restitution="1.0" tag="COLLIDE" tickable="false">
                     <Shape class="AAB">
                         <Size x="30.0" y="30.0"/>
-                        <Position x="981.0" y="428.0"/>
+                        <Position x="365.0" y="540.0"/>
                     </Shape>
                 </Component>
                 <Component drawable="true" keyInput="false" mouseInput="false" tag="DRAW" tickable="false">
@@ -2946,7 +2946,7 @@
             </Components>
             <Children/>
             <Color blue="151.00000619888306" green="122.00000032782555" red="156.00000590085983"/>
-            <RespawnPoint x="945.0" y="525.0"/>
+            <RespawnPoint x="365.0" y="540.0"/>
         </GameObject>
     </GameObjects>
 </GameWorld>
