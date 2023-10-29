@@ -12,4 +12,4 @@ We first developed a robust, generalizable game engine that can be used to creat
 This project, both engine and game, were developed entirely from scratch, with absolutely minimal boilerplate and external packages. The only external dependency used is JavaFX, which was used primarily for painting to a canvas using `GraphicsContext` and capturing user input events. All objects, such as `Shape` and `TextField`, were written from scratch.
 
 ## Playing the game
-To play the World's Hardish Game, clone this repository and run the `Main.java` file.
+To play the World's Hardish Game, clone this repository and run the `last/Main.java` file.
